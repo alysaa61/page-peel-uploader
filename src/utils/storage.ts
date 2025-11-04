@@ -1,80 +1,94 @@
-import { JournalEntry, MoodEntry, StudySession } from '../types';
+import { CalendarEvent, MoodEntry, JournalEntry, PDFFile } from '../types';
 
 const STORAGE_KEYS = {
-  JOURNAL: 'page-r-journal-entries',
-  MOODS: 'page-r-mood-entries',
-  STUDY_SESSIONS: 'page-r-study-sessions',
+  EVENTS: 'page-r-events',
+  MOODS: 'page-r-moods',
+  JOURNAL: 'page-r-journal',
+  PDFS: 'page-r-pdfs',
   FLASHCARDS: 'page-r-flashcards',
   STATS: 'page-r-stats'
 };
 
 export const storage = {
-  // Journal entries
-  getJournalEntries: (): JournalEntry[] => {
-    const entries = localStorage.getItem(STORAGE_KEYS.JOURNAL);
-    return entries ? JSON.parse(entries) : [];
+  // Calendar Events
+  getEvents: (): CalendarEvent[] => {
+    const data = localStorage.getItem(STORAGE_KEYS.EVENTS);
+    return data ? JSON.parse(data) : [];
+  },
+  
+  saveEvents: (events: CalendarEvent[]) => {
+    localStorage.setItem(STORAGE_KEYS.EVENTS, JSON.stringify(events));
+  },
+  
+  addEvent: (event: CalendarEvent) => {
+    const events = storage.getEvents();
+    events.push(event);
+    storage.saveEvents(events);
+  },
+  
+  deleteEvent: (id: string) => {
+    const events = storage.getEvents().filter(e => e.id !== id);
+    storage.saveEvents(events);
   },
 
-  addJournalEntry: (entry: JournalEntry): void => {
-    const entries = storage.getJournalEntries();
-    entries.unshift(entry);
-    localStorage.setItem(STORAGE_KEYS.JOURNAL, JSON.stringify(entries));
-  },
-
-  updateJournalEntry: (id: string, updates: Partial<JournalEntry>): void => {
-    const entries = storage.getJournalEntries();
-    const index = entries.findIndex(e => e.id === id);
-    if (index !== -1) {
-      entries[index] = { ...entries[index], ...updates };
-      localStorage.setItem(STORAGE_KEYS.JOURNAL, JSON.stringify(entries));
-    }
-  },
-
-  deleteJournalEntry: (id: string): void => {
-    const entries = storage.getJournalEntries();
-    const filtered = entries.filter(e => e.id !== id);
-    localStorage.setItem(STORAGE_KEYS.JOURNAL, JSON.stringify(filtered));
-  },
-
-  // Mood entries
+  // Mood Entries
   getMoods: (): MoodEntry[] => {
-    const moods = localStorage.getItem(STORAGE_KEYS.MOODS);
-    return moods ? JSON.parse(moods) : [];
+    const data = localStorage.getItem(STORAGE_KEYS.MOODS);
+    return data ? JSON.parse(data) : [];
   },
-
-  addMood: (mood: MoodEntry): void => {
-    const moods = storage.getMoods();
-    moods.unshift(mood);
+  
+  saveMoods: (moods: MoodEntry[]) => {
     localStorage.setItem(STORAGE_KEYS.MOODS, JSON.stringify(moods));
   },
-
-  // Study sessions
-  getStudySessions: (): StudySession[] => {
-    const sessions = localStorage.getItem(STORAGE_KEYS.STUDY_SESSIONS);
-    return sessions ? JSON.parse(sessions) : [];
+  
+  addMood: (mood: MoodEntry) => {
+    const moods = storage.getMoods();
+    moods.push(mood);
+    storage.saveMoods(moods);
   },
 
-  addStudySession: (session: StudySession): void => {
-    const sessions = storage.getStudySessions();
-    sessions.unshift(session);
-    localStorage.setItem(STORAGE_KEYS.STUDY_SESSIONS, JSON.stringify(sessions));
+  // Journal Entries
+  getJournalEntries: (): JournalEntry[] => {
+    const data = localStorage.getItem(STORAGE_KEYS.JOURNAL);
+    return data ? JSON.parse(data).map((entry: any) => ({
+      ...entry,
+      date: new Date(entry.date)
+    })) : [];
+  },
+  
+  saveJournalEntries: (entries: JournalEntry[]) => {
+    localStorage.setItem(STORAGE_KEYS.JOURNAL, JSON.stringify(entries));
+  },
+  
+  addJournalEntry: (entry: JournalEntry) => {
+    const entries = storage.getJournalEntries();
+    entries.push(entry);
+    storage.saveJournalEntries(entries);
+  },
+  
+  deleteJournalEntry: (id: string) => {
+    const entries = storage.getJournalEntries().filter(e => e.id !== id);
+    storage.saveJournalEntries(entries);
   },
 
-  // Generic storage helpers
-  get: <T>(key: string): T | null => {
-    const item = localStorage.getItem(key);
-    return item ? JSON.parse(item) : null;
+  // PDF Files
+  getPDFs: (): PDFFile[] => {
+    const data = localStorage.getItem(STORAGE_KEYS.PDFS);
+    return data ? JSON.parse(data) : [];
   },
-
-  set: <T>(key: string, value: T): void => {
-    localStorage.setItem(key, JSON.stringify(value));
+  
+  savePDFs: (pdfs: PDFFile[]) => {
+    localStorage.setItem(STORAGE_KEYS.PDFS, JSON.stringify(pdfs));
   },
-
-  remove: (key: string): void => {
-    localStorage.removeItem(key);
+  
+  addPDF: (pdf: PDFFile) => {
+    const pdfs = storage.getPDFs();
+    pdfs.push(pdf);
+    storage.savePDFs(pdfs);
   },
-
-  clear: (): void => {
-    localStorage.clear();
+  
+  deletePDF: (id: string) => {
+    const pdfs = storage.getPDFs().filter(p => p.id !== id);
+    storage.savePDFs(pdfs);
   }
 };

@@ -30,3 +30,26 @@ export interface FlashcardStats {
   totalReviewed: number;
   lastSession?: Date;
 }
+
+export interface CalendarEvent {
+  id: string;
+  title: string;
+  type: 'exam' | 'community-visit' | 'reference' | 'birthday';
+  examType?: string;
+  difficulty?: string;
+  date: string;
+  time: string;
+  notes?: string;
+  tags: string[];
+  attachments: File[];
+}
+
+export interface PDFFile {
+  id: string;
+  name: string;
+  size: string;
+  pages: number;
+  progress: number;
+  lastRead: string;
+  uploadDate: string;
+}
