@@ -193,23 +193,58 @@ const StudyStats: React.FC = () => {
   };
 
   const generateHeatmapData = () => {
-    const data = [];
     const today = new Date();
+    const startDate = new Date(today);
+    startDate.setDate(today.getDate() - 364); // Go back 364 days
     
-    for (let i = 364; i >= 0; i--) {
-      const date = new Date(today);
-      date.setDate(date.getDate() - i);
-      const intensity = Math.random();
-      data.push({
-        date: date.toISOString().split('T')[0],
-        intensity,
-        hours: Math.round(intensity * 8)
-      });
+    // Find the Sunday before or on the start date
+    const dayOfWeek = startDate.getDay();
+    startDate.setDate(startDate.getDate() - dayOfWeek);
+    
+    const currentDate = new Date(startDate);
+    const weeks = [];
+    
+    while (currentDate <= today) {
+      const week = [];
+      for (let i = 0; i < 7; i++) {
+        const intensity = Math.random();
+        week.push({
+          date: new Date(currentDate).toISOString().split('T')[0],
+          intensity,
+          hours: Math.round(intensity * 8),
+          month: currentDate.getMonth(),
+          day: currentDate.getDate(),
+          isCurrentMonth: currentDate <= today
+        });
+        currentDate.setDate(currentDate.getDate() + 1);
+      }
+      weeks.push(week);
     }
-    return data;
+    
+    return weeks;
   };
 
   const heatmapData = generateHeatmapData();
+  
+  const monthLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  
+  const getMonthLabels = () => {
+    const labels: { month: string; col: number }[] = [];
+    let lastMonth = -1;
+    
+    heatmapData.forEach((week, weekIndex) => {
+      const firstDay = week[0];
+      if (firstDay.month !== lastMonth && firstDay.day <= 7) {
+        labels.push({
+          month: monthLabels[firstDay.month],
+          col: weekIndex
+        });
+        lastMonth = firstDay.month;
+      }
+    });
+    
+    return labels;
+  };
 
   const kaiComments = [
     "Your stats are looking pretty empty. Time to get started!",
@@ -401,33 +436,74 @@ const StudyStats: React.FC = () => {
           className="border border-blue-400 p-6"
         >
           <h2 className="text-xl font-pixel mb-6 text-blue-400">STUDY HEATMAP</h2>
-          <div className="overflow-x-auto">
-            <div className="inline-block border border-blue-400 p-4 min-w-full">
+          <div className="overflow-x-auto pb-4">
+            <div className="inline-block border border-blue-400 p-4">
               <div className="text-sm opacity-75 mb-4">LAST 365 DAYS</div>
-              <div className="grid grid-cols-53 gap-1 mb-4">
-                {heatmapData.map((day, i) => {
-                  const intensity = day.intensity;
-                  return (
-                    <div
-                      key={i}
-                      className={`w-3 h-3 ${
-                        intensity > 0.7 ? 'bg-green-400' :
-                        intensity > 0.4 ? 'bg-amber-400' :
-                        intensity > 0.2 ? 'bg-blue-400' :
-                        'bg-gray-800'
-                      }`}
-                      title={`${day.date}: ${day.hours} hours`}
-                    />
-                  );
-                })}
+              
+              <div className="flex">
+                {/* Month labels */}
+                <div className="flex flex-col justify-start mr-2 text-xs">
+                  <div className="h-3"></div> {/* Spacer for day labels */}
+                  {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day, i) => (
+                    <div key={day} className={`h-3 leading-3 mb-1 ${i % 2 === 0 ? 'opacity-75' : 'opacity-0'}`}>
+                      {i % 2 === 0 ? day : ''}
+                    </div>
+                  ))}
+                </div>
+
+                {/* Heatmap grid */}
+                <div>
+                  {/* Month labels */}
+                  <div className="flex mb-1 text-xs opacity-75 h-3">
+                    {getMonthLabels().map((label) => (
+                      <div
+                        key={`${label.month}-${label.col}`}
+                        style={{ 
+                          position: 'absolute',
+                          left: `${label.col * 16}px`,
+                        }}
+                      >
+                        {label.month}
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Days grid */}
+                  <div className="flex gap-1">
+                    {heatmapData.map((week, weekIndex) => (
+                      <div key={weekIndex} className="flex flex-col gap-1">
+                        {week.map((day, dayIndex) => {
+                          const intensity = day.isCurrentMonth ? day.intensity : 0;
+                          return (
+                            <div
+                              key={`${weekIndex}-${dayIndex}`}
+                              className={`w-3 h-3 rounded-sm transition-all hover:ring-1 hover:ring-green-400 ${
+                                !day.isCurrentMonth ? 'bg-gray-900 opacity-30' :
+                                intensity > 0.7 ? 'bg-green-400' :
+                                intensity > 0.5 ? 'bg-green-500' :
+                                intensity > 0.3 ? 'bg-blue-400' :
+                                intensity > 0.1 ? 'bg-blue-500' :
+                                'bg-gray-800'
+                              }`}
+                              title={`${day.date}: ${day.hours} hours`}
+                            />
+                          );
+                        })}
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
-              <div className="flex justify-between text-xs opacity-50">
+
+              {/* Legend */}
+              <div className="flex justify-between items-center mt-4 text-xs opacity-50">
                 <span>Less</span>
                 <div className="flex items-center space-x-1">
-                  <div className="w-3 h-3 bg-gray-800"></div>
-                  <div className="w-3 h-3 bg-blue-400"></div>
-                  <div className="w-3 h-3 bg-amber-400"></div>
-                  <div className="w-3 h-3 bg-green-400"></div>
+                  <div className="w-3 h-3 bg-gray-800 rounded-sm"></div>
+                  <div className="w-3 h-3 bg-blue-500 rounded-sm"></div>
+                  <div className="w-3 h-3 bg-blue-400 rounded-sm"></div>
+                  <div className="w-3 h-3 bg-green-500 rounded-sm"></div>
+                  <div className="w-3 h-3 bg-green-400 rounded-sm"></div>
                 </div>
                 <span>More</span>
               </div>
