@@ -194,27 +194,35 @@ const StudyStats: React.FC = () => {
 
   const generateHeatmapData = () => {
     const today = new Date();
-    const startDate = new Date(today);
-    startDate.setDate(today.getDate() - 364); // Go back 364 days
+    const currentYear = today.getFullYear();
     
-    // Find the Sunday before or on the start date
+    // Start from January 1st of current year
+    const startDate = new Date(currentYear, 0, 1);
+    
+    // Find the Sunday before or on January 1st
     const dayOfWeek = startDate.getDay();
     startDate.setDate(startDate.getDate() - dayOfWeek);
+    
+    // End at December 31st of current year
+    const endDate = new Date(currentYear, 11, 31);
     
     const currentDate = new Date(startDate);
     const weeks = [];
     
-    while (currentDate <= today) {
+    while (currentDate <= endDate) {
       const week = [];
       for (let i = 0; i < 7; i++) {
-        const intensity = Math.random();
+        const intensity = currentDate.getFullYear() === currentYear && currentDate <= today 
+          ? Math.random() 
+          : 0;
         week.push({
           date: new Date(currentDate).toISOString().split('T')[0],
           intensity,
           hours: Math.round(intensity * 8),
           month: currentDate.getMonth(),
           day: currentDate.getDate(),
-          isCurrentMonth: currentDate <= today
+          isCurrentYear: currentDate.getFullYear() === currentYear,
+          isFuture: currentDate > today
         });
         currentDate.setDate(currentDate.getDate() + 1);
       }
@@ -233,8 +241,8 @@ const StudyStats: React.FC = () => {
     let lastMonth = -1;
     
     heatmapData.forEach((week, weekIndex) => {
-      const firstDay = week[0];
-      if (firstDay.month !== lastMonth && firstDay.day <= 7) {
+      const firstDay = week.find(d => d.isCurrentYear);
+      if (firstDay && firstDay.month !== lastMonth) {
         labels.push({
           month: monthLabels[firstDay.month],
           col: weekIndex
@@ -435,15 +443,14 @@ const StudyStats: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           className="border border-blue-400 p-6"
         >
-          <h2 className="text-xl font-pixel mb-6 text-blue-400">STUDY HEATMAP</h2>
-          <div className="overflow-x-auto pb-4">
-            <div className="inline-block border border-blue-400 p-4">
-              <div className="text-sm opacity-75 mb-4">LAST 365 DAYS</div>
+          <h2 className="text-xl font-pixel mb-6 text-blue-400">STUDY HEATMAP - {new Date().getFullYear()}</h2>
+          <div className="overflow-x-auto pb-2">
+            <div className="border border-blue-400 p-4">
+              <div className="text-sm opacity-75 mb-4">JAN - DEC</div>
               
-              <div className="flex">
-                {/* Month labels */}
-                <div className="flex flex-col justify-start mr-2 text-xs">
-                  <div className="h-3"></div> {/* Spacer for day labels */}
+              <div className="flex gap-2">
+                {/* Day labels */}
+                <div className="flex flex-col justify-start text-xs pt-5">
                   {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day, i) => (
                     <div key={day} className={`h-3 leading-3 mb-1 ${i % 2 === 0 ? 'opacity-75' : 'opacity-0'}`}>
                       {i % 2 === 0 ? day : ''}
@@ -452,15 +459,15 @@ const StudyStats: React.FC = () => {
                 </div>
 
                 {/* Heatmap grid */}
-                <div>
+                <div className="flex-1 min-w-0">
                   {/* Month labels */}
-                  <div className="flex mb-1 text-xs opacity-75 h-3">
-                    {getMonthLabels().map((label) => (
+                  <div className="relative mb-1 text-xs opacity-75 h-4">
+                    {getMonthLabels().map((label, idx) => (
                       <div
                         key={`${label.month}-${label.col}`}
+                        className="absolute"
                         style={{ 
-                          position: 'absolute',
-                          left: `${label.col * 16}px`,
+                          left: `${label.col * 14}px`,
                         }}
                       >
                         {label.month}
@@ -473,17 +480,19 @@ const StudyStats: React.FC = () => {
                     {heatmapData.map((week, weekIndex) => (
                       <div key={weekIndex} className="flex flex-col gap-1">
                         {week.map((day, dayIndex) => {
-                          const intensity = day.isCurrentMonth ? day.intensity : 0;
+                          const intensity = day.isCurrentYear && !day.isFuture ? day.intensity : 0;
+                          const isVisible = day.isCurrentYear;
                           return (
                             <div
                               key={`${weekIndex}-${dayIndex}`}
-                              className={`w-3 h-3 rounded-sm transition-all hover:ring-1 hover:ring-green-400 ${
-                                !day.isCurrentMonth ? 'bg-gray-900 opacity-30' :
-                                intensity > 0.7 ? 'bg-green-400' :
-                                intensity > 0.5 ? 'bg-green-500' :
-                                intensity > 0.3 ? 'bg-blue-400' :
-                                intensity > 0.1 ? 'bg-blue-500' :
-                                'bg-gray-800'
+                              className={`w-2.5 h-2.5 rounded-sm transition-all cursor-pointer ${
+                                !isVisible ? 'bg-gray-900 opacity-20' :
+                                day.isFuture ? 'bg-gray-900 opacity-30' :
+                                intensity > 0.7 ? 'bg-green-400 hover:ring-1 hover:ring-green-300' :
+                                intensity > 0.5 ? 'bg-green-500 hover:ring-1 hover:ring-green-400' :
+                                intensity > 0.3 ? 'bg-blue-400 hover:ring-1 hover:ring-blue-300' :
+                                intensity > 0.1 ? 'bg-blue-500 hover:ring-1 hover:ring-blue-400' :
+                                'bg-gray-800 hover:ring-1 hover:ring-gray-600'
                               }`}
                               title={`${day.date}: ${day.hours} hours`}
                             />
@@ -498,12 +507,12 @@ const StudyStats: React.FC = () => {
               {/* Legend */}
               <div className="flex justify-between items-center mt-4 text-xs opacity-50">
                 <span>Less</span>
-                <div className="flex items-center space-x-1">
-                  <div className="w-3 h-3 bg-gray-800 rounded-sm"></div>
-                  <div className="w-3 h-3 bg-blue-500 rounded-sm"></div>
-                  <div className="w-3 h-3 bg-blue-400 rounded-sm"></div>
-                  <div className="w-3 h-3 bg-green-500 rounded-sm"></div>
-                  <div className="w-3 h-3 bg-green-400 rounded-sm"></div>
+                <div className="flex items-center gap-1">
+                  <div className="w-2.5 h-2.5 bg-gray-800 rounded-sm"></div>
+                  <div className="w-2.5 h-2.5 bg-blue-500 rounded-sm"></div>
+                  <div className="w-2.5 h-2.5 bg-blue-400 rounded-sm"></div>
+                  <div className="w-2.5 h-2.5 bg-green-500 rounded-sm"></div>
+                  <div className="w-2.5 h-2.5 bg-green-400 rounded-sm"></div>
                 </div>
                 <span>More</span>
               </div>
