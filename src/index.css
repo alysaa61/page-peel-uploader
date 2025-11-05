@@ -6,6 +6,46 @@
 
 /* Custom CSS Variables */
 :root {
+  --background: 0 0% 4%;
+  --foreground: 51 100% 64%;
+  
+  --card: 0 0% 10%;
+  --card-foreground: 51 100% 64%;
+  
+  --popover: 0 0% 10%;
+  --popover-foreground: 51 100% 64%;
+  
+  --primary: 1 93% 22%;
+  --primary-foreground: 51 100% 64%;
+  
+  --secondary: 22 84% 53%;
+  --secondary-foreground: 51 100% 64%;
+  
+  --muted: 0 0% 15%;
+  --muted-foreground: 48 92% 74%;
+  
+  --accent: 204 74% 63%;
+  --accent-foreground: 51 100% 64%;
+  
+  --destructive: 1 93% 22%;
+  --destructive-foreground: 51 100% 64%;
+  
+  --border: 22 84% 53%;
+  --input: 22 84% 53%;
+  --ring: 51 100% 64%;
+  
+  --radius: 0.5rem;
+  
+  --sidebar-background: 0 0% 10%;
+  --sidebar-foreground: 51 100% 64%;
+  --sidebar-primary: 22 84% 53%;
+  --sidebar-primary-foreground: 51 100% 64%;
+  --sidebar-accent: 204 74% 63%;
+  --sidebar-accent-foreground: 51 100% 64%;
+  --sidebar-border: 22 84% 53%;
+  --sidebar-ring: 51 100% 64%;
+  
+  /* Legacy terminal colors for backwards compatibility */
   --terminal-green: #FFE347;
   --terminal-amber: #FADF7F;
   --terminal-blue: #5AA9E6;

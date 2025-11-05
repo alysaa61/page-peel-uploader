@@ -83,7 +83,7 @@ const AccessGate: React.FC<AccessGateProps> = ({ onAuthenticate }) => {
 
   if (isBooting) {
     return (
-      <div className="min-h-screen bg-black text-green-400 font-terminal p-8 flex items-center justify-center">
+      <div className="min-h-screen bg-black text-foreground font-terminal p-8 flex items-center justify-center">
         <div className="max-w-2xl">
           <pre className="text-lg leading-relaxed whitespace-pre-wrap">
             {bootText}
@@ -96,13 +96,13 @@ const AccessGate: React.FC<AccessGateProps> = ({ onAuthenticate }) => {
 
   return (
     <motion.div 
-      className="min-h-screen bg-black text-green-400 font-terminal p-8 flex items-center justify-center"
+      className="min-h-screen bg-black text-foreground font-terminal p-8 flex items-center justify-center"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 1 }}
     >
       <div className="max-w-md w-full">
-        <div className="border border-green-400 p-8 terminal-glow">
+        <div className="border border-secondary p-8 terminal-glow">
           <div className="text-center mb-8">
             <h1 className="text-2xl mb-2 font-pixel">PROJECT PAGE-R</h1>
             <p className="text-sm opacity-75">"Vitals. Memory. Soul."</p>
@@ -117,7 +117,7 @@ const AccessGate: React.FC<AccessGateProps> = ({ onAuthenticate }) => {
                   type="password"
                   value={code}
                   onChange={(e) => setCode(e.target.value)}
-                  className="bg-transparent border border-green-400 px-3 py-2 w-full font-terminal text-green-400 focus:outline-none focus:border-amber-400 transition-colors"
+                  className="bg-transparent border border-secondary px-3 py-2 w-full font-terminal text-foreground focus:outline-none focus:border-accent transition-colors"
                   placeholder="______"
                   maxLength={6}
                   autoFocus
@@ -128,7 +128,7 @@ const AccessGate: React.FC<AccessGateProps> = ({ onAuthenticate }) => {
 
             {error && (
               <motion.div 
-                className="text-red-400 text-sm"
+                className="text-destructive text-sm"
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
               >
@@ -138,7 +138,7 @@ const AccessGate: React.FC<AccessGateProps> = ({ onAuthenticate }) => {
 
             <button
               type="submit"
-              className="w-full bg-transparent border border-green-400 py-2 px-4 text-green-400 hover:bg-green-400 hover:text-black transition-all duration-300 font-terminal"
+              className="w-full bg-transparent border border-secondary py-2 px-4 text-foreground hover:bg-primary hover:text-foreground transition-all duration-300 font-terminal"
             >
               AUTHENTICATE
             </button>
