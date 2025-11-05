@@ -35,7 +35,7 @@ const Dashboard: React.FC = () => {
       icon: Brain,
       description: 'Neural pattern recognition',
       path: '/flashcards',
-      color: 'text-green-400 border-green-400'
+      color: 'text-foreground border-secondary'
     },
     {
       id: 'cases',
@@ -43,7 +43,7 @@ const Dashboard: React.FC = () => {
       icon: Stethoscope,
       description: 'Clinical simulation chamber',
       path: '/cases',
-      color: 'text-blue-400 border-blue-400'
+      color: 'text-accent border-accent'
     },
     {
       id: 'pdf',
@@ -51,7 +51,7 @@ const Dashboard: React.FC = () => {
       icon: FileText,
       description: 'Document processing unit',
       path: '/pdf',
-      color: 'text-amber-400 border-amber-400'
+      color: 'text-muted-foreground border-muted'
     },
     {
       id: 'calendar',
@@ -59,7 +59,7 @@ const Dashboard: React.FC = () => {
       icon: Calendar,
       description: 'Temporal coordination matrix',
       path: '/calendar',
-      color: 'text-purple-400 border-purple-400'
+      color: 'text-accent border-accent'
     },
     {
       id: 'stats',
@@ -67,7 +67,7 @@ const Dashboard: React.FC = () => {
       icon: BarChart3,
       description: 'Performance analytics',
       path: '/stats',
-      color: 'text-cyan-400 border-cyan-400'
+      color: 'text-accent border-accent'
     },
     {
       id: 'mood',
@@ -75,7 +75,7 @@ const Dashboard: React.FC = () => {
       icon: Heart,
       description: 'Emotional diagnostics',
       path: '/mood',
-      color: 'text-pink-400 border-pink-400'
+      color: 'text-muted-foreground border-muted'
     },
     {
       id: 'journal',
@@ -83,7 +83,7 @@ const Dashboard: React.FC = () => {
       icon: BookOpen,
       description: 'Memory storage vault',
       path: '/journal',
-      color: 'text-orange-400 border-orange-400'
+      color: 'text-secondary border-secondary'
     },
     {
       id: 'games',
@@ -91,18 +91,18 @@ const Dashboard: React.FC = () => {
       icon: Gamepad2,
       description: 'Cognitive enhancement protocols',
       path: '/games',
-      color: 'text-red-400 border-red-400'
+      color: 'text-destructive border-destructive'
     }
   ];
 
   const welcomeMessages = [
-    "Hello, Dr. Raghav Kiran. Your neural logs await."
+    "Hello, Dr. Roshini Kesavan. Your neural logs await."
   ];
 
   const kaiMessage = welcomeMessages[0];
 
   return (
-    <div className="min-h-screen bg-black text-green-400 font-terminal">
+    <div className="min-h-screen bg-black text-foreground font-terminal">
       <Header />
       
       <main className="container mx-auto px-4 py-8">
@@ -122,7 +122,7 @@ const Dashboard: React.FC = () => {
 
         {/* Status Bar */}
         <motion.div 
-          className="mb-8 border border-green-400 p-4"
+          className="mb-8 border border-secondary p-4"
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
@@ -177,21 +177,21 @@ const Dashboard: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
         >
-          <div className="border border-green-400 p-4">
+          <div className="border border-secondary p-4">
             <h4 className="text-lg mb-2">TODAY'S PROGRESS</h4>
             <div className="text-2xl font-pixel">--</div>
             <div className="text-xs opacity-75">Start studying to see progress</div>
           </div>
           
-          <div className="border border-amber-400 p-4">
-            <h4 className="text-lg mb-2 text-amber-400">STUDY STREAK</h4>
-            <div className="text-2xl font-pixel text-amber-400">0 DAYS</div>
+          <div className="border border-muted p-4">
+            <h4 className="text-lg mb-2 text-muted-foreground">STUDY STREAK</h4>
+            <div className="text-2xl font-pixel text-muted-foreground">0 DAYS</div>
             <div className="text-xs opacity-75">Time to build that streak!</div>
           </div>
           
-          <div className="border border-blue-400 p-4">
-            <h4 className="text-lg mb-2 text-blue-400">NEXT EXAM</h4>
-            <div className="text-2xl font-pixel text-blue-400">--</div>
+          <div className="border border-accent p-4">
+            <h4 className="text-lg mb-2 text-accent">NEXT EXAM</h4>
+            <div className="text-2xl font-pixel text-accent">--</div>
             <div className="text-xs opacity-75">Add exams to calendar</div>
           </div>
         </motion.div>

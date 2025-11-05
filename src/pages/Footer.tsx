@@ -196,7 +196,7 @@ const Footer: React.FC = () => {
   }, [taglineIndex]);
 
   return (
-    <footer className="sticky bottom-0 bg-black border-t border-green-400 font-terminal text-green-400 py-4">
+    <footer className="sticky bottom-0 bg-black border-t border-secondary font-terminal text-foreground py-4">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between text-sm">
           <div className="flex items-center space-x-4">
@@ -207,15 +207,15 @@ const Footer: React.FC = () => {
 
           <div className="flex items-center space-x-4">
             <div className="flex items-center space-x-1">
-              <Heart className="w-4 h-4 text-red-400" />
+              <Heart className="w-4 h-4 text-destructive" />
               <span className="text-xs">VITALS: STABLE</span>
             </div>
             <div className="flex items-center space-x-1">
-              <Coffee className="w-4 h-4 text-amber-400" />
+              <Coffee className="w-4 h-4 text-muted-foreground" />
               <span className="text-xs">CAFFEINE: LOW</span>
             </div>
             <div className="flex items-center space-x-1">
-              <Brain className="w-4 h-4 text-blue-400" />
+              <Brain className="w-4 h-4 text-accent" />
               <span className="text-xs">MEMORY: SYNCED</span>
             </div>
           </div>

@@ -72,7 +72,7 @@ const PDFZone: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black text-green-400 font-terminal">
+    <div className="min-h-screen bg-black text-foreground font-terminal">
       <Header />
       
       <main className="container mx-auto px-4 py-8">
@@ -94,8 +94,8 @@ const PDFZone: React.FC = () => {
           <div
             className={`border-2 border-dashed p-12 text-center transition-all duration-300 ${
               dragOver 
-                ? 'border-amber-400 bg-amber-400 bg-opacity-10' 
-                : 'border-green-400 hover:border-amber-400'
+                ? 'border-accent bg-accent bg-opacity-10' 
+                : 'border-secondary hover:border-accent'
             }`}
             onDragOver={handleDragOver}
             onDragLeave={handleDragLeave}
@@ -115,7 +115,7 @@ const PDFZone: React.FC = () => {
               id="pdf-upload"
             />
             <label htmlFor="pdf-upload" className="cursor-pointer">
-              <div className="border border-green-400 px-6 py-2 hover:bg-green-400 hover:text-black transition-colors inline-block">
+              <div className="border border-secondary px-6 py-2 hover:bg-primary hover:text-foreground transition-colors inline-block">
                 SELECT FILES
               </div>
             </label>
@@ -135,11 +135,11 @@ const PDFZone: React.FC = () => {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: index * 0.1 }}
-              className="border border-green-400 p-4 hover:border-amber-400 transition-colors"
+              className="border border-secondary p-4 hover:border-accent transition-colors"
             >
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-4">
-                  <FileText className="w-8 h-8 text-blue-400" />
+                  <FileText className="w-8 h-8 text-accent" />
                   <div>
                     <h3 className="text-lg font-pixel">{file.name}</h3>
                     <div className="text-sm opacity-75">
@@ -151,22 +151,22 @@ const PDFZone: React.FC = () => {
                 <div className="flex items-center space-x-4">
                   <div className="text-right">
                     <div className="text-sm opacity-75">Progress</div>
-                    <div className="text-lg font-pixel text-amber-400">{file.progress}%</div>
+                    <div className="text-lg font-pixel text-muted-foreground">{file.progress}%</div>
                   </div>
                   
                   <div className="flex space-x-2">
-                    <button className="border border-blue-400 p-2 hover:bg-blue-400 hover:text-black transition-colors">
+                    <button className="border border-accent p-2 hover:bg-accent hover:text-black transition-colors">
                       <Eye className="w-4 h-4" />
                     </button>
-                    <button className="border border-purple-400 p-2 hover:bg-purple-400 hover:text-black transition-colors">
+                    <button className="border border-muted p-2 hover:bg-muted hover:text-black transition-colors">
                       <Bookmark className="w-4 h-4" />
                     </button>
-                    <button className="border border-green-400 p-2 hover:bg-green-400 hover:text-black transition-colors">
+                    <button className="border border-secondary p-2 hover:bg-secondary hover:text-black transition-colors">
                       <Download className="w-4 h-4" />
                     </button>
                     <button 
                       onClick={() => handleDeletePDF(file.id)}
-                      className="border border-red-400 p-2 hover:bg-red-400 hover:text-black transition-colors"
+                      className="border border-destructive p-2 hover:bg-destructive hover:text-black transition-colors"
                     >
                       <X className="w-4 h-4" />
                     </button>
@@ -178,7 +178,7 @@ const PDFZone: React.FC = () => {
               <div className="mt-4">
                 <div className="w-full bg-gray-800 h-2">
                   <div 
-                    className="bg-amber-400 h-2 transition-all duration-300"
+                    className="bg-muted-foreground h-2 transition-all duration-300"
                     style={{ width: `${file.progress}%` }}
                   ></div>
                 </div>
@@ -186,7 +186,7 @@ const PDFZone: React.FC = () => {
               
               {/* Kai Comment */}
               <div className="mt-2 text-xs opacity-50">
-                <span className="text-blue-400">KAI:</span> {getKaiComment(file.pages)}
+                <span className="text-accent">KAI:</span> {getKaiComment(file.pages)}
               </div>
             </motion.div>
           ))}
@@ -194,20 +194,20 @@ const PDFZone: React.FC = () => {
 
         {/* Reader Features */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <div className="border border-green-400 p-6">
-            <h3 className="text-lg font-pixel mb-3 text-green-400">CRT READER</h3>
+          <div className="border border-secondary p-6">
+            <h3 className="text-lg font-pixel mb-3 text-foreground">CRT READER</h3>
             <p className="text-sm opacity-75 mb-4">
               Retro-styled PDF reader with terminal aesthetics and eye-friendly display options.
             </p>
             <ul className="text-xs space-y-1 opacity-50">
-              <li>• Green phosphor mode</li>
+              <li>• Terminal phosphor mode</li>
               <li>• Adjustable scan lines</li>
               <li>• Night vision friendly</li>
             </ul>
           </div>
           
-          <div className="border border-amber-400 p-6">
-            <h3 className="text-lg font-pixel mb-3 text-amber-400">SMART HIGHLIGHTS</h3>
+          <div className="border border-muted p-6">
+            <h3 className="text-lg font-pixel mb-3 text-muted-foreground">SMART HIGHLIGHTS</h3>
             <p className="text-sm opacity-75 mb-4">
               AI-powered highlighting that automatically converts important text to flashcards.
             </p>
@@ -218,8 +218,8 @@ const PDFZone: React.FC = () => {
             </ul>
           </div>
           
-          <div className="border border-blue-400 p-6">
-            <h3 className="text-lg font-pixel mb-3 text-blue-400">PROGRESS TRACKING</h3>
+          <div className="border border-accent p-6">
+            <h3 className="text-lg font-pixel mb-3 text-accent">PROGRESS TRACKING</h3>
             <p className="text-sm opacity-75 mb-4">
               Monitor your reading progress with detailed analytics and study time tracking.
             </p>
@@ -233,15 +233,15 @@ const PDFZone: React.FC = () => {
 
         {/* Quick Actions */}
         <div className="flex justify-center space-x-4">
-          <button className="flex items-center space-x-2 border border-green-400 px-6 py-3 hover:bg-green-400 hover:text-black transition-colors">
+          <button className="flex items-center space-x-2 border border-secondary px-6 py-3 hover:bg-primary hover:text-foreground transition-colors">
             <FileText className="w-5 h-5" />
             <span>OPEN READER</span>
           </button>
-          <button className="flex items-center space-x-2 border border-amber-400 px-6 py-3 hover:bg-amber-400 hover:text-black transition-colors">
+          <button className="flex items-center space-x-2 border border-muted px-6 py-3 hover:bg-muted hover:text-black transition-colors">
             <Bookmark className="w-5 h-5" />
             <span>VIEW BOOKMARKS</span>
           </button>
-          <button className="flex items-center space-x-2 border border-blue-400 px-6 py-3 hover:bg-blue-400 hover:text-black transition-colors">
+          <button className="flex items-center space-x-2 border border-accent px-6 py-3 hover:bg-accent hover:text-black transition-colors">
             <Download className="w-5 h-5" />
             <span>EXPORT NOTES</span>
           </button>
@@ -249,22 +249,22 @@ const PDFZone: React.FC = () => {
 
         {/* Stats */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-12">
-          <div className="border border-green-400 p-4 text-center">
+          <div className="border border-secondary p-4 text-center">
             <div className="text-2xl font-pixel">{uploadedFiles.length}</div>
             <div className="text-sm opacity-75">TOTAL BOOKS</div>
           </div>
-          <div className="border border-amber-400 p-4 text-center">
-            <div className="text-2xl font-pixel text-amber-400">
-              {Math.round(uploadedFiles.reduce((acc, file) => acc + file.progress, 0) / uploadedFiles.length)}%
+          <div className="border border-muted p-4 text-center">
+            <div className="text-2xl font-pixel text-muted-foreground">
+              {uploadedFiles.length > 0 ? Math.round(uploadedFiles.reduce((acc, file) => acc + file.progress, 0) / uploadedFiles.length) : 0}%
             </div>
             <div className="text-sm opacity-75">AVG PROGRESS</div>
           </div>
-          <div className="border border-blue-400 p-4 text-center">
-            <div className="text-2xl font-pixel text-blue-400">247</div>
+          <div className="border border-accent p-4 text-center">
+            <div className="text-2xl font-pixel text-accent">247</div>
             <div className="text-sm opacity-75">BOOKMARKS</div>
           </div>
-          <div className="border border-purple-400 p-4 text-center">
-            <div className="text-2xl font-pixel text-purple-400">89h</div>
+          <div className="border border-muted p-4 text-center">
+            <div className="text-2xl font-pixel text-muted-foreground">89h</div>
             <div className="text-sm opacity-75">READING TIME</div>
           </div>
         </div>
