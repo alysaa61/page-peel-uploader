@@ -6,10 +6,11 @@
 
 /* Custom CSS Variables */
 :root {
-  --terminal-green: #00ff41;
-  --terminal-amber: #ffb000;
-  --terminal-blue: #00bfff;
-  --terminal-red: #ff0040;
+  --terminal-green: #FFE347;
+  --terminal-amber: #FADF7F;
+  --terminal-blue: #5AA9E6;
+  --terminal-red: #6B0504;
+  --terminal-navbar: #EB6424;
   --terminal-bg: #0a0a0a;
   --terminal-dark: #1a1a1a;
 }

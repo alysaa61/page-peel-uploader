@@ -42,7 +42,7 @@ const AccessGate: React.FC<AccessGateProps> = ({ onAuthenticate }) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (code === '508011') {
+    if (code === '603081' || code === '1803') {
       setError('');
       // CRT flicker effect
       document.body.classList.add('glitch');
@@ -146,7 +146,7 @@ const AccessGate: React.FC<AccessGateProps> = ({ onAuthenticate }) => {
 
           <div className="mt-8 text-xs opacity-50 text-center">
             <p>Authorized Personnel Only</p>
-            <p>Dr. Raghav Kiran - Neural Access Terminal</p>
+            <p>Dr. Roshini Kesavan - Neural Access Terminal</p>
           </div>
         </div>
       </div>

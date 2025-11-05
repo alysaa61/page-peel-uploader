@@ -22,7 +22,7 @@ const StudyStats: React.FC = () => {
         { day: 'SUN', hours: 0, flashcards: 0, accuracy: 0 }
       ],
       achievements: [],
-      heatmapData: Array.from({ length: 365 }, () => Math.random() * 8)
+      heatmapData: []
     };
   });
 
@@ -196,6 +196,10 @@ const StudyStats: React.FC = () => {
     const today = new Date();
     const currentYear = today.getFullYear();
     
+    // Get actual study data from localStorage
+    const studyHistory = localStorage.getItem('page-r-study-history');
+    const historyData: Record<string, number> = studyHistory ? JSON.parse(studyHistory) : {};
+    
     // Start from January 1st of current year
     const startDate = new Date(currentYear, 0, 1);
     
@@ -212,13 +216,14 @@ const StudyStats: React.FC = () => {
     while (currentDate <= endDate) {
       const week = [];
       for (let i = 0; i < 7; i++) {
-        const intensity = currentDate.getFullYear() === currentYear && currentDate <= today 
-          ? Math.random() 
-          : 0;
+        const dateKey = new Date(currentDate).toISOString().split('T')[0];
+        const hours = historyData[dateKey] || 0;
+        const intensity = hours > 0 ? Math.min(hours / 8, 1) : 0; // Normalize to 0-1 based on 8hr max
+        
         week.push({
-          date: new Date(currentDate).toISOString().split('T')[0],
+          date: dateKey,
           intensity,
-          hours: Math.round(intensity * 8),
+          hours,
           month: currentDate.getMonth(),
           day: currentDate.getDate(),
           isCurrentYear: currentDate.getFullYear() === currentYear,
