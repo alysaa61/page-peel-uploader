@@ -200,7 +200,7 @@ const Footer: React.FC = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between text-sm">
           <div className="flex items-center space-x-4">
-            <span>PAGE-R v11.08.05</span>
+            <span>PAGE-R v18.03.06</span>
             <span className="opacity-50">|</span>
             <span className="opacity-75">Neural Interface Active</span>
           </div>

@@ -176,9 +176,9 @@ const JournalCore: React.FC = () => {
                     {entry.isPrivate && <Lock className="w-4 h-4 text-red-400" />}
                   </div>
                   <div className="text-xs opacity-75 mb-1">
-                    {entry.date.toLocaleDateString('en-US', { 
-                      month: 'short', 
-                      day: 'numeric',
+                    {entry.date.toLocaleDateString('en-GB', { 
+                      day: '2-digit',
+                      month: '2-digit',
                       year: 'numeric'
                     })}
                   </div>
@@ -341,16 +341,16 @@ const JournalCore: React.FC = () => {
                         </button>
                       </div>
                       
-                      <div className="flex items-center space-x-4 mb-6 text-sm opacity-75">
-                        <div className="flex items-center space-x-1">
-                          <Calendar className="w-4 h-4" />
-                          <span>{entry.date.toLocaleDateString('en-US', { 
-                            weekday: 'long',
-                            year: 'numeric',
-                            month: 'long',
-                            day: 'numeric'
-                          })}</span>
-                        </div>
+                        <div className="flex items-center space-x-4 mb-6 text-sm opacity-75">
+                          <div className="flex items-center space-x-1">
+                            <Calendar className="w-4 h-4" />
+                            <span>{entry.date.toLocaleDateString('en-GB', { 
+                              weekday: 'long',
+                              day: '2-digit',
+                              month: '2-digit',
+                              year: 'numeric'
+                            })}</span>
+                          </div>
                         <div className={`${getMoodColor(entry.mood)}`}>
                           {entry.mood.toUpperCase()}
                         </div>

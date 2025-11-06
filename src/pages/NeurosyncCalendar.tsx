@@ -152,7 +152,7 @@ const NeurosyncCalendar: React.FC = () => {
       const hasEvent = events.some(event => 
         new Date(event.date).toDateString() === date.toDateString()
       );
-      const isBirthday = date.getMonth() === 7 && date.getDate() === 11; // August 11th
+      const isBirthday = date.getMonth() === 2 && date.getDate() === 18; // March 18th
       const isToday = date.toDateString() === new Date().toDateString();
       const isSelected = date.toDateString() === selectedDate.toDateString();
 
@@ -201,12 +201,12 @@ const NeurosyncCalendar: React.FC = () => {
     );
     
     // Check if selected date is birthday
-    const isBirthday = selectedDate.getMonth() === 7 && selectedDate.getDate() === 11;
+    const isBirthday = selectedDate.getMonth() === 2 && selectedDate.getDate() === 18;
     if (isBirthday) {
-      const age = new Date().getFullYear() - 2005;
+      const age = new Date().getFullYear() - 2006;
       dateEvents.push({
         id: 'birthday-' + selectedDate.getFullYear(),
-        title: `Dr. Raghav's ${age}th Birthday 🎂`,
+        title: `Dr. Roshini's ${age}th Birthday 🎂`,
         type: 'birthday',
         date: selectedDate.toISOString().split('T')[0],
         time: '00:00',
@@ -311,10 +311,11 @@ const NeurosyncCalendar: React.FC = () => {
             {/* Selected Date Events */}
             <div className="border border-amber-400 p-4">
               <h3 className="font-pixel mb-4 text-amber-400">
-                {selectedDate.toLocaleDateString('en-US', { 
+                {selectedDate.toLocaleDateString('en-GB', { 
                   weekday: 'long', 
-                  month: 'short', 
-                  day: 'numeric' 
+                  day: '2-digit',
+                  month: '2-digit',
+                  year: 'numeric'
                 }).toUpperCase()}
               </h3>
               
@@ -332,9 +333,9 @@ const NeurosyncCalendar: React.FC = () => {
                     </div>
                   ))}
                 </div>
-              ) : (
+                ) : (
                 <div className="text-sm opacity-75">
-                  {selectedDate.getMonth() === 7 && selectedDate.getDate() === 11 
+                  {selectedDate.getMonth() === 2 && selectedDate.getDate() === 18 
                     ? "It's your birthday! 🎂" 
                     : "No events scheduled"}
                 </div>
@@ -426,7 +427,7 @@ const NeurosyncCalendar: React.FC = () => {
                       event.type === 'birthday' ? 'border-amber-400' :
                       'border-green-400'
                     }`}
-                  >
+                   >
                     <div className="flex items-center justify-between mb-2">
                       <div className="font-pixel text-sm">{event.title}</div>
                       <div className="text-xs opacity-75">
@@ -435,15 +436,17 @@ const NeurosyncCalendar: React.FC = () => {
                     </div>
                     <div className="text-xs opacity-75 mb-2">{event.notes}</div>
                     <div className="text-xs">
-                      {new Date(event.date).toLocaleDateString('en-US', { 
+                      {new Date(event.date).toLocaleDateString('en-GB', { 
                         weekday: 'short', 
-                        month: 'short', 
-                        day: 'numeric' 
+                        day: '2-digit',
+                        month: '2-digit',
+                        year: 'numeric'
                       })}
                       {' at '}{event.time}
                     </div>
                   </motion.div>
                 ))}
+
               
               {events.filter(event => new Date(event.date) >= new Date()).length === 0 && (
                 <div className="border border-gray-600 p-4 text-center">

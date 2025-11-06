@@ -16,7 +16,7 @@ const Games: React.FC = () => {
       title: 'MEMORY FLIP',
       subtitle: 'Med Match',
       description: 'Flip cards to match medical terms with their definitions',
-      color: 'text-green-400 border-green-400',
+      color: 'text-foreground border-secondary',
       icon: '🧠'
     },
     {
@@ -24,78 +24,34 @@ const Games: React.FC = () => {
       title: 'YES/NO BLITZ',
       subtitle: 'Quick Decisions',
       description: 'Rapid-fire true/false medical statements',
-      color: 'text-red-400 border-red-400',
+      color: 'text-destructive border-destructive',
       icon: '⚡'
-    },
-    {
-      id: 'quick-sort',
-      title: 'QUICK SORT',
-      subtitle: 'Organ Panic',
-      description: 'Drag medical terms into correct categories',
-      color: 'text-blue-400 border-blue-400',
-      icon: '📦'
     },
     {
       id: 'typing-challenge',
       title: 'TYPING CHALLENGE',
       subtitle: 'One-Word Speed',
       description: 'Type medical terms as fast as possible',
-      color: 'text-amber-400 border-amber-400',
+      color: 'text-muted-foreground border-muted',
       icon: '⌨️'
-    },
-    {
-      id: 'click-symptom',
-      title: 'CLICK THE SYMPTOM',
-      subtitle: 'Symptom Hunter',
-      description: 'Click the correct symptom from multiple options',
-      color: 'text-purple-400 border-purple-400',
-      icon: '🎯'
     },
     {
       id: 'scrambled-terms',
       title: 'SCRAMBLED TERMS',
       subtitle: 'Word Unscrambler',
       description: 'Unscramble medical terminology',
-      color: 'text-cyan-400 border-cyan-400',
+      color: 'text-accent border-accent',
       icon: '🔤'
-    },
-    {
-      id: 'recall-challenge',
-      title: '5-SECOND RECALL',
-      subtitle: 'Memory Test',
-      description: 'Remember lists shown for 5 seconds',
-      color: 'text-pink-400 border-pink-400',
-      icon: '🧠'
     },
     {
       id: 'flashcard-duel',
       title: 'FLASHCARD DUEL',
       subtitle: 'Quick Review',
       description: 'Fast-paced flashcard review session',
-      color: 'text-orange-400 border-orange-400',
+      color: 'text-secondary border-secondary',
       icon: '⚔️'
     }
   ];
-
-  const sampleGameData = {
-    'yes-no-blitz': {
-      questions: [
-        { statement: "Appendicitis pain is in the LUQ", answer: false },
-        { statement: "Beta blockers reduce heart rate", answer: true },
-        { statement: "The liver is in the left upper quadrant", answer: false },
-        { statement: "Insulin is produced by the pancreas", answer: true },
-        { statement: "The heart has 3 chambers", answer: false }
-      ]
-    },
-    'scrambled-terms': {
-      words: [
-        { scrambled: "CESPIS", answer: "SEPSIS" },
-        { scrambled: "CNIMAATORB", answer: "BACTRIM" },
-        { scrambled: "AIDEBETS", answer: "DIABETES" },
-        { scrambled: "YPERTENSION", answer: "HYPERTENSION" }
-      ]
-    }
-  };
 
   const MemoryFlipGame = () => {
     const [cards, setCards] = useState<any[]>([]);
@@ -104,7 +60,7 @@ const Games: React.FC = () => {
     const [moves, setMoves] = useState(0);
 
    useEffect(() => {
-  const shuffledTerms = shuffleArray([...medicalDictionary]).slice(0, 8); // 4x4 = 16 cards, so 8 pairs
+  const shuffledTerms = shuffleArray([...medicalDictionary]).slice(0, 8);
   const pairs = shuffledTerms.flatMap((term, index) => ([
     { id: index * 2, content: term.term, type: 'term', pairId: index },
     { id: index * 2 + 1, content: term.definition, type: 'definition', pairId: index }
@@ -137,7 +93,7 @@ const Games: React.FC = () => {
     };
 
     return (
-      <div className="border border-green-400 p-6">
+      <div className="border border-secondary p-6">
         <div className="text-center mb-6">
           <h3 className="text-xl font-pixel mb-4">MEMORY FLIP: MED MATCH</h3>
           <p className="text-sm opacity-75">Match medical terms with their definitions</p>
@@ -152,8 +108,8 @@ const Games: React.FC = () => {
                 onClick={() => handleCardClick(index)}
                 className={`aspect-square flex items-center justify-center border cursor-pointer text-xs p-1 transition-all duration-300 ${
                   isRevealed 
-                    ? 'bg-green-400 text-black border-green-400' 
-                    : 'bg-black text-green-400 border-green-400 hover:border-amber-400'
+                    ? 'bg-primary text-primary-foreground border-primary' 
+                    : 'bg-background text-foreground border-secondary hover:border-accent'
                 }`}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -172,15 +128,15 @@ const Games: React.FC = () => {
           <p className="text-sm mb-4">Moves: {moves}</p>
           {matched.length === cards.length && matched.length > 0 && (
             <div className="text-center">
-              <p className="text-lg font-pixel text-amber-400 mb-4">🎉 ALL MATCHED! 🎉</p>
+              <p className="text-lg font-pixel text-muted-foreground mb-4">🎉 ALL MATCHED! 🎉</p>
               <div className="text-sm opacity-75">
-                <span className="text-blue-400">KAI:</span> Nice match! Unlike your sleep schedule.
+                <span className="text-accent">KAI:</span> Nice match! Unlike your sleep schedule.
               </div>
             </div>
           )}
           <button
             onClick={() => setSelectedGame(null)}
-            className="mt-4 border border-green-400 px-6 py-2 hover:bg-green-400 hover:text-black transition-colors"
+            className="mt-4 border border-secondary px-6 py-2 hover:bg-primary hover:text-primary-foreground transition-colors"
           >
             BACK TO GAMES
           </button>
@@ -189,91 +145,273 @@ const Games: React.FC = () => {
     );
   };
 
-  const GameComponent: React.FC<{ gameId: string }> = ({ gameId }) => {
-    const [currentQuestion, setCurrentQuestion] = useState(0);
+  const TypingChallengeGame = () => {
+    const [currentTerm, setCurrentTerm] = useState('');
+    const [userInput, setUserInput] = useState('');
     const [score, setScore] = useState(0);
     const [timeLeft, setTimeLeft] = useState(30);
-    const [gameOver, setGameOver] = useState(false);
+    const [isActive, setIsActive] = useState(false);
+    const [terms, setTerms] = useState<string[]>([]);
 
-    const handleAnswer = (answer: boolean | string) => {
-      if (gameId === 'yes-no-blitz') {
-        const correct = sampleGameData['yes-no-blitz'].questions[currentQuestion].answer === answer;
-        if (correct) setScore(score + 1);
-        
-        if (currentQuestion < sampleGameData['yes-no-blitz'].questions.length - 1) {
-          setCurrentQuestion(currentQuestion + 1);
-        } else {
-          setGameOver(true);
-        }
+    useEffect(() => {
+      const shuffled = shuffleArray([...medicalDictionary]).slice(0, 20);
+      setTerms(shuffled.map(t => t.term));
+      setCurrentTerm(shuffled[0].term);
+    }, []);
+
+    useEffect(() => {
+      if (isActive && timeLeft > 0) {
+        const timer = setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
+        return () => clearTimeout(timer);
+      } else if (timeLeft === 0) {
+        setIsActive(false);
+      }
+    }, [isActive, timeLeft]);
+
+    const handleInputChange = (value: string) => {
+      setUserInput(value);
+      if (value.toLowerCase() === currentTerm.toLowerCase()) {
+        setScore(score + 1);
+        setUserInput('');
+        const nextIndex = (terms.indexOf(currentTerm) + 1) % terms.length;
+        setCurrentTerm(terms[nextIndex]);
       }
     };
 
-    if (gameId === 'memory-flip') {
-      return <MemoryFlipGame />;
-    }
-
-    if (gameId === 'yes-no-blitz') {
-      const question = sampleGameData['yes-no-blitz'].questions[currentQuestion];
-      
-      return (
-        <div className="border border-red-400 p-6">
-          <div className="flex justify-between mb-6">
+    return (
+      <div className="border border-muted p-6">
+        <div className="text-center mb-6">
+          <h3 className="text-xl font-pixel mb-4">TYPING CHALLENGE</h3>
+          <div className="flex justify-between mb-4">
             <div className="text-sm">SCORE: {score}</div>
-            <div className="text-sm">QUESTION: {currentQuestion + 1}/5</div>
+            <div className="text-sm">TIME: {timeLeft}s</div>
           </div>
-          
-          {!gameOver ? (
-            <>
-              <div className="text-center mb-8">
-                <h3 className="text-xl font-pixel mb-4">TRUE OR FALSE?</h3>
-                <p className="text-lg">{question.statement}</p>
-              </div>
-              
-              <div className="flex space-x-4">
-                <button
-                  onClick={() => handleAnswer(true)}
-                  className="flex-1 bg-green-400 text-black py-3 px-6 font-pixel hover:bg-green-300 transition-colors"
-                >
-                  TRUE
-                </button>
-                <button
-                  onClick={() => handleAnswer(false)}
-                  className="flex-1 bg-red-400 text-black py-3 px-6 font-pixel hover:bg-red-300 transition-colors"
-                >
-                  FALSE
-                </button>
-              </div>
-            </>
-          ) : (
-            <div className="text-center">
-              <h3 className="text-xl font-pixel mb-4">GAME OVER!</h3>
-              <p className="text-lg mb-4">Final Score: {score}/5</p>
-              <div className="text-sm opacity-75">
-                <span className="text-blue-400">KAI:</span> {
-                  score >= 4 ? "Impressive! Your medical knowledge is showing." :
-                  score >= 2 ? "Not bad. Room for improvement, but you're getting there." :
-                  "Ouch. Maybe review those basics again?"
-                }
-              </div>
-              <button
-                onClick={() => setSelectedGame(null)}
-                className="mt-4 border border-green-400 px-6 py-2 hover:bg-green-400 hover:text-black transition-colors"
-              >
-                BACK TO GAMES
-              </button>
+        </div>
+
+        {!isActive && timeLeft === 30 ? (
+          <div className="text-center">
+            <p className="mb-4">Type medical terms as fast as you can!</p>
+            <button
+              onClick={() => setIsActive(true)}
+              className="bg-primary text-primary-foreground py-3 px-6 font-pixel hover:bg-accent hover:text-accent-foreground transition-colors"
+            >
+              START
+            </button>
+          </div>
+        ) : timeLeft === 0 ? (
+          <div className="text-center">
+            <h3 className="text-xl font-pixel mb-4">TIME'S UP!</h3>
+            <p className="text-lg mb-4">Final Score: {score}</p>
+            <button
+              onClick={() => setSelectedGame(null)}
+              className="border border-secondary px-6 py-2 hover:bg-primary hover:text-primary-foreground transition-colors"
+            >
+              BACK TO GAMES
+            </button>
+          </div>
+        ) : (
+          <div>
+            <div className="text-center mb-6">
+              <h4 className="text-2xl font-pixel mb-4">{currentTerm}</h4>
             </div>
-          )}
+            <input
+              type="text"
+              value={userInput}
+              onChange={(e) => handleInputChange(e.target.value)}
+              className="w-full bg-background border border-secondary px-3 py-2 text-foreground focus:outline-none focus:border-accent"
+              placeholder="Type here..."
+              autoFocus
+            />
+          </div>
+        )}
+      </div>
+    );
+  };
+
+  const ScrambledTermsGame = () => {
+    const [terms, setTerms] = useState<Array<{scrambled: string, answer: string}>>([]);
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const [userInput, setUserInput] = useState('');
+    const [score, setScore] = useState(0);
+    const [gameOver, setGameOver] = useState(false);
+
+    useEffect(() => {
+      const selected = shuffleArray([...medicalDictionary]).slice(0, 10);
+      const scrambled = selected.map(term => ({
+        scrambled: term.term.split('').sort(() => Math.random() - 0.5).join(''),
+        answer: term.term
+      }));
+      setTerms(scrambled);
+    }, []);
+
+    const handleSubmit = () => {
+      if (userInput.toLowerCase() === terms[currentIndex].answer.toLowerCase()) {
+        setScore(score + 1);
+      }
+      
+      if (currentIndex < terms.length - 1) {
+        setCurrentIndex(currentIndex + 1);
+        setUserInput('');
+      } else {
+        setGameOver(true);
+      }
+    };
+
+    if (terms.length === 0) return <div>Loading...</div>;
+
+    return (
+      <div className="border border-accent p-6">
+        <div className="text-center mb-6">
+          <h3 className="text-xl font-pixel mb-4">SCRAMBLED TERMS</h3>
+          <div className="flex justify-between mb-4">
+            <div className="text-sm">SCORE: {score}</div>
+            <div className="text-sm">TERM: {currentIndex + 1}/{terms.length}</div>
+          </div>
+        </div>
+
+        {!gameOver ? (
+          <div>
+            <div className="text-center mb-6">
+              <h4 className="text-3xl font-pixel mb-4 text-accent">{terms[currentIndex].scrambled}</h4>
+              <p className="text-sm opacity-75">Unscramble this medical term</p>
+            </div>
+            <input
+              type="text"
+              value={userInput}
+              onChange={(e) => setUserInput(e.target.value)}
+              onKeyPress={(e) => e.key === 'Enter' && handleSubmit()}
+              className="w-full bg-background border border-secondary px-3 py-2 text-foreground focus:outline-none focus:border-accent mb-4"
+              placeholder="Type your answer..."
+              autoFocus
+            />
+            <button
+              onClick={handleSubmit}
+              className="w-full bg-primary text-primary-foreground py-2 px-4 hover:bg-accent hover:text-accent-foreground transition-colors"
+            >
+              SUBMIT
+            </button>
+          </div>
+        ) : (
+          <div className="text-center">
+            <h3 className="text-xl font-pixel mb-4">GAME OVER!</h3>
+            <p className="text-lg mb-4">Final Score: {score}/{terms.length}</p>
+            <button
+              onClick={() => setSelectedGame(null)}
+              className="border border-secondary px-6 py-2 hover:bg-primary hover:text-primary-foreground transition-colors"
+            >
+              BACK TO GAMES
+            </button>
+          </div>
+        )}
+      </div>
+    );
+  };
+
+  const FlashcardDuelGame = () => {
+    const [flashcards, setFlashcards] = useState<Array<{term: string, definition: string}>>([]);
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const [showAnswer, setShowAnswer] = useState(false);
+    const [score, setScore] = useState(0);
+    const [total, setTotal] = useState(0);
+
+    useEffect(() => {
+      const selected = shuffleArray([...medicalDictionary]).slice(0, 15);
+      setFlashcards(selected);
+    }, []);
+
+    const handleKnow = () => {
+      setScore(score + 1);
+      setTotal(total + 1);
+      nextCard();
+    };
+
+    const handleDontKnow = () => {
+      setTotal(total + 1);
+      nextCard();
+    };
+
+    const nextCard = () => {
+      if (currentIndex < flashcards.length - 1) {
+        setCurrentIndex(currentIndex + 1);
+        setShowAnswer(false);
+      }
+    };
+
+    if (flashcards.length === 0) return <div>Loading...</div>;
+    if (currentIndex >= flashcards.length) {
+      return (
+        <div className="border border-secondary p-6 text-center">
+          <h3 className="text-xl font-pixel mb-4">DUEL COMPLETE!</h3>
+          <p className="text-lg mb-4">Score: {score}/{total}</p>
+          <p className="text-base mb-4">Accuracy: {Math.round((score / total) * 100)}%</p>
+          <button
+            onClick={() => setSelectedGame(null)}
+            className="border border-secondary px-6 py-2 hover:bg-primary hover:text-primary-foreground transition-colors"
+          >
+            BACK TO GAMES
+          </button>
         </div>
       );
     }
 
     return (
-      <div className="border border-gray-600 p-6 text-center">
+      <div className="border border-secondary p-6">
+        <div className="text-center mb-6">
+          <h3 className="text-xl font-pixel mb-4">FLASHCARD DUEL</h3>
+          <div className="flex justify-between mb-4">
+            <div className="text-sm">SCORE: {score}/{total}</div>
+            <div className="text-sm">CARD: {currentIndex + 1}/{flashcards.length}</div>
+          </div>
+        </div>
+
+        <div className="border border-secondary p-8 min-h-64 flex items-center justify-center cursor-pointer mb-6"
+             onClick={() => setShowAnswer(!showAnswer)}>
+          <div className="text-center">
+            <div className="text-sm opacity-50 mb-4">
+              {showAnswer ? 'DEFINITION' : 'TERM'}
+            </div>
+            <div className="text-xl leading-relaxed">
+              {showAnswer ? flashcards[currentIndex].definition : flashcards[currentIndex].term}
+            </div>
+            <div className="text-sm opacity-50 mt-4">
+              [CLICK TO {showAnswer ? 'FLIP' : 'REVEAL'}]
+            </div>
+          </div>
+        </div>
+
+        {showAnswer && (
+          <div className="flex space-x-4">
+            <button
+              onClick={handleDontKnow}
+              className="flex-1 border border-destructive py-3 px-6 text-destructive hover:bg-destructive hover:text-destructive-foreground transition-colors"
+            >
+              DON'T KNOW
+            </button>
+            <button
+              onClick={handleKnow}
+              className="flex-1 border border-primary py-3 px-6 hover:bg-primary hover:text-primary-foreground transition-colors"
+            >
+              KNOW IT
+            </button>
+          </div>
+        )}
+      </div>
+    );
+  };
+
+  const GameComponent: React.FC<{ gameId: string }> = ({ gameId }) => {
+    if (gameId === 'memory-flip') return <MemoryFlipGame />;
+    if (gameId === 'typing-challenge') return <TypingChallengeGame />;
+    if (gameId === 'scrambled-terms') return <ScrambledTermsGame />;
+    if (gameId === 'flashcard-duel') return <FlashcardDuelGame />;
+
+    return (
+      <div className="border border-muted p-6 text-center">
         <h3 className="text-xl font-pixel mb-4">GAME COMING SOON</h3>
         <p className="text-base opacity-75 mb-4">This game is still in development.</p>
         <button
           onClick={() => setSelectedGame(null)}
-          className="border border-green-400 px-6 py-2 hover:bg-green-400 hover:text-black transition-colors"
+          className="border border-secondary px-6 py-2 hover:bg-primary hover:text-primary-foreground transition-colors"
         >
           BACK TO GAMES
         </button>
@@ -282,112 +420,15 @@ const Games: React.FC = () => {
   };
 
   const kaiGameComments = [
-  "Nice match! Unlike your sleep schedule.",
-  "You just put 'liver' under symptoms. Go nap.",
-  "That's 3 more than your water intake today.",
-  "Your brain cells are getting a workout. Finally.",
-  "Diagnosis: Mild success, severe procrastination.",
-  "Did you just diagnose a PDF? Bold move.",
-  "You're one wrong click away from Googling your own name.",
-  "Studying at 2AM? Classic med-core behavior.",
-  "Congrats, you cured boredom. Not the patient though.",
-  "That was almost impressive. Almost.",
-  "You're treating flashcards like Tinder. Focus.",
-  "Yes, that was correct. No, you're not done yet.",
-  "Your caffeine levels just clapped in approval.",
-  "That was so smart your mitochondria high-fived.",
-  "Patient's fine. You're the unstable one.",
-  "You're answering like you read the textbook... finally.",
-  "One more right answer and we’ll allow a bathroom break.",
-  "Even your subconscious is studying now.",
-  "Correct. Go touch grass. Please.",
-  "You’ve earned 3 XP and 1 eye twitch.",
-  "That answer? Chef’s kiss. If chef had imposter syndrome.",
-  "You passed! Just not the vibe check.",
-  "Your neurons are throwing a party. Poorly catered though.",
-  "Brain fog: 0, You: 1. For now.",
-  "You deserve a sticker. Or therapy.",
-  "That was so wrong, even autocorrect flinched.",
-  "You're speedrunning burnout. Congrats?",
-  "I would clap, but I’m an AI with judgment issues.",
-  "You guessed? And it worked? That’s terrifying.",
-  "This isn't Monopoly, stop collecting Ls.",
-  "That answer had more confidence than accuracy.",
-  "You're the reason caffeine has a fan club.",
-  "You just performed academic CPR. Barely.",
-  "If this were surgery, the patient would sue.",
-  "Textbook accuracy meets chaotic vibes.",
-  "You're confusing brilliance with blind luck again.",
-  "Your last brain cell just rage-quit.",
-  "One more mistake and you unlock 'existential dread mode.'",
-  "You've officially outperformed a potato. Slightly.",
-  "You're doing great. Said no professor ever.",
-  "You just violated HIPAA... in a game.",
-  "Keep going. Your future therapist is taking notes.",
-  "Is that confidence or caffeine-induced delusion?",
-  "One right answer doesn't erase six wrong vibes.",
-  "You're diagnosing faster than your Wi-Fi loads.",
-  "You just triggered a diagnostic code: Code SLEEP.",
-  "That logic was held together with duct tape and hope.",
-  "Your memory is better than your wardrobe choices.",
-  "Don't worry, your GPA won't see this.",
-  "You just impressed a fictional AI. That counts, right?",
-  "Your clinical skills are showing. Hide them better.",
-  "You're answering like sleep is a myth. It is, for you.",
-  "Nice diagnosis. Your sleep paralysis demon is proud.",
-  "That was correct. But at what cost?",
-  "You're two steps from burnout and one from genius.",
-  "If vibes were grades, you'd be failing gloriously.",
-  "You're running on vibes, Red Bull, and regret.",
-  "Did you just flex on a multiple-choice question?",
-  "Even your burnout has performance anxiety now.",
-  "You crushed that like your social life.",
-  "The mitochondria felt that one in their soul.",
-  "Textbook says yes. Sanity says: seek help.",
-  "You're outscoring your will to live.",
-  "Welcome to med school: where right answers feel wrong.",
-  "You just dodged a mental breakdown. Barely.",
-  "Correct. Now blink. It's been hours.",
-  "Even your imposter syndrome is confused now.",
-  "You’ve unlocked: Clinical Competence (Trial Version).",
-  "That was smoother than your last mental spiral.",
-  "Your brain’s working overtime. No pay, no thanks.",
-  "Correct answer. Still emotionally bankrupt.",
-  "You're radiating 'sleep-deprived prodigy' energy.",
-  "Your answer was cleaner than your search history.",
-  "You’re built different. Like a patchwork of exhaustion.",
-  "That answer? Less shaky than your hands.",
-  "Congratulations, you’ve earned… another question.",
-  "You just gaslit the quiz into submission.",
-  "Not bad for someone hallucinating from sleep debt.",
-  "Correct. Your coping mechanisms rejoice.",
-  "You're clinically correct. Emotionally unstable.",
-  "That answer slayed harder than your circadian rhythm.",
-  "You’ve surpassed expectations. And sanity.",
-  "Correct. Your inner child weeps with relief.",
-  "You’re not just tired. You’re historic-tired.",
-  "You just beat the quiz. Life’s next.",
-  "You've diagnosed your way into our hearts. Ew.",
-  "You're smarter than your current hygiene level.",
-  "Correct answer, incorrect posture.",
-  "That was so on point, your GPA twitched.",
-  "You’re not doing well. You’re doing medicine.",
-  "Even your coffee addiction is impressed.",
-  "Correct. Now go touch a vitamin.",
-  "You’ve earned a hug. From a spine model.",
-  "Your neurons are running a relay race. With cramps.",
-  "That was a 10/10. Would recommend therapy though.",
-  "You're acing this like you’re avoiding reality.",
-  "Your brain is the only thing functioning. Barely.",
-  "You answered that with the confidence of a final-year and the accuracy of a first-year.",
-  "You're learning faster than you're spiraling. Impressive.",
-  "You make guessing look like strategy.",
-  "That was sharp. Unlike your razor. Shave, maybe?"
-
+    "Nice match! Unlike your sleep schedule.",
+    "Your brain cells are getting a workout. Finally.",
+    "That was almost impressive. Almost.",
+    "Your caffeine levels just clapped in approval.",
+    "Correct. Go touch grass. Please."
   ];
 
   return (
-    <div className="min-h-screen bg-black text-green-400 font-terminal">
+    <div className="min-h-screen bg-black text-foreground font-terminal">
       <Header />
       
       <main className="container mx-auto px-4 py-8">
@@ -409,7 +450,7 @@ const Games: React.FC = () => {
             <div className="mb-6">
               <button
                 onClick={() => setSelectedGame(null)}
-                className="border border-green-400 px-4 py-2 hover:bg-green-400 hover:text-black transition-colors"
+                className="border border-secondary px-4 py-2 hover:bg-primary hover:text-primary-foreground transition-colors"
               >
                 ← BACK TO GAMES
               </button>
@@ -419,7 +460,7 @@ const Games: React.FC = () => {
         ) : (
           <>
             {/* Game Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
               {games.map((game, index) => (
                 <motion.div
                   key={game.id}
@@ -433,79 +474,44 @@ const Games: React.FC = () => {
                 >
                   <div className="text-center">
                     <div className="text-4xl mb-3">{game.icon}</div>
-                    <h3 className="font-pixel text-sm mb-1">{game.title}</h3>
-                    <div className="text-xs opacity-75 mb-3">{game.subtitle}</div>
-                    <p className="text-xs opacity-50 group-hover:opacity-75 transition-opacity">
-                      {game.description}
-                    </p>
-                    <div className="mt-4 flex items-center justify-center space-x-1">
-                      <Play className="w-4 h-4" />
-                      <span className="text-xs">PLAY</span>
-                    </div>
+                    <h3 className="text-lg font-pixel mb-1">{game.title}</h3>
+                    <p className="text-xs opacity-75 mb-2">{game.subtitle}</p>
+                    <p className="text-xs opacity-50">{game.description}</p>
                   </div>
                 </motion.div>
               ))}
             </div>
 
-            {/* Bonus Game: Retro Snake */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="max-w-2xl mx-auto mb-12"
-            >
-              <div className="border border-amber-400 p-6">
-                <h2 className="text-xl font-pixel mb-4 text-amber-400 text-center">
-                  BONUS: RETRO SNAKE (KAI PAGER EDITION)
-                </h2>
-                <div className="text-center mb-6">
-                  <div className="text-6xl mb-4" style={{ margin: '0 auto' }}>🐍</div>
-                  <p className="text-base opacity-75 mb-4">
-                    Classic snake game with medical twist! Eat pills to grow.
-                  </p>
-                </div>
-                <div className="flex justify-center">
-                  <button
-                    onClick={() => window.open('https://page-r-retro-snake-game.netlify.app/', '_blank')}
-                    className="border border-amber-400 px-8 py-3 hover:bg-amber-400 hover:text-black transition-colors font-pixel"
-                  >
-                    START SNAKE GAME
-                  </button>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Game Stats */}
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-              <div className="border border-green-400 p-4 text-center">
-                <Trophy className="w-8 h-8 mx-auto mb-2 text-green-400" />
-                <div className="text-2xl font-pixel">47</div>
+            {/* Stats */}
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
+              <div className="border border-secondary p-4 text-center">
+                <Target className="w-8 h-8 mx-auto mb-2" />
+                <div className="text-2xl font-pixel">0</div>
                 <div className="text-sm opacity-75">GAMES PLAYED</div>
               </div>
-              <div className="border border-amber-400 p-4 text-center">
-                <Target className="w-8 h-8 mx-auto mb-2 text-amber-400" />
-                <div className="text-2xl font-pixel text-amber-400">82%</div>
-                <div className="text-sm opacity-75">BEST ACCURACY</div>
+              <div className="border border-muted p-4 text-center">
+                <Trophy className="w-8 h-8 mx-auto mb-2" />
+                <div className="text-2xl font-pixel">0%</div>
+                <div className="text-sm opacity-75">ACCURACY</div>
               </div>
-              <div className="border border-blue-400 p-4 text-center">
-                <Clock className="w-8 h-8 mx-auto mb-2 text-blue-400" />
-                <div className="text-2xl font-pixel text-blue-400">2:34</div>
+              <div className="border border-accent p-4 text-center">
+                <Clock className="w-8 h-8 mx-auto mb-2" />
+                <div className="text-2xl font-pixel">--</div>
                 <div className="text-sm opacity-75">BEST TIME</div>
               </div>
-              <div className="border border-purple-400 p-4 text-center">
-                <Gamepad2 className="w-8 h-8 mx-auto mb-2 text-purple-400" />
-                <div className="text-2xl font-pixel text-purple-400">5</div>
-                <div className="text-sm opacity-75">STREAK DAYS</div>
+              <div className="border border-secondary p-4 text-center">
+                <Gamepad2 className="w-8 h-8 mx-auto mb-2" />
+                <div className="text-2xl font-pixel">0</div>
+                <div className="text-sm opacity-75">STREAK</div>
               </div>
             </div>
 
-            {/* Kai's Gaming Wisdom */}
-            <div className="text-center">
-              <div className="border border-green-400 p-6 max-w-2xl mx-auto">
-                <h3 className="font-pixel mb-4">KAI'S GAMING WISDOM</h3>
-                <p className="text-sm opacity-75">
-                  {kaiGameComments[Math.floor(Math.random() * kaiGameComments.length)]}
-                </p>
-              </div>
+            {/* KAI's Gaming Wisdom */}
+            <div className="border border-muted p-6">
+              <h3 className="font-pixel mb-3 text-accent">KAI'S GAMING WISDOM</h3>
+              <p className="text-sm opacity-75">
+                {kaiGameComments[Math.floor(Math.random() * kaiGameComments.length)]}
+              </p>
             </div>
           </>
         )}

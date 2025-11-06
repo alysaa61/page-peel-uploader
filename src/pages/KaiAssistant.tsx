@@ -42,7 +42,7 @@ const KaiAssistant: React.FC = () => {
       {/* Floating button */}
       <motion.button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 right-6 z-40 bg-green-400 text-black p-4 rounded-full shadow-lg hover:bg-amber-400 transition-colors"
+        className="fixed bottom-6 right-6 z-40 bg-primary text-primary-foreground p-4 rounded-full shadow-lg hover:bg-accent hover:text-accent-foreground transition-colors"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
       >
@@ -56,17 +56,17 @@ const KaiAssistant: React.FC = () => {
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            className="fixed bottom-24 right-6 z-50 w-96 h-[500px] bg-black border-2 border-green-400 shadow-2xl flex flex-col font-terminal"
+            className="fixed bottom-24 right-6 z-50 w-96 h-[500px] bg-background border-2 border-secondary shadow-2xl flex flex-col font-terminal"
           >
             {/* Header */}
-            <div className="flex items-center justify-between p-4 border-b border-green-400 bg-green-400/10">
+            <div className="flex items-center justify-between p-4 border-b border-secondary bg-secondary/10">
               <div className="flex items-center space-x-2">
-                <Sparkles className="w-5 h-5 text-green-400" />
-                <span className="text-green-400 font-bold">KAI ASSISTANT</span>
+                <Sparkles className="w-5 h-5 text-foreground" />
+                <span className="text-foreground font-bold">KAI ASSISTANT</span>
               </div>
               <button
                 onClick={() => setIsOpen(false)}
-                className="text-green-400 hover:text-amber-400 transition-colors"
+                className="text-foreground hover:text-accent transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -82,8 +82,8 @@ const KaiAssistant: React.FC = () => {
                   <div
                     className={`max-w-[80%] p-3 rounded ${
                       msg.role === 'user'
-                        ? 'bg-green-400 text-black'
-                        : 'bg-green-400/10 text-green-400 border border-green-400'
+                        ? 'bg-primary text-primary-foreground'
+                        : 'bg-secondary/10 text-foreground border border-secondary'
                     }`}
                   >
                     <p className="text-sm">{msg.content}</p>
@@ -93,7 +93,7 @@ const KaiAssistant: React.FC = () => {
               
               {isTyping && (
                 <div className="flex justify-start">
-                  <div className="bg-green-400/10 text-green-400 border border-green-400 p-3 rounded">
+                  <div className="bg-secondary/10 text-foreground border border-secondary p-3 rounded">
                     <span className="animate-pulse">Thinking...</span>
                   </div>
                 </div>
@@ -101,7 +101,7 @@ const KaiAssistant: React.FC = () => {
             </div>
 
             {/* Input */}
-            <div className="p-4 border-t border-green-400">
+            <div className="p-4 border-t border-secondary">
               <div className="flex space-x-2">
                 <input
                   type="text"
@@ -109,11 +109,11 @@ const KaiAssistant: React.FC = () => {
                   onChange={(e) => setInput(e.target.value)}
                   onKeyPress={(e) => e.key === 'Enter' && handleSend()}
                   placeholder="Ask me anything..."
-                  className="flex-1 bg-black border border-green-400 text-green-400 px-3 py-2 rounded focus:outline-none focus:border-amber-400 placeholder-green-400/50"
+                  className="flex-1 bg-background border border-secondary text-foreground px-3 py-2 rounded focus:outline-none focus:border-accent placeholder-muted-foreground"
                 />
                 <button
                   onClick={handleSend}
-                  className="bg-green-400 text-black p-2 rounded hover:bg-amber-400 transition-colors"
+                  className="bg-primary text-primary-foreground p-2 rounded hover:bg-accent hover:text-accent-foreground transition-colors"
                 >
                   <Send className="w-5 h-5" />
                 </button>

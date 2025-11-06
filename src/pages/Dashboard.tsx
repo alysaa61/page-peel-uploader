@@ -116,7 +116,15 @@ const Dashboard: React.FC = () => {
           <h1 className="text-4xl font-pixel mb-4 terminal-glow">PAGE-R TERMINAL</h1>
           <p className="text-xl mb-2">{kaiMessage}</p>
           <div className="text-sm opacity-75 blinking-glow">
-            SYSTEM TIME: {currentTime.toLocaleString('en-GB')}
+            SYSTEM TIME: {currentTime.toLocaleDateString('en-GB', { 
+              weekday: 'long',
+              day: '2-digit',
+              month: '2-digit',
+              year: 'numeric'
+            })} {currentTime.toLocaleTimeString('en-US', {
+              hour: '2-digit',
+              minute: '2-digit'
+            })}
           </div>
         </motion.div>
 

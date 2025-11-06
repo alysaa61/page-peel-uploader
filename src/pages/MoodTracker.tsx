@@ -93,8 +93,8 @@ const MoodTracker: React.FC = () => {
               <motion.button
                 key={index}
                 onClick={() => handleMoodSelect(index)}
-                className={`border border-green-400 p-4 hover:bg-green-400 hover:text-black transition-all duration-300 ${
-                  selectedMood === index ? 'bg-green-400 text-black' : ''
+                className={`border border-secondary p-4 hover:bg-primary hover:text-primary-foreground transition-all duration-300 ${
+                  selectedMood === index ? 'bg-primary text-primary-foreground' : ''
                 }`}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -113,8 +113,8 @@ const MoodTracker: React.FC = () => {
             onClick={handleVoiceVent}
             className={`flex items-center space-x-2 border px-6 py-3 transition-all duration-300 ${
               isRecording 
-                ? 'border-red-400 text-red-400 bg-red-400 bg-opacity-20' 
-                : 'border-green-400 hover:bg-green-400 hover:text-black'
+                ? 'border-destructive text-destructive bg-destructive bg-opacity-20' 
+                : 'border-secondary hover:bg-primary hover:text-primary-foreground'
             }`}
           >
             <Mic className="w-5 h-5" />
@@ -123,13 +123,13 @@ const MoodTracker: React.FC = () => {
 
           <button
             onClick={() => setShowCalendar(!showCalendar)}
-            className="flex items-center space-x-2 border border-blue-400 text-blue-400 px-6 py-3 hover:bg-blue-400 hover:text-black transition-all duration-300"
+            className="flex items-center space-x-2 border border-accent text-accent px-6 py-3 hover:bg-accent hover:text-accent-foreground transition-all duration-300"
           >
             <Calendar className="w-5 h-5" />
             <span>MOOD CALENDAR</span>
           </button>
 
-          <button className="flex items-center space-x-2 border border-amber-400 text-amber-400 px-6 py-3 hover:bg-amber-400 hover:text-black transition-all duration-300">
+          <button className="flex items-center space-x-2 border border-muted text-muted-foreground px-6 py-3 hover:bg-muted hover:text-muted-foreground transition-all duration-300">
             <Upload className="w-5 h-5" />
             <span>UPLOAD ENTRY</span>
           </button>
@@ -142,8 +142,8 @@ const MoodTracker: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             className="max-w-4xl mx-auto mb-12"
           >
-            <div className="border border-blue-400 p-6">
-              <h3 className="text-xl font-pixel mb-4 text-blue-400">MOOD CALENDAR</h3>
+            <div className="border border-accent p-6">
+              <h3 className="text-xl font-pixel mb-4 text-accent">MOOD CALENDAR</h3>
               <div className="grid grid-cols-7 gap-2">
                 {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
                   <div key={day} className="text-center text-sm opacity-75 p-2">
@@ -173,23 +173,23 @@ const MoodTracker: React.FC = () => {
 
         {/* Analytics */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-          <div className="border border-green-400 p-6 text-center">
-            <Heart className="w-8 h-8 mx-auto mb-2 text-green-400" />
+          <div className="border border-secondary p-6 text-center">
+            <Heart className="w-8 h-8 mx-auto mb-2 text-foreground" />
             <div className="text-2xl font-pixel">{moodEntries.length}</div>
             <div className="text-sm opacity-75">TOTAL ENTRIES</div>
           </div>
           
-          <div className="border border-amber-400 p-6 text-center">
-            <BarChart3 className="w-8 h-8 mx-auto mb-2 text-amber-400" />
-            <div className="text-2xl font-pixel text-amber-400">
+          <div className="border border-muted p-6 text-center">
+            <BarChart3 className="w-8 h-8 mx-auto mb-2 text-muted-foreground" />
+            <div className="text-2xl font-pixel text-muted-foreground">
               {moodEntries.length > 0 ? moods[getRecentMoodAverage()].emoji : '😐'}
             </div>
             <div className="text-sm opacity-75">7-DAY AVERAGE</div>
           </div>
           
-          <div className="border border-blue-400 p-6 text-center">
-            <Brain className="w-8 h-8 mx-auto mb-2 text-blue-400" />
-            <div className="text-2xl font-pixel text-blue-400">
+          <div className="border border-accent p-6 text-center">
+            <Brain className="w-8 h-8 mx-auto mb-2 text-accent" />
+            <div className="text-2xl font-pixel text-accent">
               {moodEntries.length > 0 ? Math.max(...moodEntries.slice(0, 7).map(e => e.mood)) + 1 : 0}
             </div>
             <div className="text-sm opacity-75">WEEK HIGH</div>
