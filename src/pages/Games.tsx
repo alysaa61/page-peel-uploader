@@ -23,32 +23,56 @@ const Games: React.FC = () => {
       id: 'yes-no-blitz',
       title: 'YES/NO BLITZ',
       subtitle: 'Quick Decisions',
-      description: 'Rapid-fire true/false medical statements',
-      color: 'text-destructive border-destructive',
+      description: 'Rapid-fire true/false medical statements (Coming Soon)',
+      color: 'text-accent border-accent',
       icon: '⚡'
+    },
+    {
+      id: 'quick-sort',
+      title: 'QUICK SORT',
+      subtitle: 'Organ Panic',
+      description: 'Drag medical terms into correct categories (Coming Soon)',
+      color: 'text-muted-foreground border-muted',
+      icon: '📦'
     },
     {
       id: 'typing-challenge',
       title: 'TYPING CHALLENGE',
       subtitle: 'One-Word Speed',
       description: 'Type medical terms as fast as possible',
-      color: 'text-muted-foreground border-muted',
+      color: 'text-secondary border-secondary',
       icon: '⌨️'
+    },
+    {
+      id: 'click-symptom',
+      title: 'CLICK THE SYMPTOM',
+      subtitle: 'Symptom Hunter',
+      description: 'Click the correct symptom from multiple options (Coming Soon)',
+      color: 'text-accent border-accent',
+      icon: '🎯'
     },
     {
       id: 'scrambled-terms',
       title: 'SCRAMBLED TERMS',
       subtitle: 'Word Unscrambler',
       description: 'Unscramble medical terminology',
-      color: 'text-accent border-accent',
+      color: 'text-foreground border-secondary',
       icon: '🔤'
+    },
+    {
+      id: 'recall-challenge',
+      title: '5-SECOND RECALL',
+      subtitle: 'Memory Test',
+      description: 'Remember lists shown for 5 seconds (Coming Soon)',
+      color: 'text-muted-foreground border-muted',
+      icon: '🧠'
     },
     {
       id: 'flashcard-duel',
       title: 'FLASHCARD DUEL',
       subtitle: 'Quick Review',
       description: 'Fast-paced flashcard review session',
-      color: 'text-secondary border-secondary',
+      color: 'text-accent border-accent',
       icon: '⚔️'
     }
   ];
