@@ -35,11 +35,11 @@ const CaseLab: React.FC = () => {
   });
 
   const categories = [
-    { id: 'cardio', name: 'CARDIO', color: 'text-red-400 border-red-400' },
-    { id: 'endo', name: 'ENDO', color: 'text-blue-400 border-blue-400' },
-    { id: 'psych', name: 'PSYCH', color: 'text-purple-400 border-purple-400' },
-    { id: 'winging-it', name: 'WINGING IT', color: 'text-amber-400 border-amber-400' },
-    { id: 'custom', name: 'CUSTOM CASES', color: 'text-green-400 border-green-400' }
+    { id: 'cardio', name: 'CARDIO', color: 'text-destructive border-destructive' },
+    { id: 'endo', name: 'ENDO', color: 'text-accent border-accent' },
+    { id: 'psych', name: 'PSYCH', color: 'text-muted-foreground border-muted' },
+    { id: 'winging-it', name: 'WINGING IT', color: 'text-secondary border-secondary' },
+    { id: 'custom', name: 'CUSTOM CASES', color: 'text-foreground border-secondary' }
   ];
 
   // ABG chaos mode detection
@@ -159,7 +159,7 @@ const CaseLab: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-black text-green-400 font-terminal">
+    <div className="min-h-screen bg-black text-foreground font-terminal">
       <Header />
       
       <main className="container mx-auto px-4 py-8">
@@ -198,7 +198,7 @@ const CaseLab: React.FC = () => {
         <div className="text-center mb-8">
           <button
             onClick={() => setShowUploadForm(true)}
-            className="flex items-center space-x-2 border border-green-400 px-6 py-3 hover:bg-green-400 hover:text-black transition-colors mx-auto"
+            className="flex items-center space-x-2 border border-secondary px-6 py-3 hover:bg-primary hover:text-primary-foreground transition-colors mx-auto"
           >
             <Plus className="w-5 h-5" />
             <span>UPLOAD NEW CASE</span>
@@ -217,20 +217,20 @@ const CaseLab: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             className="max-w-4xl mx-auto"
           >
-            <div className="border border-green-400 p-6 mb-6">
-              <h2 className="text-2xl font-pixel mb-4 text-amber-400">
+            <div className="border border-secondary p-6 mb-6">
+              <h2 className="text-2xl font-pixel mb-4 text-accent">
                 {currentCase.title}
               </h2>
               
               <div className="mb-6">
-                <h3 className="text-lg mb-3 text-blue-400">CLINICAL SCENARIO:</h3>
+                <h3 className="text-lg mb-3 text-accent">CLINICAL SCENARIO:</h3>
                 <p className="text-base leading-relaxed mb-4">
                   {currentCase.scenario}
                 </p>
               </div>
 
               <div className="mb-6">
-                <h3 className="text-lg mb-3 text-purple-400">QUESTION:</h3>
+                <h3 className="text-lg mb-3 text-muted-foreground">QUESTION:</h3>
                 <p className="text-base mb-4">{currentCase.question}</p>
               </div>
 
@@ -241,10 +241,10 @@ const CaseLab: React.FC = () => {
                     onClick={() => setShowAnswer(true)}
                     className={`w-full text-left p-4 border transition-all duration-300 ${
                       showAnswer && index === currentCase.correct
-                        ? 'border-green-400 bg-green-400 bg-opacity-20 text-green-400'
+                        ? 'border-primary bg-primary bg-opacity-20 text-primary'
                         : showAnswer && index !== currentCase.correct
-                        ? 'border-red-400 text-red-400 opacity-50'
-                        : 'border-gray-600 hover:border-amber-400 hover:text-amber-400'
+                        ? 'border-muted text-muted-foreground opacity-50'
+                        : 'border-muted hover:border-accent hover:text-accent'
                     }`}
                     whileHover={{ x: 5 }}
                   >
@@ -258,11 +258,11 @@ const CaseLab: React.FC = () => {
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="border border-green-400 p-4 bg-green-400 bg-opacity-10"
+                  className="border border-primary p-4 bg-primary bg-opacity-10"
                 >
                   <div className="flex items-center mb-2">
-                    <CheckCircle className="w-5 h-5 mr-2 text-green-400" />
-                    <span className="font-pixel text-green-400">EXPLANATION:</span>
+                    <CheckCircle className="w-5 h-5 mr-2 text-primary" />
+                    <span className="font-pixel text-primary">EXPLANATION:</span>
                   </div>
                   <p className="text-base">{currentCase.explanation}</p>
                 </motion.div>
@@ -271,14 +271,14 @@ const CaseLab: React.FC = () => {
               <div className="flex justify-center space-x-4 mt-6">
                 <button
                   onClick={() => generateCase(selectedCategory)}
-                  className="flex items-center space-x-2 border border-blue-400 px-6 py-3 hover:bg-blue-400 hover:text-black transition-colors"
+                  className="flex items-center space-x-2 border border-accent px-6 py-3 hover:bg-accent hover:text-accent-foreground transition-colors"
                 >
                   <RefreshCw className="w-5 h-5" />
                   <span>NEW CASE</span>
                 </button>
                 <button
                   onClick={() => setShowAnswer(!showAnswer)}
-                  className="flex items-center space-x-2 border border-amber-400 px-6 py-3 hover:bg-amber-400 hover:text-black transition-colors"
+                  className="flex items-center space-x-2 border border-secondary px-6 py-3 hover:bg-primary hover:text-primary-foreground transition-colors"
                 >
                   <Play className="w-5 h-5" />
                   <span>{showAnswer ? 'HIDE' : 'SHOW'} ANSWER</span>
@@ -295,15 +295,15 @@ const CaseLab: React.FC = () => {
             animate={{ opacity: 1 }}
             className="max-w-2xl mx-auto text-center"
           >
-            <div className="border border-green-400 p-8">
-              <Stethoscope className="w-16 h-16 mx-auto mb-4 text-green-400" />
+            <div className="border border-secondary p-8">
+              <Stethoscope className="w-16 h-16 mx-auto mb-4 text-foreground" />
               <h2 className="text-xl font-pixel mb-4">SELECT A CATEGORY OR UPLOAD A CASE</h2>
               <p className="text-base opacity-75 mb-6">
                 Choose a medical specialty to view cases, or upload your own clinical scenarios. 
                 Each case includes a scenario, multiple choice questions, and detailed explanations.
               </p>
               <div className="text-sm opacity-50">
-                <span className="text-blue-400">KAI:</span> {kaiComments[Math.floor(Math.random() * kaiComments.length)]}
+                <span className="text-accent">KAI:</span> {kaiComments[Math.floor(Math.random() * kaiComments.length)]}
               </div>
             </div>
           </motion.div>
@@ -316,12 +316,12 @@ const CaseLab: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             className="max-w-4xl mx-auto"
           >
-            <div className="border border-green-400 p-6">
+            <div className="border border-secondary p-6">
               <div className="flex items-center justify-between mb-6">
-                <h2 className="text-2xl font-pixel text-green-400">UPLOAD NEW CASE</h2>
+                <h2 className="text-2xl font-pixel text-foreground">UPLOAD NEW CASE</h2>
                 <button
                   onClick={() => setShowUploadForm(false)}
-                  className="text-green-400 hover:text-red-400"
+                  className="text-foreground hover:text-muted-foreground"
                 >
                   <X className="w-6 h-6" />
                 </button>
@@ -334,7 +334,7 @@ const CaseLab: React.FC = () => {
                     type="text"
                     value={newCase.title}
                     onChange={(e) => setNewCase({...newCase, title: e.target.value})}
-                    className="w-full bg-transparent border border-green-400 px-3 py-2 text-green-400 focus:outline-none focus:border-amber-400"
+                    className="w-full bg-transparent border border-secondary px-3 py-2 text-foreground focus:outline-none focus:border-accent"
                     placeholder="Enter case title..."
                   />
                 </div>
@@ -344,7 +344,7 @@ const CaseLab: React.FC = () => {
                   <select
                     value={newCase.category}
                     onChange={(e) => setNewCase({...newCase, category: e.target.value})}
-                    className="w-full bg-black border border-green-400 px-3 py-2 text-green-400 focus:outline-none focus:border-amber-400"
+                    className="w-full bg-black border border-secondary px-3 py-2 text-foreground focus:outline-none focus:border-accent"
                   >
                     <option value="custom">Custom Cases</option>
                     <option value="cardio">Cardio</option>
@@ -359,7 +359,7 @@ const CaseLab: React.FC = () => {
                   <textarea
                     value={newCase.scenario}
                     onChange={(e) => setNewCase({...newCase, scenario: e.target.value})}
-                    className="w-full bg-transparent border border-green-400 p-3 text-green-400 focus:outline-none focus:border-amber-400"
+                    className="w-full bg-transparent border border-secondary p-3 text-foreground focus:outline-none focus:border-accent"
                     rows={4}
                     placeholder="Describe the clinical scenario..."
                   />
@@ -370,7 +370,7 @@ const CaseLab: React.FC = () => {
                   <textarea
                     value={newCase.question}
                     onChange={(e) => setNewCase({...newCase, question: e.target.value})}
-                    className="w-full bg-transparent border border-green-400 p-3 text-green-400 focus:outline-none focus:border-amber-400"
+                    className="w-full bg-transparent border border-secondary p-3 text-foreground focus:outline-none focus:border-accent"
                     rows={2}
                     placeholder="What is your question?"
                   />
@@ -385,7 +385,7 @@ const CaseLab: React.FC = () => {
                         type="text"
                         value={option}
                         onChange={(e) => handleOptionChange(index, e.target.value)}
-                        className="flex-1 bg-transparent border border-green-400 px-3 py-2 text-green-400 focus:outline-none focus:border-amber-400"
+                        className="flex-1 bg-transparent border border-secondary px-3 py-2 text-foreground focus:outline-none focus:border-accent"
                         placeholder={`Option ${String.fromCharCode(65 + index)}`}
                       />
                       <input
@@ -404,7 +404,7 @@ const CaseLab: React.FC = () => {
                   <textarea
                     value={newCase.explanation}
                     onChange={(e) => setNewCase({...newCase, explanation: e.target.value})}
-                    className="w-full bg-transparent border border-green-400 p-3 text-green-400 focus:outline-none focus:border-amber-400"
+                    className="w-full bg-transparent border border-secondary p-3 text-foreground focus:outline-none focus:border-accent"
                     rows={3}
                     placeholder="Explain the correct answer..."
                   />
@@ -413,13 +413,13 @@ const CaseLab: React.FC = () => {
                 <div className="flex space-x-4">
                   <button
                     onClick={handleAddCase}
-                    className="flex-1 bg-green-400 text-black py-3 px-6 hover:bg-green-300 transition-colors font-pixel"
+                    className="flex-1 bg-primary text-primary-foreground py-3 px-6 hover:bg-primary/90 transition-colors font-pixel"
                   >
                     UPLOAD CASE
                   </button>
                   <button
                     onClick={() => setShowUploadForm(false)}
-                    className="flex-1 border border-red-400 py-3 px-6 text-red-400 hover:bg-red-400 hover:text-black transition-colors"
+                    className="flex-1 border border-muted py-3 px-6 text-muted-foreground hover:bg-muted hover:text-muted-foreground transition-colors"
                   >
                     CANCEL
                   </button>

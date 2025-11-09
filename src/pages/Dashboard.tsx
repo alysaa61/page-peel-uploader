@@ -115,7 +115,7 @@ const Dashboard: React.FC = () => {
         >
           <h1 className="text-4xl font-pixel mb-4 terminal-glow">PAGE-R TERMINAL</h1>
           <p className="text-xl mb-2">{kaiMessage}</p>
-          <div className="text-sm opacity-75 blinking-glow">
+          <div className="text-sm opacity-75 system-time-glow">
             SYSTEM TIME: {currentTime.toLocaleDateString('en-GB', { 
               weekday: 'long',
               day: '2-digit',
@@ -151,7 +151,7 @@ const Dashboard: React.FC = () => {
           </div>
         </motion.div>
 
-        {/* Module Grid */}
+        {/* Module Grid - All cards same size */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
           {modules.map((module, index) => (
             <motion.div
@@ -161,12 +161,12 @@ const Dashboard: React.FC = () => {
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
               <Link to={module.path}>
-                <div className={`border ${module.color} p-6 hover:bg-opacity-10 hover:bg-current transition-all duration-300 group cursor-pointer`}>
+                <div className={`border ${module.color} p-6 hover:bg-opacity-10 hover:bg-current transition-all duration-300 group cursor-pointer h-full flex flex-col`}>
                   <div className="flex items-center mb-4">
                     <module.icon className="w-8 h-8 mr-3" />
                     <h3 className="text-lg font-pixel">{module.title}</h3>
                   </div>
-                  <p className="text-sm opacity-75 group-hover:opacity-100 transition-opacity">
+                  <p className="text-sm opacity-75 group-hover:opacity-100 transition-opacity flex-grow">
                     {module.description}
                   </p>
                   <div className="mt-4 text-xs opacity-50">
@@ -205,7 +205,10 @@ const Dashboard: React.FC = () => {
         </motion.div>
       </main>
 
-      <KaiAssistant />
+      {/* KaiAssistant component kept in project but hidden from view */}
+      <div className="hidden">
+        <KaiAssistant />
+      </div>
       <Footer />
     </div>
   );

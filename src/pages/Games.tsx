@@ -74,6 +74,30 @@ const Games: React.FC = () => {
       description: 'Fast-paced flashcard review session',
       color: 'text-accent border-accent',
       icon: '⚔️'
+    },
+    {
+      id: 'retro-snake',
+      title: 'RETRO SNAKE',
+      subtitle: 'Classic Arcade',
+      description: 'Guide the snake to collect medical terms (Coming Soon)',
+      color: 'text-secondary border-secondary',
+      icon: '🐍'
+    },
+    {
+      id: 'diagnosis-dash',
+      title: 'DIAGNOSIS DASH',
+      subtitle: 'Time Trial',
+      description: 'Make correct diagnoses under time pressure (Coming Soon)',
+      color: 'text-muted-foreground border-muted',
+      icon: '⏱️'
+    },
+    {
+      id: 'anatomy-runner',
+      title: 'ANATOMY RUNNER',
+      subtitle: 'Endless Runner',
+      description: 'Run through anatomical structures (Coming Soon)',
+      color: 'text-accent border-accent',
+      icon: '🏃'
     }
   ];
 

@@ -267,7 +267,7 @@ const StudyStats: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-black text-green-400 font-terminal">
+    <div className="min-h-screen bg-black text-foreground font-terminal">
       <Header />
       
       <main className="container mx-auto px-4 py-8">
@@ -286,9 +286,9 @@ const StudyStats: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="border border-green-400 p-4 text-center"
+            className="border border-secondary p-4 text-center"
           >
-            <Clock className="w-8 h-8 mx-auto mb-2 text-green-400" />
+            <Clock className="w-8 h-8 mx-auto mb-2 text-foreground" />
             <div className="text-2xl font-pixel">{studyData.totalHours}h</div>
             <div className="text-sm opacity-75">TOTAL STUDY TIME</div>
           </motion.div>
@@ -297,10 +297,10 @@ const StudyStats: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="border border-amber-400 p-4 text-center"
+            className="border border-accent p-4 text-center"
           >
-            <Brain className="w-8 h-8 mx-auto mb-2 text-amber-400" />
-            <div className="text-2xl font-pixel text-amber-400">{studyData.flashcardsCompleted}</div>
+            <Brain className="w-8 h-8 mx-auto mb-2 text-accent" />
+            <div className="text-2xl font-pixel text-accent">{studyData.flashcardsCompleted}</div>
             <div className="text-sm opacity-75">FLASHCARDS COMPLETED</div>
           </motion.div>
           
@@ -308,10 +308,10 @@ const StudyStats: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="border border-blue-400 p-4 text-center"
+            className="border border-muted p-4 text-center"
           >
-            <Target className="w-8 h-8 mx-auto mb-2 text-blue-400" />
-            <div className="text-2xl font-pixel text-blue-400">{studyData.averageAccuracy}%</div>
+            <Target className="w-8 h-8 mx-auto mb-2 text-muted-foreground" />
+            <div className="text-2xl font-pixel text-muted-foreground">{studyData.averageAccuracy}%</div>
             <div className="text-sm opacity-75">AVERAGE ACCURACY</div>
           </motion.div>
           
@@ -319,10 +319,10 @@ const StudyStats: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
-            className="border border-purple-400 p-4 text-center"
+            className="border border-secondary p-4 text-center"
           >
-            <TrendingUp className="w-8 h-8 mx-auto mb-2 text-purple-400" />
-            <div className="text-2xl font-pixel text-purple-400">{studyData.currentStreak}</div>
+            <TrendingUp className="w-8 h-8 mx-auto mb-2 text-secondary" />
+            <div className="text-2xl font-pixel text-secondary">{studyData.currentStreak}</div>
             <div className="text-sm opacity-75">DAY STREAK</div>
           </motion.div>
         </div>
@@ -332,9 +332,9 @@ const StudyStats: React.FC = () => {
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="border border-green-400 p-6"
+            className="border border-secondary p-6"
           >
-            <h2 className="text-xl font-pixel mb-6 text-green-400">WEEKLY ACTIVITY</h2>
+            <h2 className="text-xl font-pixel mb-6 text-foreground">WEEKLY ACTIVITY</h2>
             
             {/* ASCII Chart */}
             <div className="mb-6">
@@ -362,9 +362,9 @@ const StudyStats: React.FC = () => {
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="border border-amber-400 p-6"
+            className="border border-accent p-6"
           >
-            <h2 className="text-xl font-pixel mb-6 text-amber-400">SUBJECT PROGRESS</h2>
+            <h2 className="text-xl font-pixel mb-6 text-accent">SUBJECT PROGRESS</h2>
             
             <div className="space-y-4">
               {subjectProgress.map((subject, index) => (
@@ -380,7 +380,7 @@ const StudyStats: React.FC = () => {
                     </span>
                     <span className="text-sm">{subject.progress}%</span>
                   </div>
-                  <div className="w-full bg-gray-800 h-2">
+                  <div className="w-full bg-muted h-2">
                     <motion.div
                       className={`h-2 ${subject.color.replace('text-', 'bg-')}`}
                       initial={{ width: 0 }}
@@ -393,7 +393,7 @@ const StudyStats: React.FC = () => {
             </div>
             
             <div className="mt-6 text-xs opacity-50">
-              <span className="text-blue-400">KAI:</span> {kaiComments[Math.floor(Math.random() * kaiComments.length)]}
+              <span className="text-accent">KAI:</span> {kaiComments[Math.floor(Math.random() * kaiComments.length)]}
             </div>
           </motion.div>
         </div>
@@ -416,8 +416,8 @@ const StudyStats: React.FC = () => {
                   transition={{ delay: index * 0.01 }}
                   className={`border p-3 ${
                     isUnlocked 
-                      ? 'border-amber-400 text-amber-400' 
-                      : 'border-gray-600 text-gray-600'
+                      ? 'border-accent text-accent' 
+                      : 'border-muted text-muted-foreground'
                   }`}
                 >
                   <div className="flex items-center mb-2">

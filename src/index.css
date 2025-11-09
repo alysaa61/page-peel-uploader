@@ -148,22 +148,25 @@ body {
 
 @keyframes glowBlink {
   0%, 100% {
-    opacity: 0.8;
-    text-shadow:
-      0 0 2px #00ffcc,
-      0 0 4px #00ffcc,
-      0 0 6px #00ffcc;
+    text-shadow: 0 0 5px hsl(var(--foreground)), 0 0 10px hsl(var(--foreground)), 0 0 15px hsl(var(--foreground));
   }
   50% {
-    opacity: 1;
-    text-shadow:
-      0 0 4px #00ffcc,
-      0 0 6px #00ffcc,
-      0 0 10px #00ffcc;
+    text-shadow: 0 0 8px hsl(var(--foreground)), 0 0 16px hsl(var(--foreground)), 0 0 24px hsl(var(--foreground));
   }
 }
 
+.system-time-glow {
+  animation: glowBlink 3s ease-in-out infinite;
+}
+
 .blinking-glow {
-  animation: glowBlink 1s infinite;
-  color: inherit;
+  animation: glowBlink 3s ease-in-out infinite;
+}
+
+.hover-scale {
+  transition: transform 0.2s ease-in-out;
+}
+
+.hover-scale:hover {
+  transform: scale(1.05);
 }

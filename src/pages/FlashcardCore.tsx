@@ -304,7 +304,7 @@ Anemia,Condition with lack of healthy red blood cells,Hematology,easy`;
   ];
 
   return (
-    <div className="min-h-screen bg-black text-green-400 font-terminal">
+    <div className="min-h-screen bg-black text-foreground font-terminal">
       <Header />
       
       <main className="container mx-auto px-4 py-8">
@@ -327,7 +327,7 @@ Anemia,Condition with lack of healthy red blood cells,Hematology,easy`;
               setCurrentCard(0);
               setIsFlipped(false);
             }}
-            className="bg-black border border-green-400 px-4 py-2 text-green-400 focus:outline-none focus:border-amber-400"
+            className="bg-black border border-secondary px-4 py-2 text-foreground focus:outline-none focus:border-accent"
           >
             {availableDecks.map(deck => (
               <option key={deck} value={deck}>{deck}</option>
@@ -337,16 +337,16 @@ Anemia,Condition with lack of healthy red blood cells,Hematology,easy`;
 
         {/* Stats Bar */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-          <div className="border border-green-400 p-4 text-center">
+          <div className="border border-secondary p-4 text-center">
             <div className="text-2xl font-pixel">{filteredCards.length}</div>
             <div className="text-sm opacity-75">TOTAL CARDS</div>
           </div>
-          <div className="border border-amber-400 p-4 text-center">
-            <div className="text-2xl font-pixel text-amber-400">{filteredCards.length > 0 ? currentCard + 1 : 0}</div>
+          <div className="border border-accent p-4 text-center">
+            <div className="text-2xl font-pixel text-accent">{filteredCards.length > 0 ? currentCard + 1 : 0}</div>
             <div className="text-sm opacity-75">CURRENT</div>
           </div>
-          <div className="border border-purple-400 p-4 text-center">
-            <div className="text-2xl font-pixel text-purple-400">{getStreak()}</div>
+          <div className="border border-muted p-4 text-center">
+            <div className="text-2xl font-pixel text-muted-foreground">{getStreak()}</div>
             <div className="text-sm opacity-75">SESSION STREAK</div>
           </div>
         </div>
@@ -360,7 +360,7 @@ Anemia,Condition with lack of healthy red blood cells,Hematology,easy`;
           >
             <div className="relative">
               <motion.div
-                className="border border-green-400 p-8 min-h-64 flex items-center justify-center cursor-pointer"
+                className="border border-secondary p-8 min-h-64 flex items-center justify-center cursor-pointer"
                 onClick={handleFlip}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
@@ -382,7 +382,7 @@ Anemia,Condition with lack of healthy red blood cells,Hematology,easy`;
               <div className="flex justify-center space-x-2 mt-6 flex-wrap">
                 <button
                   onClick={handlePrevious}
-                  className="border border-green-400 px-4 py-2 hover:bg-green-400 hover:text-black transition-colors flex items-center space-x-1"
+                  className="border border-secondary px-4 py-2 hover:bg-primary hover:text-primary-foreground transition-colors flex items-center space-x-1"
                 >
                   <ChevronLeft className="w-4 h-4" />
                   <span>PREVIOUS</span>
@@ -392,13 +392,13 @@ Anemia,Condition with lack of healthy red blood cells,Hematology,easy`;
                   <>
                     <button
                       onClick={handleMarkIncorrect}
-                      className="border border-red-400 px-4 py-2 hover:bg-red-400 hover:text-black transition-colors"
+                      className="border border-muted px-4 py-2 hover:bg-muted hover:text-muted-foreground transition-colors"
                     >
                       INCORRECT
                     </button>
                     <button
                       onClick={handleMarkCorrect}
-                      className="border border-green-400 px-4 py-2 hover:bg-green-400 hover:text-black transition-colors"
+                      className="border border-primary px-4 py-2 hover:bg-primary hover:text-primary-foreground transition-colors"
                     >
                       CORRECT
                     </button>
@@ -407,7 +407,7 @@ Anemia,Condition with lack of healthy red blood cells,Hematology,easy`;
                 
                 <button
                   onClick={handleReset}
-                  className="border border-amber-400 px-4 py-2 hover:bg-amber-400 hover:text-black transition-colors flex items-center space-x-1"
+                  className="border border-accent px-4 py-2 hover:bg-accent hover:text-accent-foreground transition-colors flex items-center space-x-1"
                 >
                   <RotateCcw className="w-4 h-4" />
                   <span>RESET</span>
@@ -415,7 +415,7 @@ Anemia,Condition with lack of healthy red blood cells,Hematology,easy`;
                 
                 <button
                   onClick={handleNext}
-                  className="border border-green-400 px-4 py-2 hover:bg-green-400 hover:text-black transition-colors flex items-center space-x-1"
+                  className="border border-secondary px-4 py-2 hover:bg-primary hover:text-primary-foreground transition-colors flex items-center space-x-1"
                 >
                   <span>NEXT</span>
                   <ChevronRight className="w-4 h-4" />
@@ -431,13 +431,13 @@ Anemia,Condition with lack of healthy red blood cells,Hematology,easy`;
             animate={{ opacity: 1 }}
             className="max-w-2xl mx-auto mb-8 text-center"
           >
-            <div className="border border-green-400 p-8">
+            <div className="border border-secondary p-8">
               <h3 className="text-xl font-pixel mb-4">NO FLASHCARDS IN THIS DECK</h3>
               <p className="text-base opacity-75 mb-4">
                 {selectedDeck === 'All' ? 'Create your first flashcard to start studying!' : `No cards found in ${selectedDeck} deck.`}
               </p>
               <div className="text-sm opacity-50">
-                <span className="text-blue-400">KAI:</span> An empty deck is like an empty stomach - time to fill it up!
+                <span className="text-accent">KAI:</span> An empty deck is like an empty stomach - time to fill it up!
               </div>
             </div>
           </motion.div>
@@ -447,28 +447,28 @@ Anemia,Condition with lack of healthy red blood cells,Hematology,easy`;
         <div className="flex justify-center space-x-4 mb-8 flex-wrap">
           <button
             onClick={() => setShowAddForm(!showAddForm)}
-            className="flex items-center space-x-2 border border-blue-400 px-6 py-3 hover:bg-blue-400 hover:text-black transition-colors"
+            className="flex items-center space-x-2 border border-accent px-6 py-3 hover:bg-accent hover:text-accent-foreground transition-colors"
           >
             <Plus className="w-5 h-5" />
             <span>ADD CARD</span>
           </button>
           <button
             onClick={() => setShowBulkUpload(!showBulkUpload)}
-            className="flex items-center space-x-2 border border-purple-400 px-6 py-3 hover:bg-purple-400 hover:text-black transition-colors"
+            className="flex items-center space-x-2 border border-muted px-6 py-3 hover:bg-muted hover:text-muted-foreground transition-colors"
           >
             <Upload className="w-5 h-5" />
             <span>BULK UPLOAD</span>
           </button>
           <button 
             onClick={handleShuffle}
-            className="flex items-center space-x-2 border border-purple-400 px-6 py-3 hover:bg-purple-400 hover:text-black transition-colors"
+            className="flex items-center space-x-2 border border-secondary px-6 py-3 hover:bg-primary hover:text-primary-foreground transition-colors"
           >
             <Shuffle className="w-5 h-5" />
             <span>SHUFFLE</span>
           </button>
           <button 
             onClick={handleSave}
-            className="flex items-center space-x-2 border border-amber-400 px-6 py-3 hover:bg-amber-400 hover:text-black transition-colors"
+            className="flex items-center space-x-2 border border-secondary px-6 py-3 hover:bg-primary hover:text-primary-foreground transition-colors"
           >
             <Save className="w-5 h-5" />
             <span>SAVE DECK</span>
@@ -478,15 +478,15 @@ Anemia,Condition with lack of healthy red blood cells,Hematology,easy`;
         {/* Session Stats */}
         {(sessionStats.correct > 0 || sessionStats.incorrect > 0) && (
           <div className="max-w-2xl mx-auto mb-8">
-            <div className="border border-blue-400 p-4">
-              <h3 className="font-pixel mb-3 text-blue-400">SESSION STATS</h3>
+            <div className="border border-accent p-4">
+              <h3 className="font-pixel mb-3 text-accent">SESSION STATS</h3>
               <div className="grid grid-cols-2 gap-4">
                 <div className="text-center">
-                  <div className="text-2xl font-pixel text-green-400">{sessionStats.correct}</div>
+                  <div className="text-2xl font-pixel text-primary">{sessionStats.correct}</div>
                   <div className="text-sm opacity-75">CORRECT</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-pixel text-red-400">{sessionStats.incorrect}</div>
+                  <div className="text-2xl font-pixel text-muted-foreground">{sessionStats.incorrect}</div>
                   <div className="text-sm opacity-75">INCORRECT</div>
                 </div>
               </div>
@@ -501,12 +501,12 @@ Anemia,Condition with lack of healthy red blood cells,Hematology,easy`;
             animate={{ opacity: 1, y: 0 }}
             className="max-w-4xl mx-auto mb-8"
           >
-            <div className="border border-purple-400 p-6">
+            <div className="border border-muted p-6">
               <div className="flex items-center justify-between mb-6">
-                <h2 className="text-2xl font-pixel text-purple-400">BULK UPLOAD FLASHCARDS</h2>
+                <h2 className="text-2xl font-pixel text-muted-foreground">BULK UPLOAD FLASHCARDS</h2>
                 <button
                   onClick={() => setShowBulkUpload(false)}
-                  className="text-purple-400 hover:text-red-400"
+                  className="text-muted-foreground hover:text-foreground"
                 >
                   <X className="w-6 h-6" />
                 </button>
@@ -514,32 +514,32 @@ Anemia,Condition with lack of healthy red blood cells,Hematology,easy`;
 
               {/* Upload Options */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-                <div className="border border-green-400 p-4">
-                  <h3 className="font-pixel text-green-400 mb-3">📄 TXT UPLOAD</h3>
+                <div className="border border-secondary p-4">
+                  <h3 className="font-pixel text-foreground mb-3">📄 TXT UPLOAD</h3>
                   <p className="text-sm opacity-75 mb-3">Simple format: Term: Definition</p>
                   <button
                     onClick={() => downloadSampleFiles('txt')}
-                    className="text-xs border border-green-400 px-3 py-1 hover:bg-green-400 hover:text-black transition-colors flex items-center space-x-1"
+                    className="text-xs border border-secondary px-3 py-1 hover:bg-primary hover:text-primary-foreground transition-colors flex items-center space-x-1"
                   >
                     <Download className="w-3 h-3" />
                     <span>SAMPLE TXT</span>
                   </button>
                 </div>
 
-                <div className="border border-amber-400 p-4">
-                  <h3 className="font-pixel text-amber-400 mb-3">📊 CSV/EXCEL</h3>
+                <div className="border border-accent p-4">
+                  <h3 className="font-pixel text-accent mb-3">📊 CSV/EXCEL</h3>
                   <p className="text-sm opacity-75 mb-3">Spreadsheet format with columns</p>
                   <button
                     onClick={() => downloadSampleFiles('csv')}
-                    className="text-xs border border-amber-400 px-3 py-1 hover:bg-amber-400 hover:text-black transition-colors flex items-center space-x-1"
+                    className="text-xs border border-accent px-3 py-1 hover:bg-accent hover:text-accent-foreground transition-colors flex items-center space-x-1"
                   >
                     <Download className="w-3 h-3" />
                     <span>SAMPLE CSV</span>
                   </button>
                 </div>
 
-                <div className="border border-blue-400 p-4">
-                  <h3 className="font-pixel text-blue-400 mb-3">📦 ZIP UPLOAD</h3>
+                <div className="border border-muted p-4">
+                  <h3 className="font-pixel text-muted-foreground mb-3">📦 ZIP UPLOAD</h3>
                   <p className="text-sm opacity-75 mb-3">With images/audio (Coming Soon)</p>
                   <button
                     disabled
@@ -557,7 +557,7 @@ Anemia,Condition with lack of healthy red blood cells,Hematology,easy`;
                   <select
                     value={bulkDeck}
                     onChange={(e) => setBulkDeck(e.target.value)}
-                    className="w-full bg-black border border-purple-400 px-3 py-2 text-purple-400 focus:outline-none focus:border-amber-400"
+                    className="w-full bg-black border border-muted px-3 py-2 text-muted-foreground focus:outline-none focus:border-accent"
                   >
                     <option value="Medical Terms">Medical Terms</option>
                     <option value="Anatomy">Anatomy</option>
@@ -574,7 +574,7 @@ Anemia,Condition with lack of healthy red blood cells,Hematology,easy`;
                   <select
                     value={bulkDifficulty}
                     onChange={(e) => setBulkDifficulty(e.target.value as 'easy' | 'medium' | 'hard')}
-                    className="w-full bg-black border border-purple-400 px-3 py-2 text-purple-400 focus:outline-none focus:border-amber-400"
+                    className="w-full bg-black border border-muted px-3 py-2 text-muted-foreground focus:outline-none focus:border-accent"
                   >
                     <option value="easy">Easy</option>
                     <option value="medium">Medium</option>
@@ -584,7 +584,7 @@ Anemia,Condition with lack of healthy red blood cells,Hematology,easy`;
               </div>
 
               {/* File Upload */}
-              <div className="border border-dashed border-purple-400 p-6 text-center mb-6">
+              <div className="border border-dashed border-muted p-6 text-center mb-6">
                 <input
                   type="file"
                   accept=".txt,.csv,.xls,.xlsx,.zip"
@@ -612,13 +612,13 @@ Anemia,Condition with lack of healthy red blood cells,Hematology,easy`;
             <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              className="bg-black border border-green-400 p-6 max-w-4xl w-full mx-4 max-h-96 overflow-y-auto"
+              className="bg-black border border-secondary p-6 max-w-4xl w-full mx-4 max-h-96 overflow-y-auto"
             >
-              <h3 className="text-xl font-pixel mb-4 text-green-400">PREVIEW UPLOAD ({uploadPreview.length} cards)</h3>
+              <h3 className="text-xl font-pixel mb-4 text-foreground">PREVIEW UPLOAD ({uploadPreview.length} cards)</h3>
               
               <div className="space-y-2 mb-6 max-h-64 overflow-y-auto">
                 {uploadPreview.slice(0, 10).map((card, index) => (
-                  <div key={index} className="border border-gray-600 p-3">
+                  <div key={index} className="border border-muted p-3">
                     <div className="grid grid-cols-2 gap-4">
                       <div>
                         <div className="text-sm opacity-75">Front:</div>
@@ -644,7 +644,7 @@ Anemia,Condition with lack of healthy red blood cells,Hematology,easy`;
               <div className="flex space-x-4">
                 <button
                   onClick={confirmBulkUpload}
-                  className="flex-1 bg-green-400 text-black py-2 px-4 hover:bg-green-300 transition-colors"
+                  className="flex-1 bg-primary text-primary-foreground py-2 px-4 hover:bg-primary/90 transition-colors"
                 >
                   IMPORT {uploadPreview.length} CARDS
                 </button>
@@ -653,7 +653,7 @@ Anemia,Condition with lack of healthy red blood cells,Hematology,easy`;
                     setShowPreview(false);
                     setUploadPreview([]);
                   }}
-                  className="flex-1 border border-red-400 py-2 px-4 text-red-400 hover:bg-red-400 hover:text-black transition-colors"
+                  className="flex-1 border border-muted py-2 px-4 text-muted-foreground hover:bg-muted transition-colors"
                 >
                   CANCEL
                 </button>
@@ -676,7 +676,7 @@ Anemia,Condition with lack of healthy red blood cells,Hematology,easy`;
                 <textarea
                   value={newCard.front}
                   onChange={(e) => setNewCard({...newCard, front: e.target.value})}
-                  className="w-full bg-transparent border border-green-400 p-3 text-green-400 focus:outline-none focus:border-amber-400"
+                  className="w-full bg-transparent border border-secondary p-3 text-foreground focus:outline-none focus:border-accent"
                   rows={3}
                   placeholder="Enter your question here..."
                 />
@@ -686,7 +686,7 @@ Anemia,Condition with lack of healthy red blood cells,Hematology,easy`;
                 <textarea
                   value={newCard.back}
                   onChange={(e) => setNewCard({...newCard, back: e.target.value})}
-                  className="w-full bg-transparent border border-green-400 p-3 text-green-400 focus:outline-none focus:border-amber-400"
+                  className="w-full bg-transparent border border-secondary p-3 text-foreground focus:outline-none focus:border-accent"
                   rows={3}
                   placeholder="Enter your answer here..."
                 />
@@ -697,7 +697,7 @@ Anemia,Condition with lack of healthy red blood cells,Hematology,easy`;
                   <select
                     value={newCard.deck}
                     onChange={(e) => setNewCard({...newCard, deck: e.target.value})}
-                    className="w-full bg-black border border-green-400 p-3 text-green-400 focus:outline-none focus:border-amber-400"
+                    className="w-full bg-black border border-secondary p-3 text-foreground focus:outline-none focus:border-accent"
                   >
                     <option value="Medical Terms">Medical Terms</option>
                     <option value="Anatomy">Anatomy</option>
@@ -713,7 +713,7 @@ Anemia,Condition with lack of healthy red blood cells,Hematology,easy`;
                   <select
                     value={newCard.difficulty}
                     onChange={(e) => setNewCard({...newCard, difficulty: e.target.value as 'easy' | 'medium' | 'hard'})}
-                    className="w-full bg-black border border-green-400 p-3 text-green-400 focus:outline-none focus:border-amber-400"
+                    className="w-full bg-black border border-secondary p-3 text-foreground focus:outline-none focus:border-accent"
                   >
                     <option value="easy">Easy</option>
                     <option value="medium">Medium</option>
@@ -724,20 +724,20 @@ Anemia,Condition with lack of healthy red blood cells,Hematology,easy`;
               <div className="flex space-x-4">
                 <button
                   onClick={handleAddCard}
-                  className="flex-1 bg-blue-400 text-black py-2 px-4 hover:bg-blue-300 transition-colors"
+                  className="flex-1 bg-accent text-accent-foreground py-2 px-4 hover:bg-accent/90 transition-colors"
                 >
                   CREATE CARD
                 </button>
                 <button
                   onClick={() => setShowAddForm(false)}
-                  className="flex-1 border border-red-400 py-2 px-4 text-red-400 hover:bg-red-400 hover:text-black transition-colors"
+                  className="flex-1 border border-muted py-2 px-4 text-muted-foreground hover:bg-muted transition-colors"
                 >
                   CANCEL
                 </button>
               </div>
             </div>
             <div className="mt-4 text-sm opacity-75 text-center">
-              <span className="text-blue-400">KAI:</span> {kaiComments[Math.floor(Math.random() * kaiComments.length)]}
+              <span className="text-accent">KAI:</span> {kaiComments[Math.floor(Math.random() * kaiComments.length)]}
             </div>
           </motion.div>
         )}
@@ -756,7 +756,7 @@ Anemia,Condition with lack of healthy red blood cells,Hematology,easy`;
               return (
                 <div 
                   key={deck} 
-                  className="border border-green-400 p-4 hover:border-amber-400 transition-colors cursor-pointer"
+                  className="border border-secondary p-4 hover:border-accent transition-colors cursor-pointer"
                   onClick={() => setSelectedDeck(deck)}
                 >
                   <div className="flex items-center justify-between">
