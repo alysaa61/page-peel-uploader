@@ -12,7 +12,7 @@ const AccessGate: React.FC<AccessGateProps> = ({ onAuthenticate }) => {
   const [bootText, setBootText] = useState('');
 
   const bootSequence = [
-    'PAGE-R SYSTEM BOOT v11.08.05',
+    'PAGE-R SYSTEM BOOT v18.03.06',
     'Initializing neural pathways...',
     'Loading medical databases...',
     'Calibrating caffeine sensors...',
