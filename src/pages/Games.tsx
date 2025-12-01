@@ -12,12 +12,52 @@ const Games: React.FC = () => {
 
   const games = [
     {
+      id: 'diagnosis-dash',
+      title: 'DIAGNOSIS DASH',
+      subtitle: 'Time Trial',
+      description: 'Make correct diagnoses under time pressure (Coming Soon)',
+      color: 'text-muted-foreground border-muted',
+      icon: '⏱️'
+    },
+    {
+      id: 'anatomy-runner',
+      title: 'ANATOMY RUNNER',
+      subtitle: 'Endless Runner',
+      description: 'Run through anatomical structures (Coming Soon)',
+      color: 'text-accent border-accent',
+      icon: '🏃'
+    },
+    {
       id: 'memory-flip',
       title: 'MEMORY FLIP',
       subtitle: 'Med Match',
       description: 'Flip cards to match medical terms with their definitions',
       color: 'text-foreground border-secondary',
       icon: '🧠'
+    },
+    {
+      id: 'typing-challenge',
+      title: 'TYPING CHALLENGE',
+      subtitle: 'One-Word Speed',
+      description: 'Type medical terms as fast as possible',
+      color: 'text-secondary border-secondary',
+      icon: '⌨️'
+    },
+    {
+      id: 'scrambled-terms',
+      title: 'SCRAMBLED TERMS',
+      subtitle: 'Word Unscrambler',
+      description: 'Unscramble medical terminology',
+      color: 'text-foreground border-secondary',
+      icon: '🔤'
+    },
+    {
+      id: 'flashcard-duel',
+      title: 'FLASHCARD DUEL',
+      subtitle: 'Quick Review',
+      description: 'Fast-paced flashcard review session',
+      color: 'text-accent border-accent',
+      icon: '⚔️'
     },
     {
       id: 'yes-no-blitz',
@@ -36,28 +76,12 @@ const Games: React.FC = () => {
       icon: '📦'
     },
     {
-      id: 'typing-challenge',
-      title: 'TYPING CHALLENGE',
-      subtitle: 'One-Word Speed',
-      description: 'Type medical terms as fast as possible',
-      color: 'text-secondary border-secondary',
-      icon: '⌨️'
-    },
-    {
       id: 'click-symptom',
       title: 'CLICK THE SYMPTOM',
       subtitle: 'Symptom Hunter',
       description: 'Click the correct symptom from multiple options (Coming Soon)',
       color: 'text-accent border-accent',
       icon: '🎯'
-    },
-    {
-      id: 'scrambled-terms',
-      title: 'SCRAMBLED TERMS',
-      subtitle: 'Word Unscrambler',
-      description: 'Unscramble medical terminology',
-      color: 'text-foreground border-secondary',
-      icon: '🔤'
     },
     {
       id: 'recall-challenge',
@@ -68,36 +92,12 @@ const Games: React.FC = () => {
       icon: '🧠'
     },
     {
-      id: 'flashcard-duel',
-      title: 'FLASHCARD DUEL',
-      subtitle: 'Quick Review',
-      description: 'Fast-paced flashcard review session',
-      color: 'text-accent border-accent',
-      icon: '⚔️'
-    },
-    {
       id: 'retro-snake',
       title: 'RETRO SNAKE',
       subtitle: 'Classic Arcade',
       description: 'Guide the snake to collect medical terms (Coming Soon)',
       color: 'text-secondary border-secondary',
       icon: '🐍'
-    },
-    {
-      id: 'diagnosis-dash',
-      title: 'DIAGNOSIS DASH',
-      subtitle: 'Time Trial',
-      description: 'Make correct diagnoses under time pressure (Coming Soon)',
-      color: 'text-muted-foreground border-muted',
-      icon: '⏱️'
-    },
-    {
-      id: 'anatomy-runner',
-      title: 'ANATOMY RUNNER',
-      subtitle: 'Endless Runner',
-      description: 'Run through anatomical structures (Coming Soon)',
-      color: 'text-accent border-accent',
-      icon: '🏃'
     }
   ];
 
@@ -528,30 +528,6 @@ const Games: React.FC = () => {
                   </div>
                 </motion.div>
               ))}
-            </div>
-
-            {/* Stats */}
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
-              <div className="border border-secondary p-4 text-center">
-                <Target className="w-8 h-8 mx-auto mb-2" />
-                <div className="text-2xl font-pixel">0</div>
-                <div className="text-sm opacity-75">GAMES PLAYED</div>
-              </div>
-              <div className="border border-muted p-4 text-center">
-                <Trophy className="w-8 h-8 mx-auto mb-2" />
-                <div className="text-2xl font-pixel">0%</div>
-                <div className="text-sm opacity-75">ACCURACY</div>
-              </div>
-              <div className="border border-accent p-4 text-center">
-                <Clock className="w-8 h-8 mx-auto mb-2" />
-                <div className="text-2xl font-pixel">--</div>
-                <div className="text-sm opacity-75">BEST TIME</div>
-              </div>
-              <div className="border border-secondary p-4 text-center">
-                <Gamepad2 className="w-8 h-8 mx-auto mb-2" />
-                <div className="text-2xl font-pixel">0</div>
-                <div className="text-sm opacity-75">STREAK</div>
-              </div>
             </div>
 
             {/* KAI's Gaming Wisdom */}

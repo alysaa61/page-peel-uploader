@@ -9,8 +9,7 @@ import CaseLab from './pages/CaseLab';
 import PDFZone from './pages/PDFZone';
 import NeurosyncCalendar from './pages/NeurosyncCalendar';
 import StudyStats from './pages/StudyStats';
-import MoodTracker from './pages/MoodTracker';
-import JournalCore from './pages/JournalCore';
+import MoodJournal from './pages/MoodJournal';
 import Games from './pages/Games';
 import NotFound from './pages/NotFound';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -96,8 +95,8 @@ function App() {
                     <Route path="/pdf" element={<PDFZone />} />
                     <Route path="/calendar" element={<NeurosyncCalendar />} />
                     <Route path="/stats" element={<StudyStats />} />
-                    <Route path="/mood" element={<MoodTracker />} />
-                    <Route path="/journal" element={<JournalCore />} />
+                    <Route path="/mood" element={<MoodJournal />} />
+                    <Route path="/journal" element={<MoodJournal />} />
                     <Route path="/games" element={<Games />} />
                     <Route path="*" element={<NotFound />} />
                   </Routes>

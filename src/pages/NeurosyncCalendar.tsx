@@ -227,7 +227,7 @@ const NeurosyncCalendar: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-black text-green-400 font-terminal">
+    <div className="min-h-screen bg-background text-foreground font-terminal">
       <Header />
       
       <main className="container mx-auto px-4 py-8">
@@ -271,11 +271,11 @@ const NeurosyncCalendar: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Calendar */}
           <div className="lg:col-span-2">
-            <div className="border border-green-400 p-6">
+            <div className="border border-secondary p-6">
               <div className="flex items-center justify-between mb-6">
                 <button
                   onClick={() => setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1))}
-                  className="border border-green-400 px-3 py-1 hover:bg-green-400 hover:text-black transition-colors"
+                  className="border border-secondary px-3 py-1 hover:bg-secondary hover:text-secondary-foreground transition-colors"
                 >
                   ←
                 </button>
@@ -284,7 +284,7 @@ const NeurosyncCalendar: React.FC = () => {
                 </h2>
                 <button
                   onClick={() => setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1))}
-                  className="border border-green-400 px-3 py-1 hover:bg-green-400 hover:text-black transition-colors"
+                  className="border border-secondary px-3 py-1 hover:bg-secondary hover:text-secondary-foreground transition-colors"
                 >
                   →
                 </button>
@@ -309,8 +309,8 @@ const NeurosyncCalendar: React.FC = () => {
           {/* Sidebar */}
           <div className="space-y-6">
             {/* Selected Date Events */}
-            <div className="border border-amber-400 p-4">
-              <h3 className="font-pixel mb-4 text-amber-400">
+            <div className="border border-accent p-4">
+              <h3 className="font-pixel mb-4 text-accent">
                 {selectedDate.toLocaleDateString('en-GB', { 
                   weekday: 'long', 
                   day: '2-digit',
@@ -323,9 +323,9 @@ const NeurosyncCalendar: React.FC = () => {
                 <div className="space-y-3">
                   {getSelectedDateEvents().map(event => (
                     <div key={event.id} className={`border p-3 ${
-                      event.type === 'birthday' ? 'border-red-400 bg-red-400 bg-opacity-20' :
-                      event.type === 'exam' ? 'border-red-400 bg-red-400 bg-opacity-10' :
-                      'border-green-400'
+                      event.type === 'birthday' ? 'border-destructive bg-destructive bg-opacity-20' :
+                      event.type === 'exam' ? 'border-destructive bg-destructive bg-opacity-10' :
+                      'border-secondary'
                     }`}>
                       <div className="font-pixel text-sm">{event.title}</div>
                       <div className="text-xs opacity-75 mt-1">{event.notes}</div>
@@ -343,7 +343,7 @@ const NeurosyncCalendar: React.FC = () => {
               
               <button
                 onClick={() => setShowAddEvent(true)}
-                className="w-full mt-4 border border-amber-400 py-2 hover:bg-amber-400 hover:text-black transition-colors flex items-center justify-center space-x-2"
+                className="w-full mt-4 border border-accent py-2 hover:bg-accent hover:text-accent-foreground transition-colors flex items-center justify-center space-x-2"
               >
                 <Plus className="w-4 h-4" />
                 <span>ADD EVENT</span>
@@ -368,12 +368,12 @@ const NeurosyncCalendar: React.FC = () => {
             </div>
 
             {/* Quick Stats */}
-            <div className="border border-blue-400 p-4">
-              <h3 className="font-pixel mb-4 text-blue-400">QUICK STATS</h3>
+            <div className="border border-accent p-4">
+              <h3 className="font-pixel mb-4 text-accent">QUICK STATS</h3>
               <div className="space-y-3">
                 <div className="flex justify-between">
                   <span className="text-sm">Upcoming Exams:</span>
-                  <span className="font-pixel text-red-400">
+                  <span className="font-pixel text-destructive">
                     {events.filter(e => e.type === 'exam' && new Date(e.date) > new Date()).length}
                   </span>
                 </div>

@@ -71,19 +71,11 @@ const Dashboard: React.FC = () => {
     },
     {
       id: 'mood',
-      title: 'MOOD TRACKER',
+      title: 'MOOD & JOURNAL',
       icon: Heart,
-      description: 'Emotional diagnostics',
+      description: 'Emotional & memory vault',
       path: '/mood',
       color: 'text-muted-foreground border-muted'
-    },
-    {
-      id: 'journal',
-      title: 'JOURNAL CORE',
-      icon: BookOpen,
-      description: 'Memory storage vault',
-      path: '/journal',
-      color: 'text-secondary border-secondary'
     },
     {
       id: 'games',
@@ -91,7 +83,7 @@ const Dashboard: React.FC = () => {
       icon: Gamepad2,
       description: 'Cognitive enhancement protocols',
       path: '/games',
-      color: 'text-destructive border-destructive'
+      color: 'text-accent border-accent'
     }
   ];
 

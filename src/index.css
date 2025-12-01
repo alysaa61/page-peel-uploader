@@ -58,6 +58,11 @@
 /* Global Styles */
 * {
   box-sizing: border-box;
+  user-select: none;
+}
+
+button, input, textarea, [role="button"], .flashcard {
+  user-select: auto;
 }
 
 body {

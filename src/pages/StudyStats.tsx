@@ -358,38 +358,17 @@ const StudyStats: React.FC = () => {
             </div>
           </motion.div>
 
-          {/* Subject Progress */}
+          {/* Study Overview */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="border border-accent p-6"
+            className="border border-border p-6"
           >
-            <h2 className="text-xl font-pixel mb-6 text-accent">SUBJECT PROGRESS</h2>
+            <h2 className="text-xl font-pixel mb-6">STUDY OVERVIEW</h2>
             
-            <div className="space-y-4">
-              {subjectProgress.map((subject, index) => (
-                <motion.div
-                  key={subject.name}
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                >
-                  <div className="flex justify-between mb-2">
-                    <span className={`font-pixel text-sm ${subject.color}`}>
-                      {subject.name}
-                    </span>
-                    <span className="text-sm">{subject.progress}%</span>
-                  </div>
-                  <div className="w-full bg-muted h-2">
-                    <motion.div
-                      className={`h-2 ${subject.color.replace('text-', 'bg-')}`}
-                      initial={{ width: 0 }}
-                      animate={{ width: `${subject.progress}%` }}
-                      transition={{ duration: 1, delay: index * 0.1 }}
-                    />
-                  </div>
-                </motion.div>
-              ))}
+            <div className="text-center text-muted-foreground py-8">
+              <p className="text-lg mb-2">No study data yet</p>
+              <p className="text-sm opacity-75">Start using flashcards to track your progress</p>
             </div>
             
             <div className="mt-6 text-xs opacity-50">
@@ -398,59 +377,15 @@ const StudyStats: React.FC = () => {
           </motion.div>
         </div>
 
-        {/* Achievements */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-12"
-        >
-          <h2 className="text-xl font-pixel mb-6">ACHIEVEMENTS ({unlockedAchievements.length}/100)</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 max-h-96 overflow-y-auto">
-            {achievements.map((achievement, index) => {
-              const isUnlocked = unlockedAchievements.includes(achievement.id);
-              return (
-                <motion.div
-                  key={achievement.id}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: index * 0.01 }}
-                  className={`border p-3 ${
-                    isUnlocked 
-                      ? 'border-accent text-accent' 
-                      : 'border-muted text-muted-foreground'
-                  }`}
-                >
-                  <div className="flex items-center mb-2">
-                    <Award className={`w-5 h-5 mr-2 ${
-                      isUnlocked ? 'text-amber-400' : 'text-gray-600'
-                    }`} />
-                    <span className="font-pixel text-xs">{achievement.title}</span>
-                  </div>
-                  <p className="text-xs opacity-75">{achievement.description}</p>
-                  {isUnlocked && (
-                    <div className="text-xs mt-2 text-green-400">✓ UNLOCKED</div>
-                  )}
-                </motion.div>
-              );
-            })}
-          </div>
-          
-          <div className="text-center mt-6 text-sm opacity-50">
-            {unlockedAchievements.length === 0 
-              ? "Start studying to unlock achievements!" 
-              : `${100 - unlockedAchievements.length} achievements remaining!`}
-          </div>
-        </motion.div>
-
         {/* Study Heatmap */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="border border-blue-400 p-6"
+          className="border border-accent p-6"
         >
-          <h2 className="text-xl font-pixel mb-6 text-blue-400">STUDY HEATMAP - {new Date().getFullYear()}</h2>
+          <h2 className="text-xl font-pixel mb-6 text-accent">STUDY HEATMAP - {new Date().getFullYear()}</h2>
           <div className="overflow-x-auto pb-2">
-            <div className="border border-blue-400 p-4">
+            <div className="border border-accent p-4">
               <div className="text-sm opacity-75 mb-4">JAN - DEC</div>
               
               <div className="flex gap-2">
@@ -493,10 +428,10 @@ const StudyStats: React.FC = () => {
                               className={`w-2.5 h-2.5 rounded-sm transition-all cursor-pointer ${
                                 !isVisible ? 'bg-gray-900 opacity-20' :
                                 day.isFuture ? 'bg-gray-900 opacity-30' :
-                                intensity > 0.7 ? 'bg-green-400 hover:ring-1 hover:ring-green-300' :
-                                intensity > 0.5 ? 'bg-green-500 hover:ring-1 hover:ring-green-400' :
-                                intensity > 0.3 ? 'bg-blue-400 hover:ring-1 hover:ring-blue-300' :
-                                intensity > 0.1 ? 'bg-blue-500 hover:ring-1 hover:ring-blue-400' :
+                                intensity > 0.7 ? 'bg-secondary hover:ring-1 hover:ring-secondary' :
+                                intensity > 0.5 ? 'bg-accent hover:ring-1 hover:ring-accent' :
+                                intensity > 0.3 ? 'bg-primary hover:ring-1 hover:ring-primary' :
+                                intensity > 0.1 ? 'bg-muted hover:ring-1 hover:ring-muted' :
                                 'bg-gray-800 hover:ring-1 hover:ring-gray-600'
                               }`}
                               title={`${day.date}: ${day.hours} hours`}
@@ -514,10 +449,10 @@ const StudyStats: React.FC = () => {
                 <span>Less</span>
                 <div className="flex items-center gap-1">
                   <div className="w-2.5 h-2.5 bg-gray-800 rounded-sm"></div>
-                  <div className="w-2.5 h-2.5 bg-blue-500 rounded-sm"></div>
-                  <div className="w-2.5 h-2.5 bg-blue-400 rounded-sm"></div>
-                  <div className="w-2.5 h-2.5 bg-green-500 rounded-sm"></div>
-                  <div className="w-2.5 h-2.5 bg-green-400 rounded-sm"></div>
+                  <div className="w-2.5 h-2.5 bg-muted rounded-sm"></div>
+                  <div className="w-2.5 h-2.5 bg-primary rounded-sm"></div>
+                  <div className="w-2.5 h-2.5 bg-accent rounded-sm"></div>
+                  <div className="w-2.5 h-2.5 bg-secondary rounded-sm"></div>
                 </div>
                 <span>More</span>
               </div>
