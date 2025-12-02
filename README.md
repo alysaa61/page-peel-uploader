@@ -1,8 +1,40 @@
-# Welcome to your Lovable project
+# PAGE-R Medical Study Platform
+
+A terminal-styled medical education platform for medical students featuring flashcards, case labs, PDF management, study tracking, mood & journal, and neural games.
 
 ## Project info
 
 **URL**: https://lovable.dev/projects/f5e590a3-ede9-429c-b065-b6fce42f2909
+
+## Features
+
+- 🎯 **Flashcard System**: Study medical terms with interactive flashcards
+- 🔬 **Case Lab**: Practice diagnostic skills with clinical scenarios  
+- 📚 **PDF Zone**: Upload and manage medical PDFs
+- 📅 **Calendar**: Track exams, community visits, and references
+- 📊 **Study Stats**: Visualize study patterns and progress
+- 📝 **Mood & Journal**: Track mental health and reflect on learning
+- 🎮 **Neural Games**: Reinforce learning through gamified activities
+  - Diagnosis Dash: Time-trial diagnostic challenges
+  - Memory Flip: Match medical terms with definitions
+  - Typing Challenge: Speed typing of medical terminology
+  - Scrambled Terms: Unscramble medical words
+  - Flashcard Duel: Quick-fire flashcard review
+
+## Project Structure
+
+```
+src/
+├── components/     # Reusable UI components (shadcn/ui)
+├── data/          # Medical data and game content
+│   ├── medicalDictionary.ts    # Medical terms and definitions
+│   └── diagnosisCases.ts       # Clinical case scenarios
+├── pages/         # Main application pages
+├── hooks/         # Custom React hooks
+├── lib/           # Utility libraries
+├── types/         # TypeScript type definitions
+└── utils/         # Utility functions
+```
 
 ## How can I edit this code?
 

@@ -3,8 +3,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Gamepad2, Play, Trophy, Clock, Target, Heart, Activity, Thermometer, Wind } from 'lucide-react';
 import Header from './Header';
 import Footer from './Footer';
-import { medicalDictionary, shuffleArray } from '../medicalDictionary';
-import { diagnosisCases, shuffleCases, DiagnosisCase } from '../diagnosisCases';
+import { medicalDictionary, shuffleArray } from '../data/medicalDictionary';
+import { diagnosisCases, shuffleCases, DiagnosisCase } from '../data/diagnosisCases';
 
 const Games: React.FC = () => {
   const [selectedGame, setSelectedGame] = useState<string | null>(null);

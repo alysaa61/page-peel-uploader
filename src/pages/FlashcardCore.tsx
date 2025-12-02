@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { Plus, Brain, Shuffle, RotateCcw, Save, ChevronLeft, ChevronRight, Upload, FileText, Download, X } from 'lucide-react';
 import Header from './Header';
 import Footer from './Footer';
-import { medicalDictionary, shuffleArray } from '../medicalDictionary';
+import { medicalDictionary, shuffleArray } from '../data/medicalDictionary';
 
 interface Flashcard {
   id: number;
