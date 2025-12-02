@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Gamepad2, Play, Trophy, Clock, Target } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Gamepad2, Play, Trophy, Clock, Target, Heart, Activity, Thermometer, Wind } from 'lucide-react';
 import Header from './Header';
 import Footer from './Footer';
 import { medicalDictionary, shuffleArray } from '../medicalDictionary';
+import { diagnosisCases, shuffleCases, DiagnosisCase } from '../diagnosisCases';
 
 const Games: React.FC = () => {
   const [selectedGame, setSelectedGame] = useState<string | null>(null);
@@ -15,8 +16,8 @@ const Games: React.FC = () => {
       id: 'diagnosis-dash',
       title: 'DIAGNOSIS DASH',
       subtitle: 'Time Trial',
-      description: 'Make correct diagnoses under time pressure (Coming Soon)',
-      color: 'text-muted-foreground border-muted',
+      description: 'Swipe through patient cases and make diagnoses under pressure',
+      color: 'text-accent border-accent',
       icon: '⏱️'
     },
     {
@@ -100,6 +101,313 @@ const Games: React.FC = () => {
       icon: '🐍'
     }
   ];
+
+  const DiagnosisDashGame = () => {
+    const [cases, setCases] = useState<DiagnosisCase[]>([]);
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const [score, setScore] = useState(0);
+    const [timeLeft, setTimeLeft] = useState(90);
+    const [isActive, setIsActive] = useState(false);
+    const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
+    const [showFeedback, setShowFeedback] = useState(false);
+    const [gameOver, setGameOver] = useState(false);
+    const [totalAnswered, setTotalAnswered] = useState(0);
+
+    useEffect(() => {
+      const shuffled = shuffleCases(diagnosisCases);
+      setCases(shuffled);
+    }, []);
+
+    useEffect(() => {
+      if (isActive && timeLeft > 0 && !gameOver) {
+        const timer = setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
+        return () => clearTimeout(timer);
+      } else if (timeLeft === 0) {
+        setGameOver(true);
+        setIsActive(false);
+      }
+    }, [isActive, timeLeft, gameOver]);
+
+    const handleAnswer = (answer: string) => {
+      if (showFeedback || !isActive) return;
+      
+      setSelectedAnswer(answer);
+      setShowFeedback(true);
+      
+      const isCorrect = answer === cases[currentIndex].correctAnswer;
+      if (isCorrect) {
+        setScore(score + 1);
+      }
+      setTotalAnswered(totalAnswered + 1);
+
+      setTimeout(() => {
+        if (currentIndex < cases.length - 1) {
+          setCurrentIndex(currentIndex + 1);
+          setSelectedAnswer(null);
+          setShowFeedback(false);
+        } else {
+          setGameOver(true);
+          setIsActive(false);
+        }
+      }, 2000);
+    };
+
+    const startGame = () => {
+      setIsActive(true);
+      setScore(0);
+      setCurrentIndex(0);
+      setTimeLeft(90);
+      setGameOver(false);
+      setTotalAnswered(0);
+      setCases(shuffleCases(diagnosisCases));
+    };
+
+    if (cases.length === 0) {
+      return <div className="text-center p-6">Loading cases...</div>;
+    }
+
+    if (!isActive && !gameOver) {
+      return (
+        <div className="border border-accent p-6">
+          <div className="text-center mb-6">
+            <h3 className="text-2xl font-pixel mb-4">DIAGNOSIS DASH</h3>
+            <p className="text-base opacity-75 mb-6">
+              Review patient cases and select the correct diagnosis.
+              <br />
+              You have 90 seconds. Work fast but accurately!
+            </p>
+            <div className="bg-muted/20 border border-muted p-4 mb-6 text-sm">
+              <p className="mb-2">Each case includes:</p>
+              <ul className="text-left max-w-md mx-auto space-y-1 opacity-75">
+                <li>• Patient demographics & medical history</li>
+                <li>• Vital signs & lab values</li>
+                <li>• Presenting symptoms & chief complaint</li>
+                <li>• Multiple diagnosis options</li>
+              </ul>
+            </div>
+          </div>
+          <button
+            onClick={startGame}
+            className="w-full bg-primary text-primary-foreground py-3 px-6 font-pixel hover:bg-accent hover:text-accent-foreground transition-colors"
+          >
+            START DIAGNOSIS DASH
+          </button>
+        </div>
+      );
+    }
+
+    if (gameOver) {
+      const accuracy = totalAnswered > 0 ? Math.round((score / totalAnswered) * 100) : 0;
+      return (
+        <div className="border border-accent p-6 text-center">
+          <h3 className="text-2xl font-pixel mb-6">DIAGNOSIS COMPLETE</h3>
+          
+          <div className="grid grid-cols-3 gap-4 mb-6">
+            <div className="border border-secondary p-4">
+              <div className="text-3xl font-pixel text-accent mb-2">{score}</div>
+              <div className="text-sm opacity-75">CORRECT</div>
+            </div>
+            <div className="border border-secondary p-4">
+              <div className="text-3xl font-pixel text-accent mb-2">{totalAnswered}</div>
+              <div className="text-sm opacity-75">TOTAL</div>
+            </div>
+            <div className="border border-secondary p-4">
+              <div className="text-3xl font-pixel text-accent mb-2">{accuracy}%</div>
+              <div className="text-sm opacity-75">ACCURACY</div>
+            </div>
+          </div>
+
+          <div className="text-sm opacity-75 mb-6">
+            <span className="text-accent">KAI:</span>{' '}
+            {accuracy >= 80 ? "Impressive diagnostic skills. Don't let it go to your head." :
+             accuracy >= 60 ? "Not bad. Keep studying those cases." :
+             "Your patients would be concerned. Time to hit the books."}
+          </div>
+
+          <div className="flex gap-4">
+            <button
+              onClick={startGame}
+              className="flex-1 bg-primary text-primary-foreground py-3 px-6 hover:bg-accent hover:text-accent-foreground transition-colors"
+            >
+              RETRY
+            </button>
+            <button
+              onClick={() => setSelectedGame(null)}
+              className="flex-1 border border-secondary px-6 py-3 hover:bg-primary hover:text-primary-foreground transition-colors"
+            >
+              BACK TO GAMES
+            </button>
+          </div>
+        </div>
+      );
+    }
+
+    const currentCase = cases[currentIndex];
+    const isCorrect = selectedAnswer === currentCase.correctAnswer;
+
+    return (
+      <div className="border border-accent p-6 max-w-4xl mx-auto">
+        {/* Header */}
+        <div className="flex justify-between items-center mb-6 pb-4 border-b border-secondary">
+          <div className="text-sm">
+            <span className="text-accent">CASE</span> {currentIndex + 1}/{cases.length}
+          </div>
+          <div className="text-sm">
+            <span className="text-accent">SCORE</span> {score}/{totalAnswered}
+          </div>
+          <div className="text-sm">
+            <Clock className="inline mr-2" size={16} />
+            <span className={timeLeft < 20 ? 'text-accent' : ''}>{timeLeft}s</span>
+          </div>
+        </div>
+
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentIndex}
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            transition={{ duration: 0.3 }}
+          >
+            {/* Patient Card */}
+            <div className="bg-background/50 border border-secondary p-4 mb-4">
+              <div className="grid grid-cols-2 gap-4 mb-4">
+                <div>
+                  <div className="text-xs opacity-50 mb-1">PATIENT INFO</div>
+                  <div className="text-sm">
+                    {currentCase.patientInfo.age}yo {currentCase.patientInfo.gender}
+                  </div>
+                </div>
+                <div>
+                  <div className="text-xs opacity-50 mb-1">CHIEF COMPLAINT</div>
+                  <div className="text-sm text-accent">{currentCase.presentation.chiefComplaint}</div>
+                </div>
+              </div>
+
+              {/* Medical History */}
+              <div className="mb-4">
+                <div className="text-xs opacity-50 mb-2">HISTORY</div>
+                <div className="flex flex-wrap gap-2">
+                  {currentCase.patientInfo.history.map((item, idx) => (
+                    <span key={idx} className="text-xs border border-muted px-2 py-1 bg-muted/20">
+                      {item}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Vitals */}
+              <div className="grid grid-cols-5 gap-2 mb-4 p-3 bg-background border border-muted">
+                <div className="text-center">
+                  <Activity size={16} className="mx-auto mb-1 text-accent" />
+                  <div className="text-xs opacity-50">BP</div>
+                  <div className="text-xs font-pixel">{currentCase.vitals.bp}</div>
+                </div>
+                <div className="text-center">
+                  <Heart size={16} className="mx-auto mb-1 text-accent" />
+                  <div className="text-xs opacity-50">HR</div>
+                  <div className="text-xs font-pixel">{currentCase.vitals.hr}</div>
+                </div>
+                <div className="text-center">
+                  <Thermometer size={16} className="mx-auto mb-1 text-accent" />
+                  <div className="text-xs opacity-50">TEMP</div>
+                  <div className="text-xs font-pixel">{currentCase.vitals.temp}°C</div>
+                </div>
+                <div className="text-center">
+                  <Wind size={16} className="mx-auto mb-1 text-accent" />
+                  <div className="text-xs opacity-50">RR</div>
+                  <div className="text-xs font-pixel">{currentCase.vitals.rr}</div>
+                </div>
+                <div className="text-center">
+                  <Target size={16} className="mx-auto mb-1 text-accent" />
+                  <div className="text-xs opacity-50">SpO2</div>
+                  <div className="text-xs font-pixel">{currentCase.vitals.spo2}%</div>
+                </div>
+              </div>
+
+              {/* Labs */}
+              {currentCase.labs && (
+                <div className="mb-4">
+                  <div className="text-xs opacity-50 mb-2">KEY LABS</div>
+                  <div className="grid grid-cols-2 gap-2">
+                    {Object.entries(currentCase.labs).map(([key, value], idx) => (
+                      <div key={idx} className="text-xs bg-muted/20 border border-muted px-2 py-1">
+                        <span className="opacity-75">{key}:</span> <span className="text-accent">{value}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Symptoms */}
+              <div>
+                <div className="text-xs opacity-50 mb-2">PRESENTING SYMPTOMS</div>
+                <div className="space-y-1">
+                  {currentCase.presentation.symptoms.map((symptom, idx) => (
+                    <div key={idx} className="text-sm flex items-start">
+                      <span className="text-accent mr-2">•</span>
+                      {symptom}
+                    </div>
+                  ))}
+                  <div className="text-xs opacity-50 mt-2">Duration: {currentCase.presentation.duration}</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Diagnosis Options */}
+            <div className="space-y-3">
+              <div className="text-sm opacity-75 mb-3">SELECT DIAGNOSIS:</div>
+              {currentCase.options.map((option, idx) => {
+                const isSelected = selectedAnswer === option;
+                const isCorrectOption = option === currentCase.correctAnswer;
+                const showCorrect = showFeedback && isCorrectOption;
+                const showIncorrect = showFeedback && isSelected && !isCorrect;
+
+                return (
+                  <motion.button
+                    key={idx}
+                    onClick={() => handleAnswer(option)}
+                    disabled={showFeedback}
+                    className={`w-full text-left p-4 border transition-all ${
+                      showCorrect
+                        ? 'border-primary bg-primary/20 text-primary-foreground'
+                        : showIncorrect
+                        ? 'border-destructive bg-destructive/20 text-destructive-foreground'
+                        : 'border-secondary hover:border-accent hover:bg-accent/10'
+                    } ${showFeedback ? 'cursor-not-allowed' : 'cursor-pointer'}`}
+                    whileHover={!showFeedback ? { scale: 1.02 } : {}}
+                    whileTap={!showFeedback ? { scale: 0.98 } : {}}
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="font-pixel">{option}</span>
+                      {showCorrect && <span className="text-xs">✓ CORRECT</span>}
+                      {showIncorrect && <span className="text-xs">✗ INCORRECT</span>}
+                    </div>
+                  </motion.button>
+                );
+              })}
+            </div>
+
+            {/* Feedback */}
+            {showFeedback && (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className={`mt-4 p-4 border ${
+                  isCorrect ? 'border-primary bg-primary/10' : 'border-muted bg-muted/10'
+                }`}
+              >
+                <div className="text-sm mb-2">
+                  <span className="font-pixel text-accent">EXPLANATION:</span>
+                </div>
+                <div className="text-sm opacity-90">{currentCase.explanation}</div>
+              </motion.div>
+            )}
+          </motion.div>
+        </AnimatePresence>
+      </div>
+    );
+  };
 
   const MemoryFlipGame = () => {
     const [cards, setCards] = useState<any[]>([]);
@@ -448,6 +756,7 @@ const Games: React.FC = () => {
   };
 
   const GameComponent: React.FC<{ gameId: string }> = ({ gameId }) => {
+    if (gameId === 'diagnosis-dash') return <DiagnosisDashGame />;
     if (gameId === 'memory-flip') return <MemoryFlipGame />;
     if (gameId === 'typing-challenge') return <TypingChallengeGame />;
     if (gameId === 'scrambled-terms') return <ScrambledTermsGame />;
