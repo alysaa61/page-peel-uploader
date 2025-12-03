@@ -6,53 +6,59 @@
 
 /* Custom CSS Variables */
 :root {
-  --background: 0 0% 4%;
-  --foreground: 51 100% 64%;
+  --background: 0 0% 0%;
+  --foreground: 51 83% 60%;
   
-  --card: 0 0% 10%;
-  --card-foreground: 51 100% 64%;
+  --card: 287 31% 17%;
+  --card-foreground: 51 83% 60%;
   
-  --popover: 0 0% 10%;
-  --popover-foreground: 51 100% 64%;
+  --popover: 231 48% 25%;
+  --popover-foreground: 51 83% 60%;
   
-  --primary: 1 93% 22%;
-  --primary-foreground: 51 100% 64%;
+  --primary: 358 86% 52%;
+  --primary-foreground: 51 83% 60%;
   
-  --secondary: 22 84% 53%;
-  --secondary-foreground: 51 100% 64%;
+  --secondary: 231 48% 25%;
+  --secondary-foreground: 51 83% 60%;
   
-  --muted: 0 0% 15%;
-  --muted-foreground: 48 92% 74%;
+  --muted: 287 31% 17%;
+  --muted-foreground: 51 83% 50%;
   
-  --accent: 204 74% 63%;
-  --accent-foreground: 51 100% 64%;
+  --accent: 93 99% 73%;
+  --accent-foreground: 0 0% 0%;
   
-  --destructive: 1 93% 22%;
-  --destructive-foreground: 51 100% 64%;
+  --destructive: 358 86% 52%;
+  --destructive-foreground: 51 83% 60%;
   
-  --border: 22 84% 53%;
-  --input: 22 84% 53%;
-  --ring: 51 100% 64%;
+  --border: 358 86% 52%;
+  --input: 231 48% 25%;
+  --ring: 51 83% 60%;
   
   --radius: 0.5rem;
   
-  --sidebar-background: 0 0% 10%;
-  --sidebar-foreground: 51 100% 64%;
-  --sidebar-primary: 22 84% 53%;
-  --sidebar-primary-foreground: 51 100% 64%;
-  --sidebar-accent: 204 74% 63%;
-  --sidebar-accent-foreground: 51 100% 64%;
-  --sidebar-border: 22 84% 53%;
-  --sidebar-ring: 51 100% 64%;
+  /* Card color variants */
+  --card-lime: 93 99% 73%;
+  --card-blue: 231 48% 25%;
+  --card-coral: 352 70% 60%;
+  --card-purple: 287 31% 17%;
+  
+  --sidebar-background: 287 31% 17%;
+  --sidebar-foreground: 51 83% 60%;
+  --sidebar-primary: 358 86% 52%;
+  --sidebar-primary-foreground: 51 83% 60%;
+  --sidebar-accent: 93 99% 73%;
+  --sidebar-accent-foreground: 0 0% 0%;
+  --sidebar-border: 358 86% 52%;
+  --sidebar-ring: 51 83% 60%;
   
   /* Legacy terminal colors for backwards compatibility */
-  --terminal-green: #FFE347;
-  --terminal-amber: #FADF7F;
-  --terminal-blue: #5AA9E6;
-  --terminal-red: #6B0504;
-  --terminal-navbar: #EB6424;
-  --terminal-bg: #0a0a0a;
-  --terminal-dark: #1a1a1a;
+  --terminal-green: #ECD444;
+  --terminal-amber: #ECD444;
+  --terminal-blue: #21295C;
+  --terminal-red: #ED1C24;
+  --terminal-navbar: #ED1C24;
+  --terminal-bg: #000000;
+  --terminal-dark: #331E38;
 }
 
 /* Global Styles */
