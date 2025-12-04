@@ -11,6 +11,7 @@ import NeurosyncCalendar from './pages/NeurosyncCalendar';
 import StudyStats from './pages/StudyStats';
 import MoodJournal from './pages/MoodJournal';
 import Games from './pages/Games';
+import Profile from './pages/Profile';
 import NotFound from './pages/NotFound';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Toaster } from "@/components/ui/toaster";
@@ -98,6 +99,7 @@ function App() {
                     <Route path="/mood" element={<MoodJournal />} />
                     <Route path="/journal" element={<MoodJournal />} />
                     <Route path="/games" element={<Games />} />
+                    <Route path="/profile" element={<Profile />} />
                     <Route path="*" element={<NotFound />} />
                   </Routes>
                 </motion.div>

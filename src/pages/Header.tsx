@@ -54,10 +54,9 @@ const Header: React.FC = () => {
           <div className="relative">
             <button
               onClick={() => setShowUserMenu(!showUserMenu)}
-              className="flex items-center space-x-2 text-foreground hover:text-accent transition-colors"
+              className="flex items-center text-foreground hover:text-accent transition-colors"
             >
               <User className="w-5 h-5" />
-              <span className="hidden md:inline">DR. ROSHINI KESAVAN</span>
             </button>
 
             {showUserMenu && (
@@ -70,6 +69,14 @@ const Header: React.FC = () => {
                   <p className="text-sm text-foreground">Dr. Roshini Kesavan</p>
                   <p className="text-xs opacity-75">Neural Access: GRANTED</p>
                 </div>
+                <Link
+                  to="/profile"
+                  onClick={() => setShowUserMenu(false)}
+                  className="w-full flex items-center space-x-2 p-3 text-foreground hover:bg-secondary/20 transition-colors"
+                >
+                  <User className="w-4 h-4" />
+                  <span>VIEW PROFILE</span>
+                </Link>
                 <button
                   onClick={handleLogout}
                   className="w-full flex items-center space-x-2 p-3 text-destructive hover:bg-destructive hover:bg-opacity-10 transition-colors"
