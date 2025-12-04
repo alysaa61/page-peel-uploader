@@ -168,12 +168,12 @@ const StudyStats: React.FC = () => {
   }, [studyData, unlockedAchievements]);
 
   const subjectProgress = [
-    { name: 'ANATOMY', progress: Math.round(Math.random() * 100), color: 'text-green-400' },
-    { name: 'PHYSIOLOGY', progress: Math.round(Math.random() * 100), color: 'text-blue-400' },
-    { name: 'PATHOLOGY', progress: Math.round(Math.random() * 100), color: 'text-red-400' },
-    { name: 'PHARMACOLOGY', progress: Math.round(Math.random() * 100), color: 'text-purple-400' },
-    { name: 'MEDICINE', progress: Math.round(Math.random() * 100), color: 'text-amber-400' },
-    { name: 'SURGERY', progress: Math.round(Math.random() * 100), color: 'text-pink-400' }
+    { name: 'ANATOMY', progress: Math.round(Math.random() * 100), color: 'text-accent' },
+    { name: 'PHYSIOLOGY', progress: Math.round(Math.random() * 100), color: 'text-secondary-foreground' },
+    { name: 'PATHOLOGY', progress: Math.round(Math.random() * 100), color: 'text-primary' },
+    { name: 'PHARMACOLOGY', progress: Math.round(Math.random() * 100), color: 'text-muted-foreground' },
+    { name: 'MEDICINE', progress: Math.round(Math.random() * 100), color: 'text-foreground' },
+    { name: 'SURGERY', progress: Math.round(Math.random() * 100), color: 'text-accent' }
   ];
 
   const renderASCIIChart = (data: number[], maxHeight: number = 10) => {

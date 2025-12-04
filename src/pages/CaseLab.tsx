@@ -133,14 +133,14 @@ const CaseLab: React.FC = () => {
     const currentTime = new Date().toLocaleTimeString();
     
     return (
-      <div className="min-h-screen bg-black text-red-400 glitch font-terminal flex items-center justify-center">
+      <div className="min-h-screen bg-background text-primary glitch font-terminal flex items-center justify-center">
         <motion.div
           initial={{ opacity: 0, scale: 0.5 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="text-center border border-red-400 p-12 max-w-2xl"
+          className="text-center border border-primary p-12 max-w-2xl"
         >
-          <Skull className="w-24 h-24 mx-auto mb-8 text-red-400 glitch" />
-          <h1 className="text-4xl font-pixel mb-8 text-red-400 glitch">SYSTEM FAILURE</h1>
+          <Skull className="w-24 h-24 mx-auto mb-8 text-primary glitch" />
+          <h1 className="text-4xl font-pixel mb-8 text-primary glitch">SYSTEM FAILURE</h1>
           <div className="text-2xl font-pixel mb-4 glitch">
             DECLARED DEAD AT TIME: {currentTime}
           </div>
@@ -431,16 +431,16 @@ const CaseLab: React.FC = () => {
 
         {/* Stats */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
-          <div className="border border-green-400 p-4 text-center">
-            <div className="text-2xl font-pixel">{userCases.length}</div>
+          <div className="border border-accent p-4 text-center">
+            <div className="text-2xl font-pixel text-accent">{userCases.length}</div>
             <div className="text-sm opacity-75">TOTAL CASES</div>
           </div>
-          <div className="border border-amber-400 p-4 text-center">
-            <div className="text-2xl font-pixel text-amber-400">0</div>
+          <div className="border border-primary p-4 text-center">
+            <div className="text-2xl font-pixel text-primary">0</div>
             <div className="text-sm opacity-75">CASES SOLVED</div>
           </div>
-          <div className="border border-blue-400 p-4 text-center">
-            <div className="text-2xl font-pixel text-blue-400">--%</div>
+          <div className="border border-secondary p-4 text-center">
+            <div className="text-2xl font-pixel text-secondary-foreground">--%</div>
             <div className="text-sm opacity-75">ACCURACY RATE</div>
           </div>
         </div>

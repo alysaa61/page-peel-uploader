@@ -176,9 +176,9 @@ const PDFZone: React.FC = () => {
               
               {/* Progress Bar */}
               <div className="mt-4">
-                <div className="w-full bg-gray-800 h-2">
+                <div className="w-full bg-muted h-2">
                   <div 
-                    className="bg-muted-foreground h-2 transition-all duration-300"
+                    className="bg-accent h-2 transition-all duration-300"
                     style={{ width: `${file.progress}%` }}
                   ></div>
                 </div>

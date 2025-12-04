@@ -9,12 +9,13 @@ const NotFound = () => {
   }, [location.pathname]);
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">404</h1>
-        <p className="mb-4 text-xl text-gray-600">Oops! Page not found</p>
-        <a href="/" className="text-blue-500 underline hover:text-blue-700">
-          Return to Home
+    <div className="flex min-h-screen items-center justify-center bg-background font-terminal">
+      <div className="text-center border border-primary p-8">
+        <h1 className="mb-4 text-4xl font-pixel text-primary">404</h1>
+        <p className="mb-4 text-xl text-foreground">ERROR: Route not found</p>
+        <p className="mb-4 text-sm text-muted-foreground">The neural pathway you seek does not exist.</p>
+        <a href="/" className="text-accent underline hover:text-primary transition-colors">
+          Return to Dashboard
         </a>
       </div>
     </div>
