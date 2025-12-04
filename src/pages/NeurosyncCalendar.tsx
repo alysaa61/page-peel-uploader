@@ -129,10 +129,10 @@ const NeurosyncCalendar: React.FC = () => {
 
   const getStressColor = (level: string) => {
     switch (level) {
-      case 'high': return 'text-red-400 border-red-400';
-      case 'medium': return 'text-amber-400 border-amber-400';
-      case 'low': return 'text-green-400 border-green-400';
-      default: return 'text-blue-400 border-blue-400';
+      case 'high': return 'text-primary border-primary';
+      case 'medium': return 'text-foreground border-foreground';
+      case 'low': return 'text-accent border-accent';
+      default: return 'text-secondary-foreground border-secondary';
     }
   };
 
@@ -162,30 +162,30 @@ const NeurosyncCalendar: React.FC = () => {
           onClick={() => setSelectedDate(date)}
           className={`p-2 cursor-pointer border transition-all duration-200 ${
             isSelected 
-              ? 'border-amber-400 bg-amber-400 bg-opacity-20' 
+              ? 'border-foreground bg-foreground bg-opacity-20' 
               : isBirthday
-              ? 'border-red-400 bg-red-400 bg-opacity-20'
+              ? 'border-primary bg-primary bg-opacity-20'
               : isToday
-              ? 'border-green-400 bg-green-400 bg-opacity-10'
+              ? 'border-accent bg-accent bg-opacity-10'
               : hasEvent
-              ? 'border-red-400 bg-red-400 bg-opacity-10'
-              : 'border-gray-600 hover:border-green-400'
+              ? 'border-primary bg-primary bg-opacity-10'
+              : 'border-muted hover:border-accent'
           }`}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
           <div className="text-center">
             <div className={`text-sm ${
-              isToday ? 'font-pixel text-green-400' : 
-              isBirthday ? 'font-pixel text-red-400' : ''
+              isToday ? 'font-pixel text-accent' : 
+              isBirthday ? 'font-pixel text-primary' : ''
             }`}>
               {day}
             </div>
             {isBirthday && (
-              <div className="text-xs text-red-400 mt-1">🎂</div>
+              <div className="text-xs text-primary mt-1">🎂</div>
             )}
             {hasEvent && (
-              <div className="w-2 h-2 bg-red-400 rounded-full mx-auto mt-1"></div>
+              <div className="w-2 h-2 bg-primary rounded-full mx-auto mt-1"></div>
             )}
           </div>
         </motion.div>
@@ -373,17 +373,17 @@ const NeurosyncCalendar: React.FC = () => {
               <div className="space-y-3">
                 <div className="flex justify-between">
                   <span className="text-sm">Upcoming Exams:</span>
-                  <span className="font-pixel text-destructive">
+                  <span className="font-pixel text-primary">
                     {events.filter(e => e.type === 'exam' && new Date(e.date) > new Date()).length}
                   </span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-sm">Total Events:</span>
-                  <span className="font-pixel text-green-400">{events.length}</span>
+                  <span className="font-pixel text-accent">{events.length}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-sm">This Month:</span>
-                  <span className="font-pixel text-blue-400">
+                  <span className="font-pixel text-secondary-foreground">
                     {events.filter(e => {
                       const eventDate = new Date(e.date);
                       const now = new Date();
@@ -395,8 +395,8 @@ const NeurosyncCalendar: React.FC = () => {
             </div>
 
             {/* Kai's Wisdom */}
-            <div className="border border-purple-400 p-4">
-              <h3 className="font-pixel mb-3 text-purple-400">KAI'S SCHEDULE WISDOM</h3>
+            <div className="border border-muted p-4">
+              <h3 className="font-pixel mb-3 text-muted-foreground">KAI'S SCHEDULE WISDOM</h3>
               <p className="text-sm opacity-75">
                 {events.length === 0 
                   ? "Your calendar is emptier than a medical student's wallet. Time to add some events!"
@@ -423,9 +423,9 @@ const NeurosyncCalendar: React.FC = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     className={`border p-4 ${
-                      event.type === 'exam' ? 'border-red-400' :
-                      event.type === 'birthday' ? 'border-amber-400' :
-                      'border-green-400'
+                      event.type === 'exam' ? 'border-primary' :
+                      event.type === 'birthday' ? 'border-foreground' :
+                      'border-accent'
                     }`}
                    >
                     <div className="flex items-center justify-between mb-2">
@@ -449,10 +449,10 @@ const NeurosyncCalendar: React.FC = () => {
 
               
               {events.filter(event => new Date(event.date) >= new Date()).length === 0 && (
-                <div className="border border-gray-600 p-4 text-center">
+                <div className="border border-muted p-4 text-center">
                   <div className="text-sm opacity-75">No upcoming events</div>
                   <div className="text-xs opacity-50 mt-2">
-                    <span className="text-blue-400">KAI:</span> Your calendar is emptier than a medical student's wallet.
+                    <span className="text-accent">KAI:</span> Your calendar is emptier than a medical student's wallet.
                   </div>
                 </div>
               )}
@@ -466,7 +466,7 @@ const NeurosyncCalendar: React.FC = () => {
               {events
                 .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
                 .map(event => (
-                  <div key={event.id} className="border border-gray-600 p-3 flex items-center justify-between">
+                  <div key={event.id} className="border border-muted p-3 flex items-center justify-between">
                     <div>
                       <div className="font-pixel text-sm">{event.title}</div>
                       <div className="text-xs opacity-75">
@@ -479,7 +479,7 @@ const NeurosyncCalendar: React.FC = () => {
                     </div>
                     <button
                       onClick={() => handleDeleteEvent(event.id)}
-                      className="text-red-400 hover:text-red-300 transition-colors"
+                      className="text-primary hover:text-destructive transition-colors"
                     >
                       <X className="w-4 h-4" />
                     </button>
@@ -487,10 +487,10 @@ const NeurosyncCalendar: React.FC = () => {
                 ))}
               
               {events.length === 0 && (
-                <div className="border border-gray-600 p-4 text-center">
+                <div className="border border-muted p-4 text-center">
                   <div className="text-sm opacity-75">No events created yet</div>
                   <div className="text-xs opacity-50 mt-2">
-                    <span className="text-blue-400">KAI:</span> Time to add some structure to your life!
+                    <span className="text-accent">KAI:</span> Time to add some structure to your life!
                   </div>
                 </div>
               )}
