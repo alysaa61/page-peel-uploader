@@ -11,13 +11,23 @@ const Games: React.FC = () => {
   const [gameScore, setGameScore] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
 
+  // Row-based colors: lime, coral, blue (repeating pattern of 3)
+  const getRowColor = (index: number) => {
+    const rowIndex = Math.floor(index / 3);
+    const colors = [
+      { text: 'text-card-lime', border: 'border-card-lime', hover: 'hover:bg-card-lime/20' },
+      { text: 'text-card-coral', border: 'border-card-coral', hover: 'hover:bg-card-coral/20' },
+      { text: 'text-secondary-foreground', border: 'border-card-blue', hover: 'hover:bg-card-blue/20' },
+    ];
+    return colors[rowIndex % 3];
+  };
+
   const games = [
     {
       id: 'diagnosis-dash',
       title: 'DIAGNOSIS DASH',
       subtitle: 'Time Trial',
       description: 'Swipe through patient cases and make diagnoses under pressure',
-      color: 'text-accent border-accent',
       icon: '⏱️'
     },
     {
@@ -25,7 +35,6 @@ const Games: React.FC = () => {
       title: 'ANATOMY RUNNER',
       subtitle: 'Endless Runner',
       description: 'Run through anatomical structures (Coming Soon)',
-      color: 'text-accent border-accent',
       icon: '🏃'
     },
     {
@@ -33,7 +42,6 @@ const Games: React.FC = () => {
       title: 'MEMORY FLIP',
       subtitle: 'Med Match',
       description: 'Flip cards to match medical terms with their definitions',
-      color: 'text-foreground border-secondary',
       icon: '🧠'
     },
     {
@@ -41,7 +49,6 @@ const Games: React.FC = () => {
       title: 'TYPING CHALLENGE',
       subtitle: 'One-Word Speed',
       description: 'Type medical terms as fast as possible',
-      color: 'text-secondary border-secondary',
       icon: '⌨️'
     },
     {
@@ -49,7 +56,6 @@ const Games: React.FC = () => {
       title: 'SCRAMBLED TERMS',
       subtitle: 'Word Unscrambler',
       description: 'Unscramble medical terminology',
-      color: 'text-foreground border-secondary',
       icon: '🔤'
     },
     {
@@ -57,7 +63,6 @@ const Games: React.FC = () => {
       title: 'FLASHCARD DUEL',
       subtitle: 'Quick Review',
       description: 'Fast-paced flashcard review session',
-      color: 'text-accent border-accent',
       icon: '⚔️'
     },
     {
@@ -65,7 +70,6 @@ const Games: React.FC = () => {
       title: 'YES/NO BLITZ',
       subtitle: 'Quick Decisions',
       description: 'Rapid-fire true/false medical statements (Coming Soon)',
-      color: 'text-accent border-accent',
       icon: '⚡'
     },
     {
@@ -73,7 +77,6 @@ const Games: React.FC = () => {
       title: 'QUICK SORT',
       subtitle: 'Organ Panic',
       description: 'Drag medical terms into correct categories (Coming Soon)',
-      color: 'text-muted-foreground border-muted',
       icon: '📦'
     },
     {
@@ -81,7 +84,6 @@ const Games: React.FC = () => {
       title: 'CLICK THE SYMPTOM',
       subtitle: 'Symptom Hunter',
       description: 'Click the correct symptom from multiple options (Coming Soon)',
-      color: 'text-accent border-accent',
       icon: '🎯'
     },
     {
@@ -89,7 +91,6 @@ const Games: React.FC = () => {
       title: '5-SECOND RECALL',
       subtitle: 'Memory Test',
       description: 'Remember lists shown for 5 seconds (Coming Soon)',
-      color: 'text-muted-foreground border-muted',
       icon: '🧠'
     },
     {
@@ -97,7 +98,6 @@ const Games: React.FC = () => {
       title: 'RETRO SNAKE',
       subtitle: 'Classic Arcade',
       description: 'Guide the snake to collect medical terms (Coming Soon)',
-      color: 'text-secondary border-secondary',
       icon: '🐍'
     }
   ];
@@ -818,25 +818,28 @@ const Games: React.FC = () => {
           <>
             {/* Game Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-              {games.map((game, index) => (
-                <motion.div
-                  key={game.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  onClick={() => setSelectedGame(game.id)}
-                  className={`border ${game.color} p-6 cursor-pointer hover:bg-opacity-10 hover:bg-current transition-all duration-300 group`}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <div className="text-center">
-                    <div className="text-4xl mb-3">{game.icon}</div>
-                    <h3 className="text-lg font-pixel mb-1">{game.title}</h3>
-                    <p className="text-xs opacity-75 mb-2">{game.subtitle}</p>
-                    <p className="text-xs opacity-50">{game.description}</p>
-                  </div>
-                </motion.div>
-              ))}
+              {games.map((game, index) => {
+                const rowColor = getRowColor(index);
+                return (
+                  <motion.div
+                    key={game.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    onClick={() => setSelectedGame(game.id)}
+                    className={`border ${rowColor.border} ${rowColor.text} ${rowColor.hover} p-6 cursor-pointer transition-all duration-300 group`}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <div className="text-center">
+                      <div className="text-4xl mb-3">{game.icon}</div>
+                      <h3 className="text-lg font-pixel mb-1">{game.title}</h3>
+                      <p className="text-xs opacity-75 mb-2">{game.subtitle}</p>
+                      <p className="text-xs opacity-50">{game.description}</p>
+                    </div>
+                  </motion.div>
+                );
+              })}
             </div>
 
             {/* KAI's Gaming Wisdom */}
