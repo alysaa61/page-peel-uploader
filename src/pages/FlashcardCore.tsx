@@ -41,7 +41,13 @@ const FlashcardCore: React.FC = () => {
   useEffect(() => {
     const savedCards = localStorage.getItem('page-r-flashcards');
     if (savedCards) {
-      setFlashcards(JSON.parse(savedCards));
+      const parsed = JSON.parse(savedCards);
+      // Convert lastReviewed strings back to Date objects
+      const cardsWithDates = parsed.map((card: any) => ({
+        ...card,
+        lastReviewed: card.lastReviewed ? new Date(card.lastReviewed) : undefined
+      }));
+      setFlashcards(cardsWithDates);
     } else {
       const initialCards = medicalDictionary.map((item, index) => ({
         id: index,
