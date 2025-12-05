@@ -66,7 +66,7 @@ const Profile: React.FC = () => {
               <div className="grid grid-cols-2 gap-4 text-center">
                 <div className="border border-secondary p-4">
                   <Calendar className="w-6 h-6 mx-auto mb-2 text-secondary-foreground" />
-                  <div className="text-xs opacity-75">MEMBER SINCE</div>
+                  <div className="text-xs opacity-75">BIRTHDAY</div>
                   <div className="font-pixel">18.03.2006</div>
                 </div>
                 <div className="border border-accent p-4">
@@ -74,6 +74,10 @@ const Profile: React.FC = () => {
                   <div className="text-xs opacity-75">STATUS</div>
                   <div className="font-pixel text-accent">ACTIVE</div>
                 </div>
+              </div>
+              <div className="mt-4 p-3 border border-muted text-center">
+                <p className="text-xs opacity-75">Want to update your details?</p>
+                <p className="text-sm mt-1">Fill in your profile information below!</p>
               </div>
             </div>
           </div>
@@ -88,10 +92,10 @@ const Profile: React.FC = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              className="border border-card-lime p-4 text-center"
+              className="border border-card-green p-4 text-center"
             >
-              <Clock className="w-8 h-8 mx-auto mb-2 text-card-lime" />
-              <div className="text-2xl font-pixel text-card-lime">{studyData.totalHours}h</div>
+              <Clock className="w-8 h-8 mx-auto mb-2 text-card-green" />
+              <div className="text-2xl font-pixel text-card-green">{studyData.totalHours}h</div>
               <div className="text-xs opacity-75">STUDY TIME</div>
             </motion.div>
             
@@ -99,10 +103,10 @@ const Profile: React.FC = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="border border-card-coral p-4 text-center"
+              className="border border-card-red p-4 text-center"
             >
-              <Brain className="w-8 h-8 mx-auto mb-2 text-card-coral" />
-              <div className="text-2xl font-pixel text-card-coral">{studyData.flashcardsCompleted}</div>
+              <Brain className="w-8 h-8 mx-auto mb-2 text-card-red" />
+              <div className="text-2xl font-pixel text-card-red">{studyData.flashcardsCompleted}</div>
               <div className="text-xs opacity-75">FLASHCARDS</div>
             </motion.div>
             
@@ -110,10 +114,10 @@ const Profile: React.FC = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
-              className="border border-card-blue p-4 text-center"
+              className="border border-card-teal p-4 text-center"
             >
-              <Target className="w-8 h-8 mx-auto mb-2 text-secondary-foreground" />
-              <div className="text-2xl font-pixel text-secondary-foreground">{studyData.averageAccuracy}%</div>
+              <Target className="w-8 h-8 mx-auto mb-2 text-card-teal" />
+              <div className="text-2xl font-pixel text-card-teal">{studyData.averageAccuracy}%</div>
               <div className="text-xs opacity-75">ACCURACY</div>
             </motion.div>
             
@@ -123,8 +127,8 @@ const Profile: React.FC = () => {
               transition={{ delay: 0.4 }}
               className="border border-card-purple p-4 text-center"
             >
-              <Award className="w-8 h-8 mx-auto mb-2 text-muted-foreground" />
-              <div className="text-2xl font-pixel text-muted-foreground">{studyData.currentStreak}</div>
+              <Award className="w-8 h-8 mx-auto mb-2 text-card-purple" />
+              <div className="text-2xl font-pixel text-card-purple">{studyData.currentStreak}</div>
               <div className="text-xs opacity-75">DAY STREAK</div>
             </motion.div>
           </div>

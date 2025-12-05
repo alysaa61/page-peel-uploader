@@ -11,13 +11,13 @@ const Games: React.FC = () => {
   const [gameScore, setGameScore] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
 
-  // Row-based colors: lime, coral, blue (repeating pattern of 3)
+  // Row-based colors: red, teal, yellow (repeating pattern of 3)
   const getRowColor = (index: number) => {
     const rowIndex = Math.floor(index / 3);
     const colors = [
-      { text: 'text-card-lime', border: 'border-card-lime', hover: 'hover:bg-card-lime/20' },
-      { text: 'text-card-coral', border: 'border-card-coral', hover: 'hover:bg-card-coral/20' },
-      { text: 'text-secondary-foreground', border: 'border-card-blue', hover: 'hover:bg-card-blue/20' },
+      { text: 'text-card-red', border: 'border-card-red', hover: 'hover:bg-card-red/20' },
+      { text: 'text-card-teal', border: 'border-card-teal', hover: 'hover:bg-card-teal/20' },
+      { text: 'text-card-yellow', border: 'border-card-yellow', hover: 'hover:bg-card-yellow/20' },
     ];
     return colors[rowIndex % 3];
   };

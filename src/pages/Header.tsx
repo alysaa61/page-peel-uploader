@@ -24,7 +24,7 @@ const Header: React.FC = () => {
   ];
 
   return (
-    <header className="sticky top-0 z-50 bg-black border-b border-secondary font-terminal">
+    <header className="sticky top-0 z-50 bg-background border-b border-secondary font-terminal">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
@@ -63,7 +63,7 @@ const Header: React.FC = () => {
               <motion.div
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="absolute right-0 mt-2 w-48 bg-black border border-secondary shadow-lg"
+                className="absolute right-0 mt-2 w-48 bg-background border border-secondary shadow-lg"
               >
                 <div className="p-4 border-b border-secondary">
                   <p className="text-sm text-foreground">Dr. Roshini Kesavan</p>
