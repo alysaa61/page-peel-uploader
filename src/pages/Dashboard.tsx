@@ -94,7 +94,7 @@ const Dashboard: React.FC = () => {
   const kaiMessage = welcomeMessages[0];
 
   return (
-    <div className="min-h-screen bg-black text-foreground font-terminal">
+    <div className="min-h-screen bg-background text-foreground font-terminal">
       <Header />
       
       <main className="container mx-auto px-4 py-8">

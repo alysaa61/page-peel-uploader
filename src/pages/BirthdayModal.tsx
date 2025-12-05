@@ -68,17 +68,17 @@ const BirthdayModal: React.FC<BirthdayModalProps> = ({ isOpen, onClose }) => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 font-terminal"
+          className="fixed inset-0 bg-background bg-opacity-80 flex items-center justify-center z-50 font-terminal"
         >
           <motion.div
             initial={{ scale: 0.5, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.5, opacity: 0 }}
-            className="bg-black border-4 border-amber-400 p-8 max-w-md w-full mx-4 relative"
+            className="bg-background border-4 border-card-yellow p-8 max-w-md w-full mx-4 relative"
           >
             <button
               onClick={onClose}
-              className="absolute top-4 right-4 text-amber-400 hover:text-red-400 transition-colors"
+              className="absolute top-4 right-4 text-card-yellow hover:text-primary transition-colors"
             >
               <X className="w-6 h-6" />
             </button>
@@ -89,13 +89,13 @@ const BirthdayModal: React.FC<BirthdayModalProps> = ({ isOpen, onClose }) => {
                 transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
                 className="inline-block"
               >
-                <Cake className="w-16 h-16 text-amber-400 mx-auto mb-4" />
+                <Cake className="w-16 h-16 text-card-yellow mx-auto mb-4" />
               </motion.div>
-              <Gift className="w-8 h-8 text-green-400 mx-auto" />
+              <Gift className="w-8 h-8 text-accent mx-auto" />
             </div>
 
             <div className="text-center">
-              <pre className="text-sm text-green-400 whitespace-pre-wrap leading-relaxed">
+              <pre className="text-sm text-foreground whitespace-pre-wrap leading-relaxed">
                 {message}
               </pre>
             </div>
@@ -103,14 +103,14 @@ const BirthdayModal: React.FC<BirthdayModalProps> = ({ isOpen, onClose }) => {
             <div className="text-center mt-6">
               <button
                 onClick={onClose}
-                className="border border-amber-400 px-6 py-2 text-amber-400 hover:bg-amber-400 hover:text-black transition-colors"
+                className="border border-card-yellow px-6 py-2 text-card-yellow hover:bg-card-yellow hover:text-background transition-colors"
               >
                 THANK YOU, KAI! 🎉
               </button>
             </div>
 
             <div className="text-center mt-4 text-xs opacity-50">
-              <span className="text-blue-400">KAI:</span> Now get back to studying. The birthday break is over!
+              <span className="text-secondary">KAI:</span> Now get back to studying. The birthday break is over!
             </div>
           </motion.div>
         </motion.div>

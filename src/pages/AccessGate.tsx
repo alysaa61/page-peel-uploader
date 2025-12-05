@@ -83,7 +83,7 @@ const AccessGate: React.FC<AccessGateProps> = ({ onAuthenticate }) => {
 
   if (isBooting) {
     return (
-      <div className="min-h-screen bg-black text-foreground font-terminal p-8 flex items-center justify-center">
+      <div className="min-h-screen bg-background text-foreground font-terminal p-8 flex items-center justify-center">
         <div className="max-w-2xl">
           <pre className="text-lg leading-relaxed whitespace-pre-wrap">
             {bootText}
@@ -96,7 +96,7 @@ const AccessGate: React.FC<AccessGateProps> = ({ onAuthenticate }) => {
 
   return (
     <motion.div 
-      className="min-h-screen bg-black text-foreground font-terminal p-8 flex items-center justify-center"
+      className="min-h-screen bg-background text-foreground font-terminal p-8 flex items-center justify-center"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 1 }}

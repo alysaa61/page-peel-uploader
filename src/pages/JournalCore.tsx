@@ -94,14 +94,14 @@ const JournalCore: React.FC = () => {
 
   const getMoodColor = (mood: string) => {
     const colors = {
-      contemplative: 'text-purple-400',
-      determined: 'text-amber-400',
-      enlightened: 'text-green-400',
-      reflective: 'text-blue-400',
-      frustrated: 'text-red-400',
-      hopeful: 'text-cyan-400'
+      contemplative: 'text-card-purple',
+      determined: 'text-card-yellow',
+      enlightened: 'text-accent',
+      reflective: 'text-secondary',
+      frustrated: 'text-primary',
+      hopeful: 'text-card-teal'
     };
-    return colors[mood as keyof typeof colors] || 'text-green-400';
+    return colors[mood as keyof typeof colors] || 'text-foreground';
   };
 
   const kaiJournalComments = [
@@ -112,7 +112,7 @@ const JournalCore: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-black text-green-400 font-terminal">
+    <div className="min-h-screen bg-background text-foreground font-terminal">
       <Header />
       
       <main className="container mx-auto px-4 py-8">
@@ -137,13 +137,13 @@ const JournalCore: React.FC = () => {
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   placeholder="Search entries..."
-                  className="w-full bg-transparent border border-green-400 pl-10 pr-4 py-2 text-green-400 focus:outline-none focus:border-amber-400"
+                  className="w-full bg-transparent border border-secondary pl-10 pr-4 py-2 text-foreground focus:outline-none focus:border-accent"
                 />
               </div>
               
               <button
                 onClick={() => setShowNewEntry(true)}
-                className="w-full flex items-center justify-center space-x-2 border border-blue-400 py-3 hover:bg-blue-400 hover:text-black transition-colors"
+                className="w-full flex items-center justify-center space-x-2 border border-secondary py-3 hover:bg-secondary hover:text-secondary-foreground transition-colors"
               >
                 <Plus className="w-5 h-5" />
                 <span>NEW ENTRY</span>
@@ -167,13 +167,13 @@ const JournalCore: React.FC = () => {
                   }}
                   className={`border p-3 cursor-pointer transition-all duration-300 ${
                     selectedEntry === entry.id 
-                      ? 'border-amber-400 bg-amber-400 bg-opacity-10' 
-                      : 'border-gray-600 hover:border-green-400'
+                      ? 'border-accent bg-accent bg-opacity-10' 
+                      : 'border-muted hover:border-secondary'
                   }`}
                 >
                   <div className="flex items-center justify-between mb-2">
                     <span className="font-pixel text-sm">{entry.title}</span>
-                    {entry.isPrivate && <Lock className="w-4 h-4 text-red-400" />}
+                    {entry.isPrivate && <Lock className="w-4 h-4 text-primary" />}
                   </div>
                   <div className="text-xs opacity-75 mb-1">
                     {entry.date.toLocaleDateString('en-GB', { 
@@ -196,14 +196,14 @@ const JournalCore: React.FC = () => {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50"
+            className="fixed inset-0 bg-background bg-opacity-80 flex items-center justify-center z-50"
           >
             <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              className="bg-black border border-red-400 p-6 max-w-md w-full mx-4"
+              className="bg-background border border-primary p-6 max-w-md w-full mx-4"
             >
-              <h3 className="text-xl font-pixel mb-4 text-red-400">PRIVATE ENTRY ACCESS</h3>
+              <h3 className="text-xl font-pixel mb-4 text-primary">PRIVATE ENTRY ACCESS</h3>
               <p className="text-sm opacity-75 mb-4">This entry is encrypted. Enter password to view:</p>
               
               <div className="space-y-4">
@@ -212,7 +212,7 @@ const JournalCore: React.FC = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   onKeyPress={(e) => e.key === 'Enter' && handlePasswordSubmit()}
-                  className="w-full bg-transparent border border-red-400 px-3 py-2 text-red-400 focus:outline-none focus:border-amber-400"
+                  className="w-full bg-transparent border border-primary px-3 py-2 text-foreground focus:outline-none focus:border-accent"
                   placeholder="Enter password..."
                   autoFocus
                 />
@@ -220,7 +220,7 @@ const JournalCore: React.FC = () => {
                 <div className="flex space-x-4">
                   <button
                     onClick={handlePasswordSubmit}
-                    className="flex-1 bg-red-400 text-black py-2 px-4 hover:bg-red-300 transition-colors"
+                    className="flex-1 bg-primary text-primary-foreground py-2 px-4 hover:bg-primary/80 transition-colors"
                   >
                     UNLOCK
                   </button>
@@ -230,7 +230,7 @@ const JournalCore: React.FC = () => {
                       setPendingPrivateEntry(null);
                       setPassword('');
                     }}
-                    className="flex-1 border border-gray-400 py-2 px-4 text-gray-400 hover:bg-gray-400 hover:text-black transition-colors"
+                    className="flex-1 border border-muted py-2 px-4 text-muted-foreground hover:bg-muted transition-colors"
                   >
                     CANCEL
                   </button>
@@ -238,7 +238,7 @@ const JournalCore: React.FC = () => {
               </div>
               
               <div className="mt-4 text-xs opacity-50 text-center">
-                <span className="text-blue-400">KAI:</span> Your secrets are safe... from everyone except you, apparently.
+                <span className="text-secondary">KAI:</span> Your secrets are safe... from everyone except you, apparently.
               </div>
             </motion.div>
           </motion.div>
@@ -250,12 +250,12 @@ const JournalCore: React.FC = () => {
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="border border-blue-400 p-6"
+                className="border border-secondary p-6"
               >
-                <h2 className="text-xl font-pixel mb-6 text-blue-400">NEW JOURNAL ENTRY</h2>
+                <h2 className="text-xl font-pixel mb-6 text-secondary">NEW JOURNAL ENTRY</h2>
                 
                 {/* Random Prompt */}
-                <div className="mb-6 p-4 border border-gray-600 bg-gray-600 bg-opacity-10">
+                <div className="mb-6 p-4 border border-muted bg-muted bg-opacity-10">
                   <div className="text-sm opacity-75 mb-2">Today's prompt:</div>
                   <div className="text-base italic">
                     "{prompts[Math.floor(Math.random() * prompts.length)]}"
@@ -269,7 +269,7 @@ const JournalCore: React.FC = () => {
                       type="text"
                       value={newEntry.title}
                       onChange={(e) => setNewEntry({...newEntry, title: e.target.value})}
-                      className="w-full bg-transparent border border-green-400 px-3 py-2 text-green-400 focus:outline-none focus:border-amber-400"
+                      className="w-full bg-transparent border border-secondary px-3 py-2 text-foreground focus:outline-none focus:border-accent"
                       placeholder="Give your entry a title..."
                     />
                   </div>
@@ -279,7 +279,7 @@ const JournalCore: React.FC = () => {
                     <textarea
                       value={newEntry.content}
                       onChange={(e) => setNewEntry({...newEntry, content: e.target.value})}
-                      className="w-full bg-transparent border border-green-400 p-3 text-green-400 focus:outline-none focus:border-amber-400"
+                      className="w-full bg-transparent border border-secondary p-3 text-foreground focus:outline-none focus:border-accent"
                       rows={12}
                       placeholder="Write your thoughts here..."
                     />
@@ -302,7 +302,7 @@ const JournalCore: React.FC = () => {
                   <div className="flex space-x-4">
                     <button
                       onClick={handleSaveEntry}
-                      className="flex-1 bg-blue-400 text-black py-2 px-4 hover:bg-blue-300 transition-colors"
+                      className="flex-1 bg-secondary text-secondary-foreground py-2 px-4 hover:bg-secondary/80 transition-colors"
                     >
                       SAVE ENTRY
                     </button>
@@ -311,7 +311,7 @@ const JournalCore: React.FC = () => {
                         setShowNewEntry(false);
                         setNewEntry({ title: '', content: '', isPrivate: false });
                       }}
-                      className="flex-1 border border-red-400 py-2 px-4 text-red-400 hover:bg-red-400 hover:text-black transition-colors"
+                      className="flex-1 border border-primary py-2 px-4 text-primary hover:bg-primary hover:text-primary-foreground transition-colors"
                     >
                       CANCEL
                     </button>
@@ -323,7 +323,7 @@ const JournalCore: React.FC = () => {
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="border border-green-400 p-6"
+                className="border border-accent p-6"
               >
                 {(() => {
                   const entry = entries.find(e => e.id === selectedEntry);
@@ -332,10 +332,10 @@ const JournalCore: React.FC = () => {
                   return (
                     <>
                       <div className="flex items-center justify-between mb-6">
-                        <h2 className="text-xl font-pixel text-green-400">{entry.title}</h2>
+                        <h2 className="text-xl font-pixel text-accent">{entry.title}</h2>
                         <button
                           onClick={() => handleDeleteEntry(entry.id)}
-                          className="text-red-400 hover:text-red-300 transition-colors"
+                          className="text-primary hover:text-primary/80 transition-colors"
                         >
                           <Trash2 className="w-5 h-5" />
                         </button>
@@ -355,7 +355,7 @@ const JournalCore: React.FC = () => {
                           {entry.mood.toUpperCase()}
                         </div>
                         {entry.isPrivate && (
-                          <div className="flex items-center space-x-1 text-red-400">
+                          <div className="flex items-center space-x-1 text-primary">
                             <Lock className="w-4 h-4" />
                             <span>PRIVATE</span>
                           </div>
@@ -376,15 +376,15 @@ const JournalCore: React.FC = () => {
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="border border-green-400 p-8 text-center"
+                className="border border-accent p-8 text-center"
               >
-                <BookOpen className="w-16 h-16 mx-auto mb-4 text-green-400" />
+                <BookOpen className="w-16 h-16 mx-auto mb-4 text-accent" />
                 <h2 className="text-xl font-pixel mb-4">WELCOME TO YOUR JOURNAL</h2>
                 <p className="text-base opacity-75 mb-6">
                   Select an entry from the left to read, or create a new one to capture your thoughts.
                 </p>
                 <div className="text-sm opacity-50">
-                  <span className="text-blue-400">KAI:</span> {kaiJournalComments[Math.floor(Math.random() * kaiJournalComments.length)]}
+                  <span className="text-secondary">KAI:</span> {kaiJournalComments[Math.floor(Math.random() * kaiJournalComments.length)]}
                 </div>
               </motion.div>
             )}
@@ -393,24 +393,24 @@ const JournalCore: React.FC = () => {
 
         {/* Journal Stats */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-12">
-          <div className="border border-green-400 p-4 text-center">
+          <div className="border border-accent p-4 text-center">
             <div className="text-2xl font-pixel">{entries.length}</div>
             <div className="text-sm opacity-75">TOTAL ENTRIES</div>
           </div>
-          <div className="border border-amber-400 p-4 text-center">
-            <div className="text-2xl font-pixel text-amber-400">
+          <div className="border border-card-yellow p-4 text-center">
+            <div className="text-2xl font-pixel text-card-yellow">
               {entries.filter(e => e.isPrivate).length}
             </div>
             <div className="text-sm opacity-75">PRIVATE ENTRIES</div>
           </div>
-          <div className="border border-blue-400 p-4 text-center">
-            <div className="text-2xl font-pixel text-blue-400">
+          <div className="border border-secondary p-4 text-center">
+            <div className="text-2xl font-pixel text-secondary">
               {Math.round(entries.reduce((acc, entry) => acc + entry.content.length, 0) / entries.length)}
             </div>
             <div className="text-sm opacity-75">AVG WORDS</div>
           </div>
-          <div className="border border-purple-400 p-4 text-center">
-            <div className="text-2xl font-pixel text-purple-400">21</div>
+          <div className="border border-card-purple p-4 text-center">
+            <div className="text-2xl font-pixel text-card-purple">21</div>
             <div className="text-sm opacity-75">DAY STREAK</div>
           </div>
         </div>

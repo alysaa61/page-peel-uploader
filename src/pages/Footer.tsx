@@ -196,7 +196,7 @@ const Footer: React.FC = () => {
   }, [taglineIndex]);
 
   return (
-    <footer className="sticky bottom-0 bg-black border-t border-secondary font-terminal text-foreground py-4">
+    <footer className="sticky bottom-0 bg-background border-t border-secondary font-terminal text-foreground py-4">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between text-sm">
           <div className="flex items-center space-x-4">

@@ -1,7 +1,7 @@
 export const BIRTHDAY = {
-  month: 8, // August (0-indexed)
-  day: 11,
-  year: 2005
+  month: 2, // March (0-indexed)
+  day: 18,
+  year: 2006
 };
 
 export const isBirthday = (date: Date = new Date()): boolean => {
@@ -10,14 +10,14 @@ export const isBirthday = (date: Date = new Date()): boolean => {
 
 export const getBirthdayMessage = (age: number): string => {
   const messages = [
-      `🎉 Happy ${age}th Birthday, Dr. Raghav! 🎉
+      `🎉 Happy ${age}th Birthday, Dr. Roshini! 🎉
 Another year of medical wisdom gained. Your neural pathways are aging like fine wine... or maybe like that forgotten sandwich in the anatomy lab fridge.`,
 
   `🎂 BIRTHDAY PROTOCOL ACTIVATED 🎂
-Dr. Raghav Kiran, you've successfully completed ${age} years of existence! That's ${age * 365} days of keeping your heart beating. Impressive cardiovascular endurance!`,
+Dr. Roshini Kesavan, you've successfully completed ${age} years of existence! That's ${age * 365} days of keeping your heart beating. Impressive cardiovascular endurance!`,
 
   `🌟 SPECIAL BIRTHDAY DIAGNOSTIC 🌟
-Patient: Dr. Raghav Kiran
+Patient: Dr. Roshini Kesavan
 Age: ${age} years
 Condition: Chronic Awesomeness
 Treatment: More cake, less studying (just for today)
@@ -27,17 +27,17 @@ Prognosis: Excellent with continued birthday celebrations`,
 Results show: ${age} years of accumulated wisdom, countless coffee molecules processed, and an impressive collection of medical knowledge. Side effects may include: increased cake consumption and temporary study amnesia.`,
 
   `🎊 HAPPY BIRTHDAY FROM YOUR DIGITAL INTERN! 🎊
-Dr. Raghav, you've leveled up to ${age}! Your XP in life has increased significantly. New abilities unlocked: Advanced birthday wisdom and enhanced cake-eating skills.`,
+Dr. Roshini, you've leveled up to ${age}! Your XP in life has increased significantly. New abilities unlocked: Advanced birthday wisdom and enhanced cake-eating skills.`,
 
   `🧬 BIRTHDAY GENETIC SEQUENCING COMPLETE 🧬
-Subject: Dr. Raghav Kiran
+Subject: Dr. Roshini Kesavan
 Mutation detected: Increased brilliance with age
 Chromosomal anomaly: Resistance to burnout (pending confirmation)
 Prescribed gene therapy: Unlimited cake & guilt-free naps
 Status: LEGENDARY`,
 
   `🔬 MICROSCOPIC BIRTHDAY OBSERVATION 🔬
-Specimen: Dr. Raghav (Species: Homo Medstudentus Maximus)
+Specimen: Dr. Roshini (Species: Homo Medstudentus Maximus)
 Observation: Celebrating ${age} cell divisions with negligible mitotic error
 Lab Note: Subject exhibits signs of rare condition — *Acute Birthday Swag*
 Cure: One large slice of dopamine-infused cake`,
@@ -50,7 +50,7 @@ Diagnosis: Birthday Joy Overload
 Recommendation: Administer hugs, memes, and passive-aggressive birthday wishes`,
 
   `📚 CASE REPORT #${age}: BIRTHDAY SYNDROME 📚
-Chief Complaint: “Why am I older?”
+Chief Complaint: "Why am I older?"
 History: ${age} years of exams, caffeine, and miracles
 Findings: Patient shows resilience, humor, and ridiculous levels of talent
 Plan: Celebrate until cortisol levels drop`,
@@ -63,14 +63,14 @@ Risk: Zero. Fun is non-fatal.
 Firewall patch: None — enjoy the day!`,
 
   `📟 EMERGENCY BIRTHDAY TRANSMISSION 📟
-To: Dr. Raghav Kiran
+To: Dr. Roshini Kesavan
 Status: ${age} years completed
 Message: All systems show stable growth, high empathy output, and excellent sarcasm levels
 Warning: Overexposure to birthday wishes may cause emotional side effects`,
 
   `🩺 BIRTHDAY CONSULTATION LOG 🩺
 Consultant: Universe
-Report: Dr. Raghav continues to defy natural aging with sheer willpower and coffee
+Report: Dr. Roshini continues to defy natural aging with sheer willpower and coffee
 Referral: To Cake Department — STAT
 Discharge Instructions: Party hard, study soft`,
 
@@ -80,21 +80,21 @@ Diagnosis: Acute Cake Deficiency
 Prescription: Immediate frosting intake, followed by party naps
 Follow-up: Next year, same time, more sprinkles`,
 
-  `🧪 LAB RESULTS IN — IT’S YOUR BIRTHDAY! 🧪
+  `🧪 LAB RESULTS IN — IT'S YOUR BIRTHDAY! 🧪
 Sample tested: Birthday vibes
 Result: Positive. Extremely contagious.
 Symptoms: Smiling, laughter, sudden dancing
 Recommendation: Avoid seriousness for 24 hours minimum`,
 
   `📡 BRAINWAVE SIGNAL INTERCEPTED 📡
-Subject: Dr. Raghav
+Subject: Dr. Roshini
 Age progression detected: ${age} complete rotations around sun
 Analysis: Increased wisdom, sharper sarcasm, enhanced coffee tolerance
 Suggested response: Party like the mitochondria — powerfully`,
 
   `📖 CLINICAL TRIAL COMPLETE 📖
 Trial Name: Growing Older Without Losing Sanity
-Lead Participant: Dr. Raghav
+Lead Participant: Dr. Roshini
 Outcome: 100% success
 Side effects: Random joy, emotional nostalgia, craving for childhood snacks`,
 

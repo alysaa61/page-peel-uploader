@@ -6,59 +6,60 @@
 
 /* Custom CSS Variables */
 :root {
-  --background: 0 0% 0%;
-  --foreground: 51 83% 60%;
+  --background: 60 4% 2%;
+  --foreground: 0 0% 100%;
   
-  --card: 287 31% 17%;
-  --card-foreground: 51 83% 60%;
+  --card: 269 26% 49%;
+  --card-foreground: 0 0% 100%;
   
-  --popover: 231 48% 25%;
-  --popover-foreground: 51 83% 60%;
+  --popover: 269 26% 49%;
+  --popover-foreground: 0 0% 100%;
   
-  --primary: 358 86% 52%;
-  --primary-foreground: 51 83% 60%;
+  --primary: 345 61% 50%;
+  --primary-foreground: 0 0% 100%;
   
-  --secondary: 231 48% 25%;
-  --secondary-foreground: 51 83% 60%;
+  --secondary: 182 35% 56%;
+  --secondary-foreground: 0 0% 100%;
   
-  --muted: 287 31% 17%;
-  --muted-foreground: 51 83% 50%;
+  --muted: 269 26% 49%;
+  --muted-foreground: 0 0% 80%;
   
-  --accent: 93 99% 73%;
-  --accent-foreground: 0 0% 0%;
+  --accent: 106 80% 73%;
+  --accent-foreground: 60 4% 2%;
   
-  --destructive: 358 86% 52%;
-  --destructive-foreground: 51 83% 60%;
+  --destructive: 345 61% 50%;
+  --destructive-foreground: 0 0% 100%;
   
-  --border: 358 86% 52%;
-  --input: 231 48% 25%;
-  --ring: 51 83% 60%;
+  --border: 345 61% 50%;
+  --input: 269 26% 49%;
+  --ring: 0 0% 100%;
   
   --radius: 0.5rem;
   
   /* Card color variants */
-  --card-lime: 93 99% 73%;
-  --card-blue: 231 48% 25%;
-  --card-coral: 352 70% 60%;
-  --card-purple: 287 31% 17%;
+  --card-red: 345 61% 50%;
+  --card-teal: 182 35% 56%;
+  --card-yellow: 43 93% 63%;
+  --card-purple: 269 26% 49%;
+  --card-green: 106 80% 73%;
   
-  --sidebar-background: 287 31% 17%;
-  --sidebar-foreground: 51 83% 60%;
-  --sidebar-primary: 358 86% 52%;
-  --sidebar-primary-foreground: 51 83% 60%;
-  --sidebar-accent: 93 99% 73%;
-  --sidebar-accent-foreground: 0 0% 0%;
-  --sidebar-border: 358 86% 52%;
-  --sidebar-ring: 51 83% 60%;
+  --sidebar-background: 269 26% 49%;
+  --sidebar-foreground: 0 0% 100%;
+  --sidebar-primary: 345 61% 50%;
+  --sidebar-primary-foreground: 0 0% 100%;
+  --sidebar-accent: 106 80% 73%;
+  --sidebar-accent-foreground: 60 4% 2%;
+  --sidebar-border: 345 61% 50%;
+  --sidebar-ring: 0 0% 100%;
   
   /* Legacy terminal colors for backwards compatibility */
-  --terminal-green: #ECD444;
-  --terminal-amber: #ECD444;
-  --terminal-blue: #21295C;
-  --terminal-red: #ED1C24;
-  --terminal-navbar: #ED1C24;
-  --terminal-bg: #000000;
-  --terminal-dark: #331E38;
+  --terminal-green: #FFFFFF;
+  --terminal-amber: #F9C846;
+  --terminal-blue: #66B3BA;
+  --terminal-red: #C33C54;
+  --terminal-navbar: #C33C54;
+  --terminal-bg: #040403;
+  --terminal-dark: #645E9D;
 }
 
 /* Global Styles */
@@ -102,7 +103,7 @@ body {
   bottom: 0;
   background: linear-gradient(
     transparent 50%,
-    rgba(0, 255, 65, 0.03) 50%
+    rgba(255, 255, 255, 0.03) 50%
   );
   background-size: 100% 4px;
   pointer-events: none;

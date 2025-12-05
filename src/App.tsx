@@ -50,8 +50,8 @@ function App() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-black flex items-center justify-center">
-        <div className="text-green-400 font-terminal text-xl">
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-foreground font-terminal text-xl">
           INITIALIZING R-PAGER...
           <span className="cursor">▊</span>
         </div>

@@ -310,7 +310,7 @@ Anemia,Condition with lack of healthy red blood cells,Hematology,easy`;
   ];
 
   return (
-    <div className="min-h-screen bg-black text-foreground font-terminal">
+    <div className="min-h-screen bg-background text-foreground font-terminal">
       <Header />
       
       <main className="container mx-auto px-4 py-8">
@@ -673,9 +673,9 @@ Anemia,Condition with lack of healthy red blood cells,Hematology,easy`;
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="max-w-2xl mx-auto border border-blue-400 p-6"
+            className="max-w-2xl mx-auto border border-secondary p-6"
           >
-            <h3 className="text-xl font-pixel mb-4 text-blue-400">ADD NEW FLASHCARD</h3>
+            <h3 className="text-xl font-pixel mb-4 text-secondary">ADD NEW FLASHCARD</h3>
             <div className="space-y-4">
               <div>
                 <label className="block text-sm mb-2">FRONT (Question):</label>
