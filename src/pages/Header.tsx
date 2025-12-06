@@ -19,7 +19,7 @@ const Header: React.FC = () => {
     { path: '/pdf', label: 'PDF' },
     { path: '/calendar', label: 'CALENDAR' },
     { path: '/stats', label: 'STATS' },
-    { path: '/mood', label: 'MOODJOURNAL' },
+    // { path: '/mood', label: 'MOODJOURNAL' },
     { path: '/games', label: 'GAMES' }
   ];
 
