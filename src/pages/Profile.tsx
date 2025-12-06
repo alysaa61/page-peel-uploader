@@ -92,10 +92,10 @@ const Profile: React.FC = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              className="border border-card-green p-4 text-center"
+              className="border border-card-yellow p-4 text-center"
             >
-              <Clock className="w-8 h-8 mx-auto mb-2 text-card-green" />
-              <div className="text-2xl font-pixel text-card-green">{studyData.totalHours}h</div>
+              <Clock className="w-8 h-8 mx-auto mb-2 text-card-yellow" />
+              <div className="text-2xl font-pixel text-card-yellow">{studyData.totalHours}h</div>
               <div className="text-xs opacity-75">STUDY TIME</div>
             </motion.div>
             

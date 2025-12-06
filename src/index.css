@@ -7,13 +7,13 @@
 /* Custom CSS Variables */
 :root {
   --background: 60 4% 2%;
-  --foreground: 0 0% 100%;
+  --foreground: 345 61% 50%;
   
   --card: 269 26% 49%;
-  --card-foreground: 0 0% 100%;
+  --card-foreground: 345 61% 50%;
   
   --popover: 269 26% 49%;
-  --popover-foreground: 0 0% 100%;
+  --popover-foreground: 345 61% 50%;
   
   --primary: 345 61% 50%;
   --primary-foreground: 0 0% 100%;
@@ -22,9 +22,9 @@
   --secondary-foreground: 0 0% 100%;
   
   --muted: 269 26% 49%;
-  --muted-foreground: 0 0% 80%;
+  --muted-foreground: 345 61% 50%;
   
-  --accent: 106 80% 73%;
+  --accent: 43 93% 63%;
   --accent-foreground: 60 4% 2%;
   
   --destructive: 345 61% 50%;
@@ -32,7 +32,7 @@
   
   --border: 345 61% 50%;
   --input: 269 26% 49%;
-  --ring: 0 0% 100%;
+  --ring: 345 61% 50%;
   
   --radius: 0.5rem;
   
@@ -41,19 +41,18 @@
   --card-teal: 182 35% 56%;
   --card-yellow: 43 93% 63%;
   --card-purple: 269 26% 49%;
-  --card-green: 106 80% 73%;
   
   --sidebar-background: 269 26% 49%;
-  --sidebar-foreground: 0 0% 100%;
+  --sidebar-foreground: 345 61% 50%;
   --sidebar-primary: 345 61% 50%;
   --sidebar-primary-foreground: 0 0% 100%;
-  --sidebar-accent: 106 80% 73%;
+  --sidebar-accent: 43 93% 63%;
   --sidebar-accent-foreground: 60 4% 2%;
   --sidebar-border: 345 61% 50%;
-  --sidebar-ring: 0 0% 100%;
+  --sidebar-ring: 345 61% 50%;
   
   /* Legacy terminal colors for backwards compatibility */
-  --terminal-green: #FFFFFF;
+  --terminal-green: #C33C54;
   --terminal-amber: #F9C846;
   --terminal-blue: #66B3BA;
   --terminal-red: #C33C54;
@@ -149,7 +148,7 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--terminal-green);
+  background: var(--terminal-red);
   border-radius: 4px;
 }
 

@@ -50,7 +50,6 @@ export default {
           teal: "hsl(var(--card-teal))",
           yellow: "hsl(var(--card-yellow))",
           purple: "hsl(var(--card-purple))",
-          green: "hsl(var(--card-green))",
         },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
