@@ -69,14 +69,14 @@ const Dashboard: React.FC = () => {
       path: '/stats',
       color: 'text-accent border-accent'
     },
-    {
-      id: 'mood',
-      title: 'MOOD & JOURNAL',
-      icon: Heart,
-      description: 'Emotional & memory vault',
-      path: '/mood',
-      color: 'text-muted-foreground border-muted'
-    },
+    // {
+    //   id: 'mood',
+    //   title: 'MOOD & JOURNAL',
+    //   icon: Heart,
+    //   description: 'Emotional & memory vault',
+    //   path: '/mood',
+    //   color: 'text-muted-foreground border-muted'
+    // },
     {
       id: 'games',
       title: 'NEURAL GAMES',
