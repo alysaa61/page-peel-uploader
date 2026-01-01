@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { User, Calendar, Brain, Clock, Target, Award, Settings, Heart, ChevronDown, ChevronUp, Mail, Lock, AlertTriangle, RefreshCw, Edit } from 'lucide-react';
+import { User, Calendar, Brain, Clock, Target, Award, Heart, ChevronDown, ChevronUp, AlertTriangle, RefreshCw, Edit } from 'lucide-react';
 import Header from './Header';
 import Footer from './Footer';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
@@ -32,14 +32,8 @@ const Profile: React.FC = () => {
     specialty: 'Medical Student'
   });
 
-  // Settings dialogs
-  const [showPasswordDialog, setShowPasswordDialog] = useState(false);
   const [showResetDialog, setShowResetDialog] = useState(false);
   const [resetConfirmPassword, setResetConfirmPassword] = useState('');
-  const [otpSent, setOtpSent] = useState(false);
-  const [otpCode, setOtpCode] = useState('');
-  const [newPassword, setNewPassword] = useState('');
-  const [confirmNewPassword, setConfirmNewPassword] = useState('');
 
   useEffect(() => {
     const saved = localStorage.getItem('page-r-study-stats');
@@ -63,36 +57,6 @@ const Profile: React.FC = () => {
     localStorage.setItem('page-r-profile', JSON.stringify(profileData));
     toast.success('Profile updated successfully!');
     setIsProfileFormOpen(false);
-  };
-
-  const handleSendOtp = () => {
-    // Simulate sending OTP to mlaasy16@gmail.com
-    setOtpSent(true);
-    toast.success('OTP sent to mlaasy16@gmail.com');
-  };
-
-  const handlePasswordChange = () => {
-    if (otpCode.length !== 6) {
-      toast.error('Please enter a valid 6-digit OTP');
-      return;
-    }
-    if (newPassword !== confirmNewPassword) {
-      toast.error('Passwords do not match');
-      return;
-    }
-    if (newPassword.length < 4) {
-      toast.error('Password must be at least 4 characters');
-      return;
-    }
-    
-    // Update password in localStorage
-    localStorage.setItem('r-pager-password', newPassword);
-    toast.success('Password changed successfully!');
-    setShowPasswordDialog(false);
-    setOtpSent(false);
-    setOtpCode('');
-    setNewPassword('');
-    setConfirmNewPassword('');
   };
 
   const handleReset = () => {
@@ -301,14 +265,6 @@ const Profile: React.FC = () => {
           <div className="border border-muted p-6">
             <h3 className="font-pixel mb-4 text-muted-foreground">QUICK ACTIONS</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <button 
-                onClick={() => setShowPasswordDialog(true)}
-                className="border border-secondary p-4 hover:bg-secondary/20 transition-colors text-left"
-              >
-                <Lock className="w-5 h-5 mb-2 text-secondary-foreground" />
-                <div className="font-pixel text-sm">CHANGE PASSWORD</div>
-                <div className="text-xs opacity-50">Update your access credentials</div>
-              </button>
               <Link to="/calendar" className="border border-accent p-4 hover:bg-accent/20 transition-colors text-left block">
                 <Calendar className="w-5 h-5 mb-2 text-accent" />
                 <div className="font-pixel text-sm">SCHEDULE</div>
@@ -316,7 +272,7 @@ const Profile: React.FC = () => {
               </Link>
               <button 
                 onClick={() => setShowResetDialog(true)}
-                className="border border-destructive p-4 hover:bg-destructive/20 transition-colors text-left md:col-span-2"
+                className="border border-destructive p-4 hover:bg-destructive/20 transition-colors text-left"
               >
                 <RefreshCw className="w-5 h-5 mb-2 text-destructive" />
                 <div className="font-pixel text-sm text-destructive">RESET ALL DATA</div>
@@ -333,69 +289,6 @@ const Profile: React.FC = () => {
           </div>
         </div>
       </main>
-
-      {/* Password Change Dialog */}
-      <Dialog open={showPasswordDialog} onOpenChange={setShowPasswordDialog}>
-        <DialogContent className="bg-background border-primary">
-          <DialogHeader>
-            <DialogTitle className="font-pixel text-foreground">CHANGE PASSWORD</DialogTitle>
-            <DialogDescription className="text-muted-foreground">
-              {!otpSent 
-                ? "We'll send an OTP to mlaasy16@gmail.com to verify your identity."
-                : "Enter the OTP sent to your email and set a new password."}
-            </DialogDescription>
-          </DialogHeader>
-          
-          <div className="space-y-4 pt-4">
-            {!otpSent ? (
-              <Button
-                onClick={handleSendOtp}
-                className="w-full bg-card-teal text-background hover:bg-card-teal/80"
-              >
-                <Mail className="w-4 h-4 mr-2" />
-                SEND OTP TO EMAIL
-              </Button>
-            ) : (
-              <>
-                <div>
-                  <label className="text-xs opacity-75 block mb-1">OTP CODE</label>
-                  <Input
-                    value={otpCode}
-                    onChange={(e) => setOtpCode(e.target.value)}
-                    placeholder="Enter 6-digit OTP"
-                    maxLength={6}
-                    className="bg-background border-muted"
-                  />
-                </div>
-                <div>
-                  <label className="text-xs opacity-75 block mb-1">NEW PASSWORD</label>
-                  <Input
-                    type="password"
-                    value={newPassword}
-                    onChange={(e) => setNewPassword(e.target.value)}
-                    className="bg-background border-muted"
-                  />
-                </div>
-                <div>
-                  <label className="text-xs opacity-75 block mb-1">CONFIRM NEW PASSWORD</label>
-                  <Input
-                    type="password"
-                    value={confirmNewPassword}
-                    onChange={(e) => setConfirmNewPassword(e.target.value)}
-                    className="bg-background border-muted"
-                  />
-                </div>
-                <Button
-                  onClick={handlePasswordChange}
-                  className="w-full bg-card-teal text-background hover:bg-card-teal/80"
-                >
-                  CHANGE PASSWORD
-                </Button>
-              </>
-            )}
-          </div>
-        </DialogContent>
-      </Dialog>
 
       {/* Reset Confirmation Dialog */}
       <Dialog open={showResetDialog} onOpenChange={setShowResetDialog}>
