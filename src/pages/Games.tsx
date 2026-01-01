@@ -5,6 +5,7 @@ import Header from './Header';
 import Footer from './Footer';
 import { medicalDictionary, shuffleArray } from '../data/medicalDictionary';
 import { diagnosisCases, shuffleCases, DiagnosisCase } from '../data/diagnosisCases';
+import AnatomyRunnerGame from '@/components/games/AnatomyRunnerGame';
 
 const Games: React.FC = () => {
   const [selectedGame, setSelectedGame] = useState<string | null>(null);
@@ -34,7 +35,7 @@ const Games: React.FC = () => {
       id: 'anatomy-runner',
       title: 'ANATOMY RUNNER',
       subtitle: 'Endless Runner',
-      description: 'Run through anatomical structures (Coming Soon)',
+      description: 'Catch correct anatomy terms, avoid wrong ones!',
       icon: '🏃'
     },
     {
@@ -757,6 +758,7 @@ const Games: React.FC = () => {
 
   const GameComponent: React.FC<{ gameId: string }> = ({ gameId }) => {
     if (gameId === 'diagnosis-dash') return <DiagnosisDashGame />;
+    if (gameId === 'anatomy-runner') return <AnatomyRunnerGame onBack={() => setSelectedGame(null)} />;
     if (gameId === 'memory-flip') return <MemoryFlipGame />;
     if (gameId === 'typing-challenge') return <TypingChallengeGame />;
     if (gameId === 'scrambled-terms') return <ScrambledTermsGame />;
