@@ -33,13 +33,14 @@ const AnatomyRunnerGame: React.FC<AnatomyRunnerGameProps> = ({ onBack }) => {
   const [isJumping, setIsJumping] = useState(false);
   const [isSliding, setIsSliding] = useState(false);
   const [spriteFrame, setSpriteFrame] = useState(0);
-  const [gameSpeed, setGameSpeed] = useState(3);
+  const [gameSpeed, setGameSpeed] = useState(1); // Start slower
   const [feedback, setFeedback] = useState<{ text: string; isCorrect: boolean } | null>(null);
   const [learningMode, setLearningMode] = useState(true);
   
   const gameRef = useRef<HTMLDivElement>(null);
   const animationRef = useRef<number>();
   const wordIdRef = useRef(0);
+  const collisionRef = useRef<Set<number>>(new Set());
 
   // Sprite animation
   useEffect(() => {
@@ -50,9 +51,12 @@ const AnatomyRunnerGame: React.FC<AnatomyRunnerGameProps> = ({ onBack }) => {
     return () => clearInterval(interval);
   }, [isPlaying, gameOver]);
 
-  // Spawn words
+  // Spawn words - slower at start, faster as level increases
   useEffect(() => {
     if (!isPlaying || gameOver || !currentPrompt) return;
+    
+    // Base spawn interval: 3000ms at level 1, decreasing to 1500ms at level 5
+    const baseInterval = Math.max(1500, 3500 - (level * 400));
     
     const spawnInterval = setInterval(() => {
       const isCorrect = Math.random() > 0.4;
@@ -70,41 +74,12 @@ const AnatomyRunnerGame: React.FC<AnatomyRunnerGameProps> = ({ onBack }) => {
       };
       
       setWords(prev => [...prev, newWord]);
-    }, 2000 / Math.min(gameSpeed, 5));
+    }, baseInterval);
     
     return () => clearInterval(spawnInterval);
-  }, [isPlaying, gameOver, currentPrompt, gameSpeed]);
+  }, [isPlaying, gameOver, currentPrompt, level]);
 
-  // Move words and check collisions
-  useEffect(() => {
-    if (!isPlaying || gameOver) return;
-    
-    const gameLoop = () => {
-      setWords(prev => {
-        const updated = prev.map(word => ({
-          ...word,
-          x: word.x - gameSpeed * 0.5
-        })).filter(word => word.x > -20);
-        
-        // Check collision with player (player is at x ~15%)
-        updated.forEach(word => {
-          if (word.x <= 18 && word.x >= 12 && word.lane === playerY) {
-            handleCollision(word);
-          }
-        });
-        
-        return updated.filter(word => word.x > 10);
-      });
-      
-      animationRef.current = requestAnimationFrame(gameLoop);
-    };
-    
-    animationRef.current = requestAnimationFrame(gameLoop);
-    return () => {
-      if (animationRef.current) cancelAnimationFrame(animationRef.current);
-    };
-  }, [isPlaying, gameOver, playerY, gameSpeed]);
-
+  // Handle collision logic
   const handleCollision = useCallback((word: Word) => {
     setWords(prev => prev.filter(w => w.id !== word.id));
     
@@ -139,6 +114,46 @@ const AnatomyRunnerGame: React.FC<AnatomyRunnerGameProps> = ({ onBack }) => {
     }
   }, [combo, maxCombo, learningMode]);
 
+  // Move words and check collisions
+  useEffect(() => {
+    if (!isPlaying || gameOver) return;
+    
+    // Movement speed: starts at 0.15, increases to 0.4 at level 5
+    const moveSpeed = 0.15 + (level * 0.05);
+    
+    const gameLoop = () => {
+      setWords(prev => {
+        const updated = prev.map(word => ({
+          ...word,
+          x: word.x - moveSpeed
+        })).filter(word => word.x > -20);
+        
+        // Check collision with player (player is at x ~15%)
+        updated.forEach(word => {
+          if (word.x <= 18 && word.x >= 8 && word.lane === playerY && !collisionRef.current.has(word.id)) {
+            collisionRef.current.add(word.id);
+            handleCollision(word);
+          }
+        });
+        
+        // Clean up old collision IDs
+        const currentIds = new Set(updated.map(w => w.id));
+        collisionRef.current.forEach(id => {
+          if (!currentIds.has(id)) collisionRef.current.delete(id);
+        });
+        
+        return updated.filter(word => word.x > 5 || collisionRef.current.has(word.id)).filter(word => word.x > -5);
+      });
+      
+      animationRef.current = requestAnimationFrame(gameLoop);
+    };
+    
+    animationRef.current = requestAnimationFrame(gameLoop);
+    return () => {
+      if (animationRef.current) cancelAnimationFrame(animationRef.current);
+    };
+  }, [isPlaying, gameOver, playerY, level, handleCollision]);
+
   // Keyboard controls
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -165,12 +180,11 @@ const AnatomyRunnerGame: React.FC<AnatomyRunnerGameProps> = ({ onBack }) => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isPlaying, gameOver, playerY]);
 
-  // Level progression
+  // Level progression - slower scaling
   useEffect(() => {
-    const newLevel = Math.min(5, 1 + Math.floor(score / 100));
+    const newLevel = Math.min(5, 1 + Math.floor(score / 150)); // 150 points per level instead of 100
     if (newLevel !== level) {
       setLevel(newLevel);
-      setGameSpeed(3 + newLevel * 0.5);
       setCurrentPrompt(getRandomPrompt(newLevel));
     }
   }, [score, level]);
@@ -194,11 +208,12 @@ const AnatomyRunnerGame: React.FC<AnatomyRunnerGameProps> = ({ onBack }) => {
     setCorrectCount(0);
     setWrongCount(0);
     setLevel(1);
-    setGameSpeed(3);
+    setGameSpeed(1);
     setWords([]);
     setPlayerY(1);
     setCurrentPrompt(getRandomPrompt(1));
     wordIdRef.current = 0;
+    collisionRef.current.clear();
     gameRef.current?.focus();
   };
 
@@ -368,13 +383,13 @@ const AnatomyRunnerGame: React.FC<AnatomyRunnerGameProps> = ({ onBack }) => {
           }}
           transition={{ type: 'spring', stiffness: 500, damping: 30 }}
         >
+          {/* Sprite is 3 columns x 2 rows: frame 0-2 top row, 3-5 bottom row */}
           <div 
             className="w-16 h-16 relative"
             style={{
               backgroundImage: `url(${catSprite})`,
-              backgroundSize: '600% 100%',
-              backgroundPosition: `${spriteFrame * 20}% 0`,
-              imageRendering: 'pixelated'
+              backgroundSize: '300% 200%',
+              backgroundPosition: `${(spriteFrame % 3) * 50}% ${spriteFrame < 3 ? 0 : 100}%`,
             }}
           />
         </motion.div>
