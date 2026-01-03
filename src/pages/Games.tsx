@@ -506,12 +506,20 @@ const Games: React.FC = () => {
     const [currentTerm, setCurrentTerm] = useState('');
     const [userInput, setUserInput] = useState('');
     const [score, setScore] = useState(0);
-    const [timeLeft, setTimeLeft] = useState(30);
+    const [selectedDuration, setSelectedDuration] = useState<number | null>(null);
+    const [timeLeft, setTimeLeft] = useState(0);
     const [isActive, setIsActive] = useState(false);
     const [terms, setTerms] = useState<string[]>([]);
 
+    const timeOptions = [
+      { label: '30 secs', value: 30 },
+      { label: '1 min', value: 60 },
+      { label: '3 mins', value: 180 },
+      { label: '5 mins', value: 300 },
+    ];
+
     useEffect(() => {
-      const shuffled = shuffleArray([...medicalDictionary]).slice(0, 20);
+      const shuffled = shuffleArray([...medicalDictionary]).slice(0, 50);
       setTerms(shuffled.map(t => t.term));
       setCurrentTerm(shuffled[0].term);
     }, []);
@@ -520,7 +528,7 @@ const Games: React.FC = () => {
       if (isActive && timeLeft > 0) {
         const timer = setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
         return () => clearTimeout(timer);
-      } else if (timeLeft === 0) {
+      } else if (timeLeft === 0 && isActive) {
         setIsActive(false);
       }
     }, [isActive, timeLeft]);
@@ -535,36 +543,64 @@ const Games: React.FC = () => {
       }
     };
 
+    const startGame = (duration: number) => {
+      setSelectedDuration(duration);
+      setTimeLeft(duration);
+      setIsActive(true);
+      setScore(0);
+      setUserInput('');
+    };
+
+    const formatTime = (seconds: number) => {
+      const mins = Math.floor(seconds / 60);
+      const secs = seconds % 60;
+      return mins > 0 ? `${mins}:${secs.toString().padStart(2, '0')}` : `${secs}s`;
+    };
+
     return (
       <div className="border border-muted p-6">
         <div className="text-center mb-6">
           <h3 className="text-xl font-pixel mb-4">TYPING CHALLENGE</h3>
           <div className="flex justify-between mb-4">
             <div className="text-sm">SCORE: {score}</div>
-            <div className="text-sm">TIME: {timeLeft}s</div>
+            <div className="text-sm">TIME: {formatTime(timeLeft)}</div>
           </div>
         </div>
 
-        {!isActive && timeLeft === 30 ? (
+        {!isActive && selectedDuration === null ? (
           <div className="text-center">
-            <p className="mb-4">Type medical terms as fast as you can!</p>
-            <button
-              onClick={() => setIsActive(true)}
-              className="bg-primary text-primary-foreground py-3 px-6 font-pixel hover:bg-accent hover:text-accent-foreground transition-colors"
-            >
-              START
-            </button>
+            <p className="mb-6">Type medical terms as fast as you can!</p>
+            <p className="mb-4 text-sm text-muted-foreground">Select duration:</p>
+            <div className="grid grid-cols-2 gap-3 max-w-xs mx-auto">
+              {timeOptions.map((option) => (
+                <button
+                  key={option.value}
+                  onClick={() => startGame(option.value)}
+                  className="border border-secondary py-3 px-4 font-pixel hover:bg-primary hover:text-primary-foreground transition-colors"
+                >
+                  {option.label}
+                </button>
+              ))}
+            </div>
           </div>
-        ) : timeLeft === 0 ? (
+        ) : !isActive && timeLeft === 0 ? (
           <div className="text-center">
             <h3 className="text-xl font-pixel mb-4">TIME'S UP!</h3>
             <p className="text-lg mb-4">Final Score: {score}</p>
-            <button
-              onClick={() => setSelectedGame(null)}
-              className="border border-secondary px-6 py-2 hover:bg-primary hover:text-primary-foreground transition-colors"
-            >
-              BACK TO GAMES
-            </button>
+            <div className="flex gap-3 justify-center">
+              <button
+                onClick={() => startGame(selectedDuration!)}
+                className="bg-primary text-primary-foreground py-2 px-6 font-pixel hover:bg-accent hover:text-accent-foreground transition-colors"
+              >
+                PLAY AGAIN
+              </button>
+              <button
+                onClick={() => setSelectedGame(null)}
+                className="border border-secondary px-6 py-2 hover:bg-primary hover:text-primary-foreground transition-colors"
+              >
+                BACK
+              </button>
+            </div>
           </div>
         ) : (
           <div>
