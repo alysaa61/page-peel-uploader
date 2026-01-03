@@ -658,7 +658,9 @@ const Games: React.FC = () => {
             <div className="space-y-2 mb-6">
               <p className="text-lg">Words Typed: <span className="text-primary font-bold">{score}</span></p>
               <p className="text-2xl font-pixel text-primary">{calculateWPM()} WPM</p>
-              <p className="text-sm text-muted-foreground capitalize">Difficulty: {selectedDifficulty}</p>
+              <p className="text-sm text-muted-foreground capitalize">
+                {selectedDifficulty} • {timeOptions.find(t => t.value === selectedDuration)?.label}
+              </p>
             </div>
             <div className="flex gap-3 justify-center">
               <button
