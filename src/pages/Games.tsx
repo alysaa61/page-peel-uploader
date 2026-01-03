@@ -512,6 +512,8 @@ const Games: React.FC = () => {
     const [isActive, setIsActive] = useState(false);
     const [terms, setTerms] = useState<string[]>([]);
     const [totalCharsTyped, setTotalCharsTyped] = useState(0);
+    const [correctKeystrokes, setCorrectKeystrokes] = useState(0);
+    const [totalKeystrokes, setTotalKeystrokes] = useState(0);
 
     const timeOptions = [
       { label: '30 secs', value: 30 },
@@ -557,6 +559,17 @@ const Games: React.FC = () => {
     }, [isActive, timeLeft]);
 
     const handleInputChange = (value: string) => {
+      // Track keystrokes for accuracy
+      if (value.length > userInput.length) {
+        // User typed a new character
+        const newChar = value[value.length - 1];
+        const expectedChar = currentTerm[userInput.length];
+        setTotalKeystrokes(prev => prev + 1);
+        if (newChar?.toLowerCase() === expectedChar?.toLowerCase()) {
+          setCorrectKeystrokes(prev => prev + 1);
+        }
+      }
+      
       setUserInput(value);
       if (value.toLowerCase() === currentTerm.toLowerCase()) {
         setScore(score + 1);
@@ -575,6 +588,8 @@ const Games: React.FC = () => {
       setIsActive(true);
       setScore(0);
       setTotalCharsTyped(0);
+      setCorrectKeystrokes(0);
+      setTotalKeystrokes(0);
       setUserInput('');
     };
 
@@ -584,6 +599,8 @@ const Games: React.FC = () => {
       setIsActive(false);
       setScore(0);
       setTotalCharsTyped(0);
+      setCorrectKeystrokes(0);
+      setTotalKeystrokes(0);
     };
 
     const formatTime = (seconds: number) => {
@@ -597,6 +614,11 @@ const Games: React.FC = () => {
       const timeInMinutes = selectedDuration / 60;
       const wordsTyped = totalCharsTyped / 5; // Standard: 5 chars = 1 word
       return Math.round(wordsTyped / timeInMinutes);
+    };
+
+    const calculateAccuracy = () => {
+      if (totalKeystrokes === 0) return 100;
+      return Math.round((correctKeystrokes / totalKeystrokes) * 100);
     };
 
     return (
@@ -658,6 +680,8 @@ const Games: React.FC = () => {
             <div className="space-y-2 mb-6">
               <p className="text-lg">Words Typed: <span className="text-primary font-bold">{score}</span></p>
               <p className="text-2xl font-pixel text-primary">{calculateWPM()} WPM</p>
+              <p className="text-lg">Accuracy: <span className="text-primary font-bold">{calculateAccuracy()}%</span></p>
+              <p className="text-xs text-muted-foreground">({correctKeystrokes}/{totalKeystrokes} keystrokes)</p>
               <p className="text-sm text-muted-foreground capitalize">
                 {selectedDifficulty} • {timeOptions.find(t => t.value === selectedDuration)?.label}
               </p>
