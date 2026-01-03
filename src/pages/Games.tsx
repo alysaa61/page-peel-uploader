@@ -507,9 +507,11 @@ const Games: React.FC = () => {
     const [userInput, setUserInput] = useState('');
     const [score, setScore] = useState(0);
     const [selectedDuration, setSelectedDuration] = useState<number | null>(null);
+    const [selectedDifficulty, setSelectedDifficulty] = useState<'easy' | 'medium' | 'hard' | null>(null);
     const [timeLeft, setTimeLeft] = useState(0);
     const [isActive, setIsActive] = useState(false);
     const [terms, setTerms] = useState<string[]>([]);
+    const [totalCharsTyped, setTotalCharsTyped] = useState(0);
 
     const timeOptions = [
       { label: '30 secs', value: 30 },
@@ -518,11 +520,32 @@ const Games: React.FC = () => {
       { label: '5 mins', value: 300 },
     ];
 
-    useEffect(() => {
-      const shuffled = shuffleArray([...medicalDictionary]).slice(0, 50);
+    const difficultyOptions = [
+      { label: 'Easy', value: 'easy' as const, description: 'Short terms (≤10 chars)' },
+      { label: 'Medium', value: 'medium' as const, description: 'Medium terms (11-18 chars)' },
+      { label: 'Hard', value: 'hard' as const, description: 'Complex terms (>18 chars)' },
+    ];
+
+    const getTermsByDifficulty = (difficulty: 'easy' | 'medium' | 'hard') => {
+      const allTerms = [...medicalDictionary];
+      switch (difficulty) {
+        case 'easy':
+          return allTerms.filter(t => t.term.length <= 10);
+        case 'medium':
+          return allTerms.filter(t => t.term.length > 10 && t.term.length <= 18);
+        case 'hard':
+          return allTerms.filter(t => t.term.length > 18);
+        default:
+          return allTerms;
+      }
+    };
+
+    const loadTerms = (difficulty: 'easy' | 'medium' | 'hard') => {
+      const filtered = getTermsByDifficulty(difficulty);
+      const shuffled = shuffleArray(filtered).slice(0, 50);
       setTerms(shuffled.map(t => t.term));
-      setCurrentTerm(shuffled[0].term);
-    }, []);
+      setCurrentTerm(shuffled[0]?.term || '');
+    };
 
     useEffect(() => {
       if (isActive && timeLeft > 0) {
@@ -537,6 +560,7 @@ const Games: React.FC = () => {
       setUserInput(value);
       if (value.toLowerCase() === currentTerm.toLowerCase()) {
         setScore(score + 1);
+        setTotalCharsTyped(prev => prev + currentTerm.length);
         setUserInput('');
         const nextIndex = (terms.indexOf(currentTerm) + 1) % terms.length;
         setCurrentTerm(terms[nextIndex]);
@@ -544,11 +568,22 @@ const Games: React.FC = () => {
     };
 
     const startGame = (duration: number) => {
+      if (!selectedDifficulty) return;
+      loadTerms(selectedDifficulty);
       setSelectedDuration(duration);
       setTimeLeft(duration);
       setIsActive(true);
       setScore(0);
+      setTotalCharsTyped(0);
       setUserInput('');
+    };
+
+    const resetGame = () => {
+      setSelectedDuration(null);
+      setSelectedDifficulty(null);
+      setIsActive(false);
+      setScore(0);
+      setTotalCharsTyped(0);
     };
 
     const formatTime = (seconds: number) => {
@@ -557,36 +592,74 @@ const Games: React.FC = () => {
       return mins > 0 ? `${mins}:${secs.toString().padStart(2, '0')}` : `${secs}s`;
     };
 
+    const calculateWPM = () => {
+      if (!selectedDuration) return 0;
+      const timeInMinutes = selectedDuration / 60;
+      const wordsTyped = totalCharsTyped / 5; // Standard: 5 chars = 1 word
+      return Math.round(wordsTyped / timeInMinutes);
+    };
+
     return (
       <div className="border border-muted p-6">
         <div className="text-center mb-6">
           <h3 className="text-xl font-pixel mb-4">TYPING CHALLENGE</h3>
-          <div className="flex justify-between mb-4">
-            <div className="text-sm">SCORE: {score}</div>
-            <div className="text-sm">TIME: {formatTime(timeLeft)}</div>
-          </div>
+          {isActive && (
+            <div className="flex justify-between mb-4">
+              <div className="text-sm">SCORE: {score}</div>
+              <div className="text-sm">TIME: {formatTime(timeLeft)}</div>
+            </div>
+          )}
         </div>
 
         {!isActive && selectedDuration === null ? (
           <div className="text-center">
             <p className="mb-6">Type medical terms as fast as you can!</p>
-            <p className="mb-4 text-sm text-muted-foreground">Select duration:</p>
-            <div className="grid grid-cols-2 gap-3 max-w-xs mx-auto">
-              {timeOptions.map((option) => (
-                <button
-                  key={option.value}
-                  onClick={() => startGame(option.value)}
-                  className="border border-secondary py-3 px-4 font-pixel hover:bg-primary hover:text-primary-foreground transition-colors"
-                >
-                  {option.label}
-                </button>
-              ))}
-            </div>
+            
+            {!selectedDifficulty ? (
+              <>
+                <p className="mb-4 text-sm text-muted-foreground">Select difficulty:</p>
+                <div className="flex flex-col gap-3 max-w-xs mx-auto">
+                  {difficultyOptions.map((option) => (
+                    <button
+                      key={option.value}
+                      onClick={() => setSelectedDifficulty(option.value)}
+                      className="border border-secondary py-3 px-4 font-pixel hover:bg-primary hover:text-primary-foreground transition-colors text-left"
+                    >
+                      <span className="block">{option.label}</span>
+                      <span className="block text-xs text-muted-foreground mt-1">{option.description}</span>
+                    </button>
+                  ))}
+                </div>
+              </>
+            ) : (
+              <>
+                <p className="mb-2 text-sm">
+                  Difficulty: <span className="text-primary font-bold capitalize">{selectedDifficulty}</span>
+                  <button onClick={() => setSelectedDifficulty(null)} className="ml-2 text-xs underline hover:text-primary">change</button>
+                </p>
+                <p className="mb-4 text-sm text-muted-foreground">Select duration:</p>
+                <div className="grid grid-cols-2 gap-3 max-w-xs mx-auto">
+                  {timeOptions.map((option) => (
+                    <button
+                      key={option.value}
+                      onClick={() => startGame(option.value)}
+                      className="border border-secondary py-3 px-4 font-pixel hover:bg-primary hover:text-primary-foreground transition-colors"
+                    >
+                      {option.label}
+                    </button>
+                  ))}
+                </div>
+              </>
+            )}
           </div>
         ) : !isActive && timeLeft === 0 ? (
           <div className="text-center">
             <h3 className="text-xl font-pixel mb-4">TIME'S UP!</h3>
-            <p className="text-lg mb-4">Final Score: {score}</p>
+            <div className="space-y-2 mb-6">
+              <p className="text-lg">Words Typed: <span className="text-primary font-bold">{score}</span></p>
+              <p className="text-2xl font-pixel text-primary">{calculateWPM()} WPM</p>
+              <p className="text-sm text-muted-foreground capitalize">Difficulty: {selectedDifficulty}</p>
+            </div>
             <div className="flex gap-3 justify-center">
               <button
                 onClick={() => startGame(selectedDuration!)}
@@ -595,10 +668,10 @@ const Games: React.FC = () => {
                 PLAY AGAIN
               </button>
               <button
-                onClick={() => setSelectedGame(null)}
+                onClick={resetGame}
                 className="border border-secondary px-6 py-2 hover:bg-primary hover:text-primary-foreground transition-colors"
               >
-                BACK
+                CHANGE SETTINGS
               </button>
             </div>
           </div>
